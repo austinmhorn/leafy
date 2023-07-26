@@ -40,6 +40,8 @@ file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp" )
 
 add_executable( ${TARGET} ${CPPS} ${HPPS} )
 
+target_link_libraries( ${TARGET} PUBLIC sfml-graphics sfml-window sfml-system sfml-system sfml-audio ${OPENGL_gl_LIBRARY} )
+
 if( WIN32 )
     target_compile_definitions( ${TARGET} PRIVATE WIN32 )
 elseif( SFAFLE )
@@ -56,8 +58,6 @@ endif()
 if( CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_COMPILER_IS_GNUCXX)
     target_compile_options( ${TARGET} PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
 endif()
-
-target_link_libraries( ${TARGET} PRIVATE sfml-graphics sfml-window sfml-system sfml-system sfml-audio)
 
 install(TARGETS ${TARGET}
         CONFIGURATIONS Release
