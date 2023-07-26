@@ -16,10 +16,6 @@ set( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin )
 
 find_package( OpenGL REQUIRED )
 
-if( NOT OPENGL_FOUND )
-    message("Missing OpenGL" FATAL_ERROR)
-endif()
-
 if( NOT TARGET sfml-graphics )
     find_package( SFML 2.5 REQUIRED COMPONENTS graphics window system )
 endif()
