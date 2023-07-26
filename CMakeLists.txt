@@ -54,7 +54,7 @@ elseif( "${CMAKE_SYSTEM_NAME}" MATCHES "Linux" )
 endif()
 
 if( CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_COMPILER_IS_GNUCXX)
-    target_compile_options( SFGUI PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
+    target_compile_options( ${TARGET} PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
 endif()
 
 target_link_libraries( ${TARGET} PRIVATE sfml-graphics sfml-window sfml-system sfml-system sfml-audio)
