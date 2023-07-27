@@ -9,7 +9,10 @@
 #include <leafy/StadiumShape.hpp>
 
 #include <cmath>
-#define _USE_MATH_DEFINES
+
+#ifndef _PI
+#define _PI 3.14159265358979323846
+#endif
 
 sf::StadiumShape::StadiumShape(float radius) :
 m_size(300.0f, 60.0f),
@@ -97,8 +100,8 @@ sf::Vector2f sf::StadiumShape::getPoint(std::size_t index) const
             break;
     }
 
-    return sf::Vector2f(m_radius * std::cos(delta_angle * (index - center_index) * M_PI / 180.0f) + center.x,
-                       -m_radius * std::sin(delta_angle * (index - center_index) * M_PI / 180.0f) + center.y);
+    return sf::Vector2f(m_radius * std::cos(delta_angle * (index - center_index) * _PI / 180.0f) + center.x,
+                       -m_radius * std::sin(delta_angle * (index - center_index) * _PI / 180.0f) + center.y);
 }
 
 #undef _USE_MATH_DEFINES

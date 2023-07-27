@@ -10,7 +10,9 @@
 
 #include <cmath>
 
-#define _USE_MATH_DEFINES
+#ifndef _PI
+#define _PI 3.14159265358979323846
+#endif
 
 namespace sf
 {
@@ -40,7 +42,7 @@ namespace sf
     }
     sf::Vector2f ConvexShape::getPoint(std::size_t index) const
     {
-        float angle = index * 2 * M_PI / getPointCount() - M_PI / 2;
+        float angle = index * 2 * _PI / getPointCount() - _PI / 2;
         float x = std::cos(angle) * m_radius.x;
         float y = std::sin(angle) * m_radius.y;
         return sf::Vector2f(m_radius.x + x, m_radius.y + y);
