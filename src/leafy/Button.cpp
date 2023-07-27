@@ -11,8 +11,7 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Shape.hpp>
 #include <SFML/Graphics/Texture.hpp>
-
-#include <cmath>
+#include <cassert>
 
 #ifndef _PI
 #define _PI 3.14159265358979323846

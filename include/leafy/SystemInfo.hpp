@@ -8,11 +8,11 @@
 #ifndef SystemInfo_hpp
 #define SystemInfo_hpp
 
-#if WIN32
+#if WIN32 || WIN64
 #include <windows.h>
 #elif LINUX
 #include <X11/Xlib.h>
-#elif APPLE
+#elif APPLE || MACH
 #include <CoreGraphics/CGDisplayConfiguration.h>
 #endif
 
