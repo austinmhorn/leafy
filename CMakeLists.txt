@@ -51,6 +51,8 @@ if( LEAFY_INCLUDE_FONT )
 # list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
 endif()
 
+set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib" )
+
 add_library( ${TARGET} ${CPPS} ${INLS} ${HPPS} )
 
 target_compile_features( ${TARGET} PUBLIC cxx_std_17 )
