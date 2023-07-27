@@ -61,7 +61,7 @@ public:
     ///
     /// \see getPointCount
     ////////////////////////////////////////////////////////////
-    void setAntialiasing(std::uint8_t antialiasing);
+    void setAntialiasing(unsigned int antialiasing);
     
     ////////////////////////////////////////////////////////////
     /// \brief Adjusts shape's alpha value to appear translucent
@@ -97,7 +97,7 @@ public:
     ///
     /// \see setAntialiasing
     ////////////////////////////////////////////////////////////
-    std::uint8_t getAntialiasing() const;
+    unsigned int getAntialiasing() const;
     
     ////////////////////////////////////////////////////////////
     /// \brief
@@ -128,9 +128,9 @@ public:
 private:
     
     sf::Vector2f m_size;
-    float m_radius;
-    std::uint8_t m_antialiasing;
-    bool m_translucent;
+    float        m_radius;
+    unsigned     m_antialiasing;
+    bool         m_translucent;
     
 };
 

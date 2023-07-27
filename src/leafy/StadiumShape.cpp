@@ -39,7 +39,7 @@ void sf::StadiumShape::setCornersRadius(float radius)
     update();
 }
 
-void sf::StadiumShape::setAntialiasing(std::uint8_t antialiasing)
+void sf::StadiumShape::setAntialiasing(unsigned int antialiasing)
 {
     m_antialiasing = antialiasing;
     update();
@@ -61,7 +61,7 @@ float sf::StadiumShape::getCornersRadius() const
     return m_radius;
 }
 
-std::uint8_t sf::StadiumShape::getAntialiasing() const
+unsigned int sf::StadiumShape::getAntialiasing() const
 {
     return m_antialiasing;
 }
@@ -83,7 +83,7 @@ sf::Vector2f sf::StadiumShape::getPoint(std::size_t index) const
 
     float delta_angle = 90.f / (m_antialiasing-1);
     sf::Vector2f center;
-    unsigned int center_index = static_cast<unsigned int>(index)/static_cast<unsigned int>(m_antialiasing);
+    unsigned int center_index = static_cast<unsigned int>(index)/m_antialiasing;
     
     switch(center_index) {
         case 0: center.x = m_size.x - m_radius;
