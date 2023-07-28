@@ -17,8 +17,8 @@ jobs:
         - { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
         - { name: MacOS XCode,    os: macos-latest  }
         config:
-        - { name: Shared, flags: -DBUILD_SHARED_LIBS=ON -DSFGUI_BUILD_SHARED_LIBS=ON -DSFML_STATIC_LIBRARIES=OFF }
-        - { name: Static, flags: -DBUILD_SHARED_LIBS=OFF -DSFGUI_BUILD_SHARED_LIBS=OFF -DSFML_STATIC_LIBRARIES=ON }
+        - { name: Shared, flags: -DBUILD_SHARED_LIBS=ON -DLEAFY_BUILD_SHARED_LIBS=ON -DSFML_STATIC_LIBRARIES=OFF }
+        - { name: Static, flags: -DBUILD_SHARED_LIBS=OFF -DLEAFY_BUILD_SHARED_LIBS=OFF -DSFML_STATIC_LIBRARIES=ON }
 
     steps:
     - name: Install Linux Dependencies
@@ -46,7 +46,7 @@ jobs:
 
     - name: leafy - Configure CMake
       shell: bash
-      run: cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DSFGUI_BUILD_EXAMPLES=ON -DSFML_DIR=$GITHUB_WORKSPACE/SFML/install/lib/cmake/SFML ${{matrix.platform.flags}} ${{matrix.config.flags}}
+      run: cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DLEAFY_BUILD_EXAMPLES=ON -DSFML_DIR=$GITHUB_WORKSPACE/SFML/install/lib/cmake/SFML ${{matrix.platform.flags}} ${{matrix.config.flags}}
 
     - name: leafy - Build
       shell: bash
