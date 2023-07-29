@@ -118,8 +118,8 @@ endif()
 find_library(
 	LEAFY_LIBRARY_DYNAMIC_RELEASE
 	NAMES
-		sfgui
-		LEAFY
+		leafy
+		Leafy
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -130,8 +130,8 @@ find_library(
 find_library(
 	LEAFY_LIBRARY_DYNAMIC_DEBUG
 	NAMES
-		sfgui-d
-		LEAFY-d
+		leafy-d
+		Leafy-d
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -142,8 +142,8 @@ find_library(
 find_library(
 	LEAFY_LIBRARY_STATIC_RELEASE
 	NAMES
-		sfgui-s
-		LEAFY-s
+		leafy-s
+		Leafy-s
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -154,8 +154,8 @@ find_library(
 find_library(
 	LEAFY_LIBRARY_STATIC_DEBUG
 	NAMES
-		sfgui-s-d
-		LEAFY-s-d
+		leafy-s-d
+		Leafy-s-d
 	PATH_SUFFIXES
 		lib
 		lib64
