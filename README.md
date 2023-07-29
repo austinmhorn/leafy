@@ -4,7 +4,7 @@
 
 <h1>
    <p align="center">
-     Leafy<br>
+     leafy<br>
    </p>
 </h1>
 
