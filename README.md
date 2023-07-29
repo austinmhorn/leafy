@@ -14,6 +14,12 @@
   </p>
 </h4>
 
+Generate build files:
+  
+    cmake -S . -B build
 
+Install:
+    
+    cmake --build build/ --config debug --target install
 
 
