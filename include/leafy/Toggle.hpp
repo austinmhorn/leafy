@@ -52,7 +52,7 @@ public:
     void mouseOver() override;
     void mouseLeave() override;
     void handleEvent(sf::RenderWindow&, sf::Event) override;
-    void update(sf::Time delta_time) override;
+    void update(sf::Time delta_time);
     
     void handleMouseButtonPressedEvent(sf::RenderWindow&, sf::Event);
     void handleMouseButtonReleasedEvent(sf::RenderWindow&, sf::Event);

@@ -128,7 +128,7 @@ public:
 private:
     
     sf::Vector2f m_size;
-    float        m_radius;
+    float        m_cornerRadius;
     unsigned     m_antialiasing;
     bool         m_translucent;
     

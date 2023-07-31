@@ -12,12 +12,12 @@
 #include <windows.h>
 #elif LINUX
 #include <X11/Xlib.h>
-#elif APPLE || MACH
+#else
 #include <CoreGraphics/CGDisplayConfiguration.h>
 #endif
 
 static void getScreenResolution(unsigned int& width, unsigned int& height) {
-#if WIN32
+#if WIN32 || WIN64
     width = (int)GetSystemMetrics(SM_CXSCREEN);
     height = (int)GetSystemMetrics(SM_CYSCREEN);
 #elif LINUX
@@ -25,11 +25,10 @@ static void getScreenResolution(unsigned int& width, unsigned int& height) {
     Screen*  s = DefaultScreenOfDisplay(d);
     width = s->width;
     height = s->height;
-#elif APPLE
+#else
     auto mainDisplayId = CGMainDisplayID();
     width = static_cast<unsigned int>(CGDisplayPixelsWide(mainDisplayId));
     height = static_cast<unsigned int>(CGDisplayPixelsHigh(mainDisplayId));
-#else
 #endif
 }
 

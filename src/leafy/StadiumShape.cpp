@@ -14,9 +14,9 @@
 #define _PI 3.14159265358979323846
 #endif
 
-sf::StadiumShape::StadiumShape(float radius) :
+sf::StadiumShape::StadiumShape(float cornerRadius) :
 m_size(300.0f, 60.0f),
-m_radius(radius),
+m_cornerRadius(cornerRadius),
 m_antialiasing(8)
 {
     update();
@@ -33,9 +33,9 @@ void sf::StadiumShape::setSize(const sf::Vector2f& size)
     update();
 }
 
-void sf::StadiumShape::setCornersRadius(float radius)
+void sf::StadiumShape::setCornersRadius(float cornerRadius)
 {
-    m_radius = radius;
+    m_cornerRadius = cornerRadius;
     update();
 }
 
@@ -58,7 +58,7 @@ const sf::Vector2f& sf::StadiumShape::getSize() const
 
 float sf::StadiumShape::getCornersRadius() const
 {
-    return m_radius;
+    return m_cornerRadius;
 }
 
 unsigned int sf::StadiumShape::getAntialiasing() const
@@ -86,22 +86,21 @@ sf::Vector2f sf::StadiumShape::getPoint(std::size_t index) const
     unsigned int center_index = static_cast<unsigned int>(index)/m_antialiasing;
     
     switch(center_index) {
-        case 0: center.x = m_size.x - m_radius;
-                center.y = m_radius;
+        case 0: center.x = m_size.x - m_cornerRadius;
+                center.y = m_cornerRadius;
             break;
-        case 1: center.x = m_radius;
-                center.y = m_radius;
+        case 1: center.x = m_cornerRadius;
+                center.y = m_cornerRadius;
             break;
-        case 2: center.x = m_radius;
-                center.y = m_size.y - m_radius;
+        case 2: center.x = m_cornerRadius;
+                center.y = m_size.y - m_cornerRadius;
             break;
-        case 3: center.x = m_size.x - m_radius;
-                center.y = m_size.y - m_radius;
+        case 3: center.x = m_size.x - m_cornerRadius;
+                center.y = m_size.y - m_cornerRadius;
             break;
     }
 
-    return sf::Vector2f(m_radius * std::cos(delta_angle * (index - center_index) * _PI / 180.0f) + center.x,
-                       -m_radius * std::sin(delta_angle * (index - center_index) * _PI / 180.0f) + center.y);
+    return sf::Vector2f(m_cornerRadius * std::cos(delta_angle * (index - center_index) * _PI / 180.0f) + center.x,
+                       -m_cornerRadius * std::sin(delta_angle * (index - center_index) * _PI / 180.0f) + center.y);
 }
 
-#undef _USE_MATH_DEFINES

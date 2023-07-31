@@ -19,12 +19,18 @@
 
 IntroState::IntroState(StateMachine& machine, sf::RenderWindow& window, Resources& resources, const bool replace)
     : State{ machine, window, resources, replace }
+    , stadiumButton(sf::StadiumShape())
 {
     const auto window_size = sf::Vector2f{ window.getSize() };
     
     // Fill the background with Gray
     m_background.setFillColor({100u, 100u, 100u});
     m_background.setSize(window_size);
+    
+    stadiumButton()->setFillColor(sf::Color::Blue);
+    stadiumButton()->setPosition(0.f, 0.f);
+    
+    
 }
 
 void IntroState::pause()
@@ -41,7 +47,8 @@ void IntroState::handleEvent()
 {
     for (auto event = sf::Event{}; m_window.pollEvent(event);)
     {
-
+        stadiumButton.handleEvent(m_window, event);
+        
         switch (event.type)
         {
             case sf::Event::Closed:
@@ -87,6 +94,7 @@ void IntroState::update()
     
     handleEvent();
     
+    
 }
 
 void IntroState::draw()
@@ -94,6 +102,8 @@ void IntroState::draw()
     m_window.clear();
     
     m_window.draw(m_background);
+    
+    m_window.draw(stadiumButton);
 
     m_window.display();
 }

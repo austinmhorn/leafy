@@ -32,6 +32,8 @@ private:
     
     sf::RectangleShape m_background;
     sf::Vector2f       m_current_mouse_position;
+    
+    Button<sf::StadiumShape> stadiumButton;
 };
 
 
