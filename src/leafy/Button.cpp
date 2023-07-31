@@ -18,12 +18,18 @@
 #endif
 #include <iostream>
 
-template <> /// Explicit Button sf::StadiumShape Instantioation
+template <> /// Explicit Button sf::StadiumShape Button() Instantiaation
 Button<sf::StadiumShape>::Button(const sf::StadiumShape& shape)
     : m_shape(nullptr)
     , m_clicked(false)
 {
     m_shape = new sf::StadiumShape(shape);
+}
+template <> /// Explicit Button sf::StadiumShape ~Button() Instantiation
+Button<sf::StadiumShape>::~Button()
+{
+    if (m_shape)
+        delete m_shape;
 }
 template <typename T>
 Button<T>::Button(const T& shape)
