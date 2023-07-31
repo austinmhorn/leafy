@@ -38,7 +38,7 @@ file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
 file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp"  )
 
 if( LEAFY_INCLUDE_FONT )
-# list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
+#list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
 endif()
 
 # define the path of our additional CMake modules
@@ -142,6 +142,10 @@ if( CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]" OR CMAKE_CXX_COMPILER_ID STREQUAL
     target_compile_options( ${TARGET} PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
 endif()
 
+if( LEAFY_BUILD_EXAMPLES )
+    add_subdirectory( "examples" )
+endif()
+
 if(LEAFY_BUILD_SHARED_LIBS)
    set(TARGET_CONFIG_NAME "Shared")
 else()
@@ -150,12 +154,12 @@ endif()
 
 set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_NAME}Targets")
 
+add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
 install(TARGETS ${TARGET}
         EXPORT ${TARGETS_CONFIG_FILENAME}
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        RUNTIME DESTINATION bin
-        INCLUDES DESTINATION include
+        LIBRARY DESTINATION "${LIB_PATH}" COMPONENT bin
+        ARCHIVE DESTINATION "${LIB_PATH}" COMPONENT dev
+        RUNTIME DESTINATION bin COMPONENT bin
 )
 
 install(
@@ -185,4 +189,3 @@ install(
 
 export(EXPORT ${TARGETS_CONFIG_FILENAME} NAMESPACE ${PROJECT_NAME}::)
 export(PACKAGE ${PROJECT_NAME})
-
