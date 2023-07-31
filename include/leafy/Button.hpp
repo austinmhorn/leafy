@@ -35,7 +35,7 @@ public:
     
     T* operator()() const
         { return m_shape; }
-    void operator>>(const std::string& text) const
+    void operator>>(std::string text) const
         { m_text.setString(text); }
 
     virtual void mouseOver() override;
