@@ -8,6 +8,8 @@ set( LEAFY_VERSION ${LEAFY_MAJOR_VERSION}.${LEAFY_MINOR_VERSION}.${LEAFY_REVISIO
 project( leafy LANGUAGES CXX VERSION ${LEAFY_VERSION} )
 set( TARGET ${PROJECT_NAME} )
 
+set( VERSION_IS_RELEASE OFF )
+
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
@@ -58,11 +60,9 @@ else ()
     set_target_properties( ${TARGET} PROPERTIES CMAKE_DEBUG_POSTFIX -d )
 endif ()
 
-set_target_properties(${TARGET} PROPERTIES SUFFIX "-${LEAFY_VERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
-
 if( LEAFY_INCLUDE_FONT )
     target_compile_definitions( ${TARGET} PRIVATE LEAFY_INCLUDE_FONT )
-endif()
+endTYPE
 
 # Tell the compiler to export when necessary.
 set_target_properties( ${TARGET} PROPERTIES DEFINE_SYMBOL LEAFY_EXPORTS )
@@ -145,12 +145,12 @@ if( LEAFY_BUILD_EXAMPLES )
 endif()
 
 if(LEAFY_BUILD_SHARED_LIBS)
-   set(TARGET_CONFIG_NAME "Shared")
+   set(TARGET_CONFIG_TYPE "Shared")
 else()
-   set(TARGET_CONFIG_NAME "Static")
+   set(TARGET_CONFIG_TYPE "Static")
 endif()
 
-set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_NAME}Targets")
+set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_TYPE}Targets")
 
 add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
 install(TARGETS ${TARGET}
