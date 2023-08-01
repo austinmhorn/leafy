@@ -14,8 +14,6 @@
 #define LEAFY_VERSION_MAJOR      0
 #define LEAFY_VERSION_MINOR      1
 #define LEAFY_VERSION_PATCH      0
-#define LEAFY_VERSION_IS_RELEASE false
-
 
 ////////////////////////////////////////////////////////////
 // Identify the operating system
