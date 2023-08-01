@@ -138,9 +138,7 @@ if( CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]" OR CMAKE_CXX_COMPILER_ID STREQUAL
     target_compile_options( ${TARGET} PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
 endif()
 
-if( LEAFY_BUILD_EXAMPLES )
-    add_subdirectory( "examples" )
-endif()
+
 
 if(LEAFY_BUILD_SHARED_LIBS)
    set(TARGET_CONFIG_TYPE "Shared")
@@ -151,6 +149,11 @@ endif()
 set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_TYPE}Targets")
 
 add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
+
+if( LEAFY_BUILD_EXAMPLES )
+    add_subdirectory( "examples" )
+endif()
+
 install(TARGETS ${TARGET}
         EXPORT ${TARGETS_CONFIG_FILENAME}
         RUNTIME DESTINATION bin COMPONENT bin

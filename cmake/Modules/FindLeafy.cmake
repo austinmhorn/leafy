@@ -119,7 +119,7 @@ find_library(
 	LEAFY_LIBRARY_DYNAMIC_RELEASE
 	NAMES
 		leafy
-		Leafy
+		LEAFY
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -131,7 +131,7 @@ find_library(
 	LEAFY_LIBRARY_DYNAMIC_DEBUG
 	NAMES
 		leafy-d
-		Leafy-d
+		LEAFY-d
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -143,7 +143,7 @@ find_library(
 	LEAFY_LIBRARY_STATIC_RELEASE
 	NAMES
 		leafy-s
-		Leafy-s
+		LEAFY-s
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -155,7 +155,7 @@ find_library(
 	LEAFY_LIBRARY_STATIC_DEBUG
 	NAMES
 		leafy-s-d
-		Leafy-s-d
+		LEAFY-s-d
 	PATH_SUFFIXES
 		lib
 		lib64
