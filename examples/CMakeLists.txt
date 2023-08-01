@@ -3,7 +3,7 @@ cmake_minimum_required( VERSION 3.2 )
 function( build_example SAMPLE_NAME SOURCES )
 
     if ( WIN32 )
-        add_executable( ${target} WIN32 ${SOURCES} )
+        add_executable( ${SAMPLE_NAME} WIN32 ${SOURCES} )
     else()
         add_executable( ${SAMPLE_NAME} ${SOURCES} )
     endif()
