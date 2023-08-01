@@ -1,6 +1,7 @@
 cmake_minimum_required( VERSION 3.2 )
 
 function( build_example SAMPLE_NAME SOURCES )
+	target_include_directories( ${SAMPLE_NAME} "${CMAKE_CURRENT_BINARY_DIR}/lib" )
 	add_executable( ${SAMPLE_NAME} ${SOURCES} )
 	target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy)
 
