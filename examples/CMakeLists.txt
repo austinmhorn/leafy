@@ -1,12 +1,9 @@
 cmake_minimum_required( VERSION 3.2 )
 
 function( build_example SAMPLE_NAME SOURCES )
-    
+
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
-
-    target_include_directories( ${SAMPLE_NAME} PUBLIC "${LIBRARY_OUTPUT_PATH}" )
-
-	target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
+	target_link_libraries( ${SAMPLE_NAME} PUBLIC leafy::leafy )
 
 	install(
 		TARGETS ${SAMPLE_NAME}
