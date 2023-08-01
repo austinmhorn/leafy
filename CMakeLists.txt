@@ -62,7 +62,7 @@ endif ()
 
 if( LEAFY_INCLUDE_FONT )
     target_compile_definitions( ${TARGET} PRIVATE LEAFY_INCLUDE_FONT )
-endTYPE
+endif()
 
 # Tell the compiler to export when necessary.
 set_target_properties( ${TARGET} PROPERTIES DEFINE_SYMBOL LEAFY_EXPORTS )
