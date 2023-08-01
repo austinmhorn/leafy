@@ -4,15 +4,7 @@ function( build_example SAMPLE_NAME SOURCES )
 
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
 
-    if( WIN32 )
-        if( COMPILER_GCC_TDM )
-            target_compile_options( ${SAMPLE_NAME} PUBLIC -shared-libgcc -shared-libstdc++ )
-        endif()
-
-        target_compile_definitions( ${SAMPLE_NAME} PRIVATE WIN32 )
-    endif()
-
-    target_include_directories( ${SAMPLE_NAME} PUBLIC $<BUILD_INTERFACE:${INCLUDE_PATH}> $<INSTALL_INTERFACE:include/> )
+    target_include_directories( ${SAMPLE_NAME} PUBLIC "${PROJECT_BINARY_DIR}" )
 
     target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
