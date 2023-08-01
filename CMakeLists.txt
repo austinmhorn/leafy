@@ -8,8 +8,6 @@ set( LEAFY_VERSION ${LEAFY_MAJOR_VERSION}.${LEAFY_MINOR_VERSION}.${LEAFY_REVISIO
 project( leafy LANGUAGES CXX VERSION ${LEAFY_VERSION} )
 set( TARGET ${PROJECT_NAME} )
 
-set( VERSION_IS_RELEASE OFF )
-
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
@@ -30,8 +28,8 @@ if( NOT TARGET sfml-graphics )
     find_package( SFML 2.5 REQUIRED COMPONENTS graphics window system network audio )
 endif()
 
-set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include" )
-set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src" )
+set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include/" )
+set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src/" )
 
 file( GLOB_RECURSE HPPS "${INCLUDE_PATH}/*.hpp" )
 file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
@@ -46,8 +44,6 @@ set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" )
 
 # Set the library output directory
 set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib" )
-
-set( CMAKE_RUNTIME_OUTPUT_DIRECTORY "${LIBRARY_OUTPUT_PATH}" )
 
 add_library( ${TARGET} ${CPPS} ${INLS} ${HPPS} )
 

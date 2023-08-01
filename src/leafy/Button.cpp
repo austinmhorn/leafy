@@ -18,7 +18,7 @@
 #endif
 #include <iostream>
 
-template <> /// Explicit Button sf::StadiumShape Button() Instantiaation
+template <> /// Explicit Button sf::StadiumShape Button() Instantioation
 Button<sf::StadiumShape>::Button(const sf::StadiumShape& shape)
     : m_shape(nullptr)
     , m_clicked(false)

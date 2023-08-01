@@ -12,8 +12,9 @@
 #include <windows.h>
 #elif LINUX || linux || __linux__
 #include <X11/Xlib.h>
-#else APPLE || MACH
+#elif APPLE || MACH
 #include <CoreGraphics/CGDisplayConfiguration.h>
+#else
 #endif
 
 static void getScreenResolution(unsigned int& width, unsigned int& height) {
