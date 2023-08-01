@@ -1,11 +1,18 @@
 cmake_minimum_required( VERSION 3.2 )
 
 function( build_example SAMPLE_NAME SOURCES )
-    find_library(LEAFY_LIB leafy)
     
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
 
-    target_link_libraries( ${SAMPLE_NAME} PRIVATE ${LEAFY_LIB} )
+    if( BUILD_SHARED_LIBS AND COMPILER_GCC_TDM )
+        target_compile_options( ${SAMPLE_NAME} PUBLIC -shared-libgcc -shared-libstdc++ )
+    endif()
+    
+    if ( WIN32 )
+        target_compile_definitions( ${SAMPLE_NAME} PRIVATE WIN32 )
+    endif()
+
+	target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
 	install(
 		TARGETS ${SAMPLE_NAME}
