@@ -3,7 +3,16 @@ cmake_minimum_required( VERSION 3.2 )
 function( build_example SAMPLE_NAME SOURCES )
 
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
-	target_link_libraries( ${SAMPLE_NAME} PUBLIC leafy::leafy )
+
+    set_target_properties(${target} PROPERTIES DEBUG_POSTFIX -d)
+
+    # set the target's folder (for IDEs that support it, e.g. Visual Studio)
+    set_target_properties(${SAMPLE_NAME} PROPERTIES FOLDER "examples")
+
+    # set the Visual Studio startup path for debugging
+    set_target_properties(${SAMPLE_NAME} PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+	target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
 	install(
 		TARGETS ${SAMPLE_NAME}
