@@ -15,6 +15,8 @@ set( CMAKE_CXX_EXTENSIONS OFF )
 # include the configuration file
 include( cmake/Config.cmake )
 
+include( cmake/Macros.cmake )
+
 option( LEAFY_BUILD_SHARED_LIBS "Build shared library."            ON )
 option( LEAFY_BUILD_EXAMPLES    "Build examples."                  ON )
 option( LEAFY_BUILD_DOC         "Generate API documentation."      OFF)
