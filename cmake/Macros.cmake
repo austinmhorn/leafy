@@ -8,18 +8,19 @@ function( build_example SAMPLE_NAME SOURCES )
             string( REGEX MATCHALL ".*(tdm[64]*-[1-9]).*" COMPILER_GCC_TDM "${GCC_COMPILER_VERSION}" )
         endif()
         
-        target_compile_definitions( ${TARGET} PRIVATE WIN32 )
+        target_compile_definitions( ${SAMPLE_NAME} PRIVATE WIN32 )
+        target_link_libraries( ${SAMPLE_NAME} PRIVATE "${LIBRARY_OUTPUT_PATH}/${CONFIG}/${TARGET}.dll" )
 
         if( CMAKE_COMPILER_IS_GNUCXX )
             if( LEAFY_BUILD_SHARED_LIBS )
-                set_target_properties( ${TARGET} PROPERTIES PREFIX "build/" )
+                set_target_properties( ${SAMPLE_NAME} PROPERTIES PREFIX "" )
             endif()
 
-            set_target_properties( ${TARGET} PROPERTIES IMPORT_SUFFIX ".a" )
+            set_target_properties( ${SAMPLE_NAME} PROPERTIES IMPORT_SUFFIX ".a" )
         endif()
+    else()
+        target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
     endif()
-
-    target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
     install(
         TARGETS ${SAMPLE_NAME}
