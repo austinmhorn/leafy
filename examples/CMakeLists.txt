@@ -3,13 +3,11 @@ cmake_minimum_required( VERSION 3.2 )
 function( build_example SAMPLE_NAME SOURCES )
 
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
-    
-    add_library(leafy STATIC IMPORTED GLOBAL)
-    set_property(${SAMPLE_NAME} ${SOURCES} APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+        
     if (LEAFY_SYSTEM_WINDOWS)
-        set_target_properties(${SOURCES} PROPERTIES
-            IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
-            IMPORTED_LOCATION_DEBUG "${LIBRARY_OUTPUT_PATH}/leafy.lib")
+        target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
+    else()
+        target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
     endif()
 
     install(
@@ -40,4 +38,3 @@ install(
 	DIRECTORY data
 	DESTINATION "${SHARE_PATH}/examples"
 )
-
