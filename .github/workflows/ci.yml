@@ -50,4 +50,4 @@ jobs:
 
     - name: leafy - Build
       shell: bash
-      run: cmake --build $GITHUB_WORKSPACE/build --target install
+      run: cmake --build $GITHUB_WORKSPACE/build --config Release --target install
