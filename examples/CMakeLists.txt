@@ -19,9 +19,3 @@ install(
     DIRECTORY data
     DESTINATION "${SHARE_PATH}/examples"
 )
-if( LEAFY_SYSTEM_WINDOWS ) 
-    install(
-        FILES ${PROJECT_BINARY_DIR}$<CONFIG>/${TARGET}.dll
-        DESTINATION bin
-    )
-endif()
