@@ -150,7 +150,7 @@ else()
     set(TARGET_CONFIG_TYPE "Static")
 endif()
 
-set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_TYPE}Targets")
+set( TARGETS_CONFIG_FILENAME "${PROJECT_NAME}Targets" )
 
 add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
 install(
