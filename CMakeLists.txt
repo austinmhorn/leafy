@@ -100,7 +100,6 @@ if( WIN32 )
         endif()
     elseif( COMPILER_GCC_TDM )
         target_compile_options( ${TARGET} PUBLIC -shared-libgcc -shared-libstdc++ )
-        set( LEAFY_BUILD_EXAMPLES OFF )
     endif()
 
     target_compile_definitions( ${TARGET} PRIVATE WIN32 )
@@ -162,10 +161,7 @@ install(
     ARCHIVE DESTINATION "${LIB_PATH}" COMPONENT dev
 )
 install(
-    DIRECTORY "${LIB_PATH}"
-    TYPE BIN
-    FILES_MATCHING REGEX "[^\\\\/.]\\.[dD][lL][lL]$"
-)
+    FILES $<TARGET_RUNTIME_DLLS:${TARGET}> TYPE BIN)
 install(
     DIRECTORY ${INCLUDE_PATH}
     DESTINATION include
