@@ -16,6 +16,10 @@ if( NOT ( "${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}" ) )
 endif()
 
 install(
-	DIRECTORY data
-	DESTINATION "${SHARE_PATH}/examples"
+    DIRECTORY data
+    DESTINATION "${SHARE_PATH}/examples"
+)
+install(
+    FILES ${PROJECT_BINARY_DIR}$<CONFIG>/${TARGET}.dll
+    DESTINATION bin
 )
