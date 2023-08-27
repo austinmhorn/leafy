@@ -17,7 +17,7 @@
 
 #include <cmath>
 
-class Toggle : public Interactable {
+class LEAFY_API Toggle : public Interactable {
 public:
     
     enum Side {

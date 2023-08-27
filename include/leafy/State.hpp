@@ -9,6 +9,8 @@
 #ifndef State_hpp
 #define State_hpp
 
+#include <leafy/Config.hpp>
+
 #include <memory>
 
 namespace sf
@@ -20,7 +22,7 @@ class StateMachine;
 
 struct Resources;
 
-class State
+class LEAFY_API State
 {
 public:
     

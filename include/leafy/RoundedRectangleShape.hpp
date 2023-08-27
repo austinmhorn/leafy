@@ -10,9 +10,11 @@
 
 #include <SFML/Graphics/Shape.hpp>
 
+#include <leafy/Config.hpp>
+
 #include <cmath>
 
-class RoundedRectangleShape : public sf::Shape
+class LEAFY_API RoundedRectangleShape : public sf::Shape
 {
     
 public:

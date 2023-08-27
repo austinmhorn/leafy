@@ -17,7 +17,9 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
-class Interactable : public sf::Transformable, public sf::Drawable
+#include <leafy/Config.hpp>
+
+class LEAFY_API Interactable : public sf::Transformable, public sf::Drawable
 {
 protected:
         

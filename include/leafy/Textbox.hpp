@@ -21,7 +21,7 @@
 #include <cctype>
 #include <iostream>
 
-class Textbox : public Interactable
+class LEAFY_API Textbox : public Interactable
 {
 public:
     

@@ -111,8 +111,8 @@
 #if defined(LEAFY_SYSTEM_WINDOWS)
 
 // Windows compilers need specific (and different) keywords for export and import
-#define LEAFY_API_EXPORT __declspec(dllexport)
-#define LEAFY_API_IMPORT __declspec(dllimport)
+#define LEAFY_API __declspec(dllexport)
+#define LEAFY_API __declspec(dllimport)
 
 // For Visual C++ compilers, we also need to turn off this annoying C4251 warning
 #ifdef _MSC_VER
@@ -123,15 +123,15 @@
 
 #else // Linux, FreeBSD, macOS
 
-#define LEAFY_API_EXPORT __attribute__((__visibility__("default")))
-#define LEAFY_API_IMPORT __attribute__((__visibility__("default")))
+#define LEAFY_API __attribute__((__visibility__("default")))
+#define LEAFY_API __attribute__((__visibility__("default")))
 
 #endif
 
 #else
 
 // Static build doesn't need import/export macros
-#define LEAFY_API_EXPORT
-#define LEAFY_API_IMPORT
+#define LEAFY_API
+#define LEAFY_API
 
 #endif

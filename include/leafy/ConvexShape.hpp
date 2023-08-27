@@ -11,9 +11,11 @@
 
 #include <SFML/Graphics/Shape.hpp>
 
+#include <leafy/Config.hpp>
+
 namespace sf
 {
-    class ConvexShape : public sf::Shape
+    class LEAFY_API ConvexShape : public sf::Shape
     {
     public:
 

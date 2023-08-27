@@ -26,7 +26,7 @@
 #include <cmath>
 
 template <typename T>
-class Button : public Interactable
+class LEAFY_API Button : public Interactable
 {
 public:
     

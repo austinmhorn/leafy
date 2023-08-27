@@ -21,7 +21,7 @@ namespace sf
     class RenderWindow;
 }
 
-class StateMachine
+class LEAFY_API StateMachine
 {
 public:
     StateMachine();

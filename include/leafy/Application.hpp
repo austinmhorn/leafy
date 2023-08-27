@@ -15,7 +15,7 @@
 #include <leafy/Resources.hpp>
 #include <leafy/SystemInfo.hpp>
 
-class Application
+class LEAFY_API Application
 {
 public:
     
