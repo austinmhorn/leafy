@@ -100,7 +100,7 @@ if( WIN32 )
         endif()
     elseif( COMPILER_GCC_TDM )
         target_compile_options( ${TARGET} PUBLIC -shared-libgcc -shared-libstdc++ )
-        set( LEAFY_BUILD_EXAMPLES FALSE )
+        set( LEAFY_BUILD_EXAMPLES OFF )
     endif()
 
     target_compile_definitions( ${TARGET} PRIVATE WIN32 )
