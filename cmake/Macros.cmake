@@ -9,7 +9,7 @@ function( build_example SAMPLE_NAME SOURCES )
         endif()
         
         target_compile_definitions( ${SAMPLE_NAME} PRIVATE WIN32 )
-        target_link_libraries( ${SAMPLE_NAME} PRIVATE "${LIBRARY_OUTPUT_PATH}/${CONFIG}/${TARGET}.dll" )
+        target_link_libraries( ${SAMPLE_NAME} PRIVATE "${LIBRARY_OUTPUT_PATH}/${CMAKE_BUILD_TYPE}/${TARGET}.dll" )
 
         if( CMAKE_COMPILER_IS_GNUCXX )
             if( LEAFY_BUILD_SHARED_LIBS )
