@@ -12,16 +12,12 @@ function( build_example SAMPLE_NAME SOURCES )
 
         if( CMAKE_COMPILER_IS_GNUCXX )
             if( LEAFY_BUILD_SHARED_LIBS )
-                set_target_properties( ${TARGET} PROPERTIES PREFIX "" )
+                set_target_properties( ${TARGET} PROPERTIES PREFIX "build/" )
             endif()
 
             set_target_properties( ${TARGET} PROPERTIES IMPORT_SUFFIX ".a" )
         endif()
     endif()
-
-    add_library(leafy::leafy STATIC IMPORTED)
-    # Tell CMake where to find the library.
-    set_target_properties(leafy::leafy PROPERTIES IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/${CONFIG}/${TARGET}.lib)
 
     target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
@@ -35,3 +31,4 @@ function( build_example SAMPLE_NAME SOURCES )
         DESTINATION "${SHARE_PATH}/examples" COMPONENT examples
     )
 endfunction()
+
