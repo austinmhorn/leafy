@@ -4,7 +4,13 @@ function( build_example SAMPLE_NAME SOURCES )
 
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
     
-    target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
+    add_library(leafy STATIC IMPORTED GLOBAL)
+    set_property(${SAMPLE_NAME} ${SOURCES} APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
+    if (LEAFY_SYSTEM_WINDOWS)
+        set_target_properties(${SOURCES} PROPERTIES
+            IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "CXX"
+            IMPORTED_LOCATION_DEBUG "${LIBRARY_OUTPUT_PATH}/leafy.lib")
+    endif()
 
     install(
         TARGETS ${SAMPLE_NAME}
@@ -34,3 +40,4 @@ install(
 	DIRECTORY data
 	DESTINATION "${SHARE_PATH}/examples"
 )
+
