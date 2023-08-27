@@ -45,7 +45,7 @@ endif()
 set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" )
 
 # Set the library output directory
-set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib/${CMAKE_BUILD_TYPE}" )
+set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib" )
 
 add_library( ${TARGET} ${CPPS} ${INLS} ${HPPS} )
 
