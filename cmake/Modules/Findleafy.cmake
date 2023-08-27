@@ -80,7 +80,7 @@ set(
 
 find_path(
 	LEAFY_INCLUDE_DIR
-	LEAFY/Config.hpp
+	leafy/Config.hpp
 	PATH_SUFFIXES
 		include
 	PATHS
@@ -89,7 +89,7 @@ find_path(
 
 set( LEAFY_VERSION_OK true )
 if( LEAFY_FIND_VERSION AND LEAFY_INCLUDE_DIR )
-	file( READ "${LEAFY_INCLUDE_DIR}/LEAFY/Config.hpp" LEAFY_CONFIG_HPP )
+	file( READ "${LEAFY_INCLUDE_DIR}/leafy/Config.hpp" LEAFY_CONFIG_HPP )
 	
 	string( REGEX MATCH ".*#define LEAFY_MAJOR_VERSION ([0-9]+).*#define LEAFY_MINOR_VERSION ([0-9]+).*#define LEAFY_REVISION_VERSION ([0-9]+).*" LEAFY_CONFIG_HPP "${LEAFY_CONFIG_HPP}" )
 	string( REGEX REPLACE ".*#define LEAFY_MAJOR_VERSION ([0-9]+).*" "\\1" LEAFY_VERSION_MAJOR "${LEAFY_CONFIG_HPP}" )
@@ -119,7 +119,7 @@ find_library(
 	LEAFY_LIBRARY_DYNAMIC_RELEASE
 	NAMES
 		leafy
-		Leafy
+		LEAFY
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -131,7 +131,7 @@ find_library(
 	LEAFY_LIBRARY_DYNAMIC_DEBUG
 	NAMES
 		leafy-d
-		Leafy-d
+		LEAFY-d
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -143,7 +143,7 @@ find_library(
 	LEAFY_LIBRARY_STATIC_RELEASE
 	NAMES
 		leafy-s
-		Leafy-s
+		LEAFY-s
 	PATH_SUFFIXES
 		lib
 		lib64
@@ -155,7 +155,7 @@ find_library(
 	LEAFY_LIBRARY_STATIC_DEBUG
 	NAMES
 		leafy-s-d
-		Leafy-s-d
+		LEAFY-s-d
 	PATH_SUFFIXES
 		lib
 		lib64

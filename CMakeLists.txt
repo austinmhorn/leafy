@@ -8,14 +8,14 @@ set( LEAFY_VERSION ${LEAFY_MAJOR_VERSION}.${LEAFY_MINOR_VERSION}.${LEAFY_REVISIO
 project( leafy LANGUAGES CXX VERSION ${LEAFY_VERSION} )
 set( TARGET ${PROJECT_NAME} )
 
-set( VERSION_IS_RELEASE OFF )
-
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
 
 # include the configuration file
 include( cmake/Config.cmake )
+
+include( cmake/Macros.cmake )
 
 option( LEAFY_BUILD_SHARED_LIBS "Build shared library."            ON )
 option( LEAFY_BUILD_EXAMPLES    "Build examples."                  ON )
@@ -30,15 +30,15 @@ if( NOT TARGET sfml-graphics )
     find_package( SFML 2.5 REQUIRED COMPONENTS graphics window system network audio )
 endif()
 
-set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include" )
-set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src" )
+set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include/" )
+set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src/" )
 
 file( GLOB_RECURSE HPPS "${INCLUDE_PATH}/*.hpp" )
 file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
 file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp"  )
 
 if( LEAFY_INCLUDE_FONT )
-# list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
+#list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
 endif()
 
 # define the path of our additional CMake modules
@@ -59,8 +59,6 @@ if( NOT LEAFY_BUILD_SHARED_LIBS )
 else ()
     set_target_properties( ${TARGET} PROPERTIES CMAKE_DEBUG_POSTFIX -d )
 endif ()
-
-set_target_properties(${TARGET} PROPERTIES SUFFIX "-${LEAFY_VERSION}${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 if( LEAFY_INCLUDE_FONT )
     target_compile_definitions( ${TARGET} PRIVATE LEAFY_INCLUDE_FONT )
@@ -142,22 +140,26 @@ if( CMAKE_CXX_COMPILER MATCHES ".*clang[+][+]" OR CMAKE_CXX_COMPILER_ID STREQUAL
     target_compile_options( ${TARGET} PRIVATE -Wall -Wextra -Wshadow -Wconversion -Wsign-conversion -Wunused-parameter -Wno-long-long -pedantic )
 endif()
 
-if(LEAFY_BUILD_SHARED_LIBS)
-   set(TARGET_CONFIG_NAME "Shared")
-else()
-   set(TARGET_CONFIG_NAME "Static")
+if( LEAFY_BUILD_EXAMPLES )
+    add_subdirectory( "examples" )
 endif()
 
-set(TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_NAME}Targets")
+if(LEAFY_BUILD_SHARED_LIBS)
+    set(TARGET_CONFIG_TYPE "Shared")
+else()
+    set(TARGET_CONFIG_TYPE "Static")
+endif()
 
-install(TARGETS ${TARGET}
-        EXPORT ${TARGETS_CONFIG_FILENAME}
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib
-        RUNTIME DESTINATION bin
-        INCLUDES DESTINATION include
+set( TARGETS_CONFIG_FILENAME "${PROJECT_NAME}Targets" )
+
+add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
+install(
+    TARGETS ${TARGET}
+    EXPORT ${TARGETS_CONFIG_FILENAME}
+    RUNTIME DESTINATION bin COMPONENT bin
+    LIBRARY DESTINATION "${LIB_PATH}" COMPONENT bin
+    ARCHIVE DESTINATION "${LIB_PATH}" COMPONENT dev
 )
-
 install(
     DIRECTORY ${INCLUDE_PATH}
     DESTINATION include
@@ -185,4 +187,3 @@ install(
 
 export(EXPORT ${TARGETS_CONFIG_FILENAME} NAMESPACE ${PROJECT_NAME}::)
 export(PACKAGE ${PROJECT_NAME})
-

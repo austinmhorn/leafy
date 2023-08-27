@@ -46,7 +46,7 @@ jobs:
 
     - name: leafy - Configure CMake
       shell: bash
-      run: cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/build -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DLEAFY_BUILD_EXAMPLES=ON -DSFML_DIR=$GITHUB_WORKSPACE/SFML/install/lib/cmake/SFML ${{matrix.platform.flags}} ${{matrix.config.flags}}
+      run: cmake -S $GITHUB_WORKSPACE -B $GITHUB_WORKSPACE/build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/install -DCMAKE_VERBOSE_MAKEFILE=ON -DLEAFY_BUILD_EXAMPLES=ON -DSFML_DIR=$GITHUB_WORKSPACE/SFML/install/lib/cmake/SFML ${{matrix.platform.flags}} ${{matrix.config.flags}}
 
     - name: leafy - Build
       shell: bash

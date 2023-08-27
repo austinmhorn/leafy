@@ -17,7 +17,7 @@
 
 struct Resources;
 
-class IntroState final : public State
+class LEAFY_API IntroState final : public State
 {
 public:
     IntroState(StateMachine& machine, sf::RenderWindow& window, Resources& resources, const bool replace = true);
@@ -32,6 +32,8 @@ private:
     
     sf::RectangleShape m_background;
     sf::Vector2f       m_current_mouse_position;
+    
+    Button<sf::StadiumShape> stadiumButton;
 };
 
 

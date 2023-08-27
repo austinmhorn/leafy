@@ -12,6 +12,8 @@
 #include <SFML/Graphics/Shape.hpp>
 #pragma once
 
+#include <leafy/Config.hpp>
+
 ////////////////////////////////////////////////////////////
 /// \class StadiumShape
 ///
@@ -19,7 +21,7 @@
 ////////////////////////////////////////////////////////////
 namespace sf {
 
-class StadiumShape : public sf::Shape {
+class LEAFY_API StadiumShape : public sf::Shape {
 public:
         
     ////////////////////////////////////////////////////////////
@@ -128,7 +130,7 @@ public:
 private:
     
     sf::Vector2f m_size;
-    float        m_radius;
+    float        m_cornerRadius;
     unsigned     m_antialiasing;
     bool         m_translucent;
     

@@ -21,7 +21,7 @@
 #include <cctype>
 #include <iostream>
 
-class Textbox : public Interactable
+class LEAFY_API Textbox : public Interactable
 {
 public:
     
@@ -59,11 +59,11 @@ public:
     
     void processKey(sf::Uint32 unicode);
     
-    virtual bool contains(sf::Vector2f point) const override;
-    virtual void mouseOver() override;
-    virtual void mouseLeave() override;
-    virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
-    virtual void update(sf::Time elapsed) override;
+    bool contains(sf::Vector2f point) const override;
+    void mouseOver() override;
+    void mouseLeave() override;
+    void handleEvent(sf::RenderWindow& window, sf::Event event) override;
+    void update(sf::Time elapsed);
     
     std::string clear();
     

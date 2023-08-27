@@ -30,7 +30,7 @@ void Application::init()
     unsigned int height = 0;
     getScreenResolution(width, height);
     
-    std::cout << width << ", " << height << std::endl;
+    //std::cout << width << ", " << height << std::endl;
 }
 
 void Application::run()

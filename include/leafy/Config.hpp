@@ -14,7 +14,6 @@
 #define LEAFY_VERSION_MAJOR      0
 #define LEAFY_VERSION_MINOR      1
 #define LEAFY_VERSION_PATCH      0
-#define LEAFY_VERSION_IS_RELEASE false
 
 
 ////////////////////////////////////////////////////////////
@@ -98,41 +97,47 @@
 // Define a portable debug macro
 ////////////////////////////////////////////////////////////
 #if !defined(NDEBUG)
-
 #define LEAFY_DEBUG
-
 #endif
-
 
 ////////////////////////////////////////////////////////////
 // Define helpers to create portable import / export macros for each module
 ////////////////////////////////////////////////////////////
-#if !defined(LEAFY_STATIC)
+#if defined( _WIN32 ) || defined( __WIN32__ )
+    #define LEAFY_SYSTEM_WINDOWS
 
-#if defined(LEAFY_SYSTEM_WINDOWS)
+    #if !defined( WIN32_LEAN_AND_MEAN )
+        #define WIN32_LEAN_AND_MEAN
+    #endif
+
+    #if !defined( NOMINMAX )
+        #define NOMINMAX
+    #endif
+#endif
 
 // Windows compilers need specific (and different) keywords for export and import
-#define LEAFY_API_EXPORT __declspec(dllexport)
-#define LEAFY_API_IMPORT __declspec(dllimport)
+#if defined( LEAFY_SYSTEM_WINDOWS ) && !defined( LEAFY_STATIC )
+    #if defined( LEAFY_EXPORTS )
+        #define LEAFY_API __declspec( dllexport )
+    #else
+        #define LEAFY_API __declspec( dllimport )
+    #endif
+#else
+    #define LEAFY_API
+#endif
+
+#if defined( LEAFY_SYSTEM_WINDOWS ) && !defined( LEAFY_STATIC )
+    #if defined( LEAFY_EXPORTS )
+        #define LEAFY_API __declspec( dllexport )
+    #else
+        #define LEAFY_API __declspec( dllimport )
+    #endif
+#else
+    #define LEAFY_API
+#endif
 
 // For Visual C++ compilers, we also need to turn off this annoying C4251 warning
-#ifdef _MSC_VER
-
-#pragma warning(disable : 4251)
-
-#endif
-
-#else // Linux, FreeBSD, macOS
-
-#define LEAFY_API_EXPORT __attribute__((__visibility__("default")))
-#define LEAFY_API_IMPORT __attribute__((__visibility__("default")))
-
-#endif
-
-#else
-
-// Static build doesn't need import/export macros
-#define LEAFY_API_EXPORT
-#define LEAFY_API_IMPORT
-
+#if defined( _MSC_VER )
+    #pragma warning(disable : 4251) // Suppress a warning which is meaningless for us
+    #pragma warning(disable : 4503) // Suppress warnings about truncated names. Enable again if linker errors occur.
 #endif

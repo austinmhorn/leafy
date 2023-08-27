@@ -14,6 +14,7 @@
 #include <X11/Xlib.h>
 #elif APPLE || MACH
 #include <CoreGraphics/CGDisplayConfiguration.h>
+#else
 #endif
 
 static void getScreenResolution(unsigned int& width, unsigned int& height) {

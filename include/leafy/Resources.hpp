@@ -18,8 +18,8 @@
 #include <filesystem> // std::filesystem::path
 #include <cassert>    // assert
 
-static const std::filesystem::path __filepath_icon      = "resources/images/icon.png";
-static const std::filesystem::path __filepath_Sansation = "resources/fonts/sansation.ttf";
+static const std::filesystem::path __filepath_icon      = "examples/data/images/icon.png";
+static const std::filesystem::path __filepath_Sansation = "examples/data/fonts/sansation.ttf";
 
 static void init_icon(sf::RenderWindow* window) {
     static sf::Image icon;
