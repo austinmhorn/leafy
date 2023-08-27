@@ -161,9 +161,6 @@ install(
     ARCHIVE DESTINATION "${LIB_PATH}" COMPONENT dev
 )
 install(
-    FILES ${PROJECT_BINARY_DIR}$<CONFIG>/${TARGET}.dll
-    DESTINATION bin)
-install(
     DIRECTORY ${INCLUDE_PATH}
     DESTINATION include
 )
