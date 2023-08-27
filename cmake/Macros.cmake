@@ -19,6 +19,10 @@ function( build_example SAMPLE_NAME SOURCES )
         endif()
     endif()
 
+    add_library(leafy::leafy STATIC IMPORTED)
+    # Tell CMake where to find the library.
+    set_target_properties(leafy::leafy PROPERTIES IMPORTED_LOCATION ${CMAKE_BINARY_DIR}/${CONFIG}/${TARGET}.lib)
+
     target_link_libraries( ${SAMPLE_NAME} PRIVATE leafy::leafy )
 
     install(
