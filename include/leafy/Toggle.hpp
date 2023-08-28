@@ -24,10 +24,6 @@ public:
     
     Toggle(bool, sf::Vector2f);
     ~Toggle() = default;
-
-    Toggle(Toggle&) = default;
-    Toggle(const Toggle&) = default;
-    Toggle& operator=(const Toggle&) = default;
     
     // Mutators
     void setPosition(const sf::Vector2f&);
