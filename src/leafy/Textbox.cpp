@@ -8,7 +8,7 @@
 
 #include <leafy/Textbox.hpp>
 
-#include <leafy/Resources.hpp>
+#include <leafy/Engine/Resources.hpp>
 
 Textbox::Textbox()
     : m_rect()

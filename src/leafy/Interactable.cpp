@@ -7,3 +7,7 @@
 //
 
 #include <leafy/Interactable.hpp>
+
+void Interactable::update(sf::Time delta_time)
+{
+}

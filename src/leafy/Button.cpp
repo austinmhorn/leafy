@@ -31,6 +31,33 @@ Button<sf::StadiumShape>::~Button()
     if (m_shape)
         delete m_shape;
 }
+template <>
+void Button<sf::StadiumShape>::handleEvent(sf::RenderWindow &window, sf::Event event)
+{
+    sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});;
+    sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});;
+    
+    switch (event.type)
+    {
+        case sf::Event::MouseMoved:
+            
+            contains(mouse_move) ? mouseOver() : mouseLeave();
+            
+            break;
+        case sf::Event::MouseButtonReleased:
+                        
+            if (contains(mouse_btn))
+            {
+                std::cout << "clicked" << std::endl;
+                m_clicked = !m_clicked;
+            }
+            
+            break;
+            
+        default:
+            break;
+    }
+}
 template <typename T>
 Button<T>::Button(const T& shape)
     : m_shape(new T(shape))
@@ -66,8 +93,8 @@ void Button<T>::mouseLeave()
 template <typename T>
 void Button<T>::handleEvent(sf::RenderWindow &window, sf::Event event)
 {
-    sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});;
-    sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});;
+    sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+    sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
     
     switch (event.type)
     {

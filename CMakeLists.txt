@@ -5,34 +5,38 @@ set( LEAFY_MINOR_VERSION 1 )
 set( LEAFY_REVISION_VERSION 0 )
 set( LEAFY_VERSION ${LEAFY_MAJOR_VERSION}.${LEAFY_MINOR_VERSION}.${LEAFY_REVISION_VERSION} )
 
-project( leafy LANGUAGES CXX VERSION ${LEAFY_VERSION} )
+set( PROJECT_NAME "leafy" )
+project( ${PROJECT_NAME} LANGUAGES CXX VERSION ${LEAFY_VERSION} )
 set( TARGET ${PROJECT_NAME} )
 
 set( CMAKE_CXX_STANDARD 17 )
 set( CMAKE_CXX_STANDARD_REQUIRED ON )
 set( CMAKE_CXX_EXTENSIONS OFF )
 
-# include the configuration file
+# Include the Config file
 include( cmake/Config.cmake )
-
+# Include the Macros file
 include( cmake/Macros.cmake )
 
+# User Defined Options
 option( LEAFY_BUILD_SHARED_LIBS "Build shared library."            ON )
 option( LEAFY_BUILD_EXAMPLES    "Build examples."                  ON )
 option( LEAFY_BUILD_DOC         "Generate API documentation."      OFF)
 option( LEAFY_INCLUDE_FONT      "Include default font in library." ON )
-
 set( BUILD_SHARED_LIBS ${LEAFY_BUILD_SHARED_LIBS} )
 
+# Find OpenGL
 find_package( OpenGL REQUIRED )
 
 if( NOT TARGET sfml-graphics )
     find_package( SFML 2.5 REQUIRED COMPONENTS graphics window system network audio )
 endif()
 
+# Set source and include paths
 set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include/" )
 set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src/" )
 
+# Recursively find files
 file( GLOB_RECURSE HPPS "${INCLUDE_PATH}/*.hpp" )
 file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
 file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp"  )
@@ -41,16 +45,19 @@ if( LEAFY_INCLUDE_FONT )
 #list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
 endif()
 
-# define the path of our additional CMake modules
+# Define the path of additional CMake modules
 set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" )
 
 # Set the library output directory
 set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib" )
 
+# Link sources to library
 add_library( ${TARGET} ${CPPS} ${INLS} ${HPPS} )
 
+# Include header file directory to target
 target_include_directories( ${TARGET} PUBLIC $<BUILD_INTERFACE:${INCLUDE_PATH}> $<INSTALL_INTERFACE:include/> )
 
+# Assign target properties
 if( NOT LEAFY_BUILD_SHARED_LIBS )
     target_compile_definitions( ${TARGET} PUBLIC LEAFY_STATIC )
     set_target_properties( ${TARGET} PROPERTIES CMAKE_DEBUG_POSTFIX -s-d )
@@ -150,9 +157,9 @@ else()
     set(TARGET_CONFIG_TYPE "Static")
 endif()
 
-set( TARGETS_CONFIG_FILENAME "${PROJECT_NAME}Targets" )
+set( TARGETS_CONFIG_FILENAME "${TARGET}${TARGET_CONFIG_TYPE}Targets" )
 
-add_library(${PROJECT_NAME}::${TARGET} ALIAS ${TARGET})
+add_library( ${PROJECT_NAME}::${TARGET} ALIAS ${TARGET} )
 install(
     TARGETS ${TARGET}
     EXPORT ${TARGETS_CONFIG_FILENAME}
@@ -160,6 +167,7 @@ install(
     LIBRARY DESTINATION "${LIB_PATH}" COMPONENT bin
     ARCHIVE DESTINATION "${LIB_PATH}" COMPONENT dev
 )
+
 install(
     DIRECTORY ${INCLUDE_PATH}
     DESTINATION include
