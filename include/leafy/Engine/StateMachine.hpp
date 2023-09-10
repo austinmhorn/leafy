@@ -9,7 +9,7 @@
 #ifndef StateMachine_hpp
 #define StateMachine_hpp
 
-#include <leafy/State.hpp>
+#include <leafy/Engine/State.hpp>
 
 #include <iostream>
 #include <memory>

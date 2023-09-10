@@ -6,8 +6,8 @@
 //  Copyright © 2023 Austin Horn. All rights reserved.
 //
 
-#include <leafy/StateMachine.hpp>
-#include <leafy/State.hpp>
+#include <leafy/Engine/StateMachine.hpp>
+#include <leafy/Engine/State.hpp>
 
 #include <iostream>
 

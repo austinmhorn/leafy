@@ -6,7 +6,7 @@
 //  Copyright © 2022 Austin Horn. All rights reserved.
 //
 
-#include <leafy/Resources.hpp>
+#include <leafy/Engine/Resources.hpp>
 
 // Fonts
 const sf::Font Resources::Sansation = Fonts::__init_Sansation();
@@ -25,5 +25,7 @@ const sf::Color Resources::Pink            = sf::Color( 255, 200, 221, 255 );
 const sf::Color Resources::LightPurple     = sf::Color( 223, 204, 241, 255 );
 const sf::Color Resources::Orange          = sf::Color( 239, 190, 125, 255 );
 const sf::Color Resources::DarkBlue        = sf::Color(  69,  80, 163, 255 );
+
+SmartMouse Resources::smartmouse = SmartMouse();
 
 // Textures

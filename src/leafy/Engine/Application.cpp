@@ -7,8 +7,7 @@
 //
 #include <cassert> 
 
-#include <leafy/Application.hpp>
-#include <leafy/IntroState.hpp>
+#include <leafy/Engine/Application.hpp>
 
 Application::Application(unsigned int               window_width,
                          unsigned int               window_height,
@@ -29,15 +28,12 @@ void Application::init()
     unsigned int width = 0;
     unsigned int height = 0;
     getScreenResolution(width, height);
-    
-    //std::cout << width << ", " << height << std::endl;
+
+    m_machine.init( StateMachine::build<IntroState>(m_machine, m_window, m_resources, true) );    
 }
 
 void Application::run()
 {
-    // Initialize state machine
-    m_machine.init(StateMachine::build<IntroState>(m_machine, m_window, m_resources, true));
-    
     // Main loop
     while (m_machine.running())
     {

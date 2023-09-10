@@ -1,23 +1,20 @@
-//
-//  IntroState.cpp
-//  Leafly
-//
-//  Created by Austin Horn on 1/28/23.
-//  Copyright © 2023 Austin Horn. All rights reserved.
-//
-
-#include <leafy/IntroState.hpp>
-#include <leafy/StateMachine.hpp>
-
-#include <SFML/Graphics/RenderWindow.hpp>
+#include <SFML/Graphics/Color.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
 
-#include <leafy/Resources.hpp>
+#include <leafy/Engine/Application.hpp>
+#include <leafy/Button.hpp>
 
 #include <iostream>
 #include <memory>
 
-IntroState::IntroState(StateMachine& machine, sf::RenderWindow& window, Resources& resources, const bool replace)
+struct Resources;
+
+class LEAFY_API IntroState final : public State
+{
+public:
+    
+    IntroState(StateMachine& machine, sf::RenderWindow& window, Resources& resources, const bool replace)
     : State{ machine, window, resources, replace }
     , stadiumButton(sf::StadiumShape())
 {
@@ -28,22 +25,20 @@ IntroState::IntroState(StateMachine& machine, sf::RenderWindow& window, Resource
     m_background.setSize(window_size);
     
     stadiumButton()->setFillColor(sf::Color::Blue);
-    stadiumButton()->setPosition(0.f, 0.f);
-    
-    
+    stadiumButton()->setPosition(window_size.x/2.f - stadiumButton()->getGlobalBounds().width/2.f, window_size.y/2.f - stadiumButton()->getGlobalBounds().height/2.f);
 }
 
-void IntroState::pause()
+void pause()
 {
     //std::cout << "IntroState Pause" << std::endl;;
 }
 
-void IntroState::resume()
+void resume()
 {
     //std::cout << "IntroState Resume" << std::endl;;
 }
 
-void IntroState::handleEvent()
+void handleEvent()
 {
     for (auto event = sf::Event{}; m_window.pollEvent(event);)
     {
@@ -80,12 +75,10 @@ void IntroState::handleEvent()
             default:
                 break;
         }
-        
-        
     }
 }
 
-void IntroState::update()
+void update()
 {
     static const auto clock = sf::Clock{};
     static auto last_frame_time = sf::Time{};
@@ -93,18 +86,31 @@ void IntroState::update()
     last_frame_time = clock.getElapsedTime();
     
     handleEvent();
-    
-    
 }
 
-void IntroState::draw()
+void draw()
 {
     m_window.clear();
-    
     m_window.draw(m_background);
-    
     m_window.draw(stadiumButton);
-
     m_window.display();
+}
+    
+private:
+    
+    sf::RectangleShape       m_background;
+    sf::Vector2f             m_current_mouse_position;
+    Button<sf::StadiumShape> stadiumButton;
+};
+
+int main(int argc, char const **argv)
+{
+    auto app = Application{800, 600, "App Engine Demo", sf::Style::Close};
+
+    app.getMachine().init(StateMachine::build<IntroState>(app.getMachine(), app.getWindow(), app.getResources(), true));
+
+    app.run();
+
+    return EXIT_SUCCESS;
 }
 

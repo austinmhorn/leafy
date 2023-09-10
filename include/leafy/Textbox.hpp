@@ -17,6 +17,7 @@
 #include <SFML/Window/Event.hpp>
 
 #include <leafy/Interactable.hpp>
+#include <leafy/SmartMouse.hpp>
 
 #include <cctype>
 #include <iostream>
@@ -37,7 +38,7 @@ public:
         Side        side;
     };
         
-    Textbox();
+    Textbox(sf::RenderWindow& window);
         
     void setSize(const sf::Vector2f& size);
     void setPosition(const sf::Vector2f& position);
@@ -58,12 +59,18 @@ public:
     const std::string& getInputString() const;
     
     void processKey(sf::Uint32 unicode);
-    
+
+    bool clicked() const override;    
     bool contains(sf::Vector2f point) const override;
     void mouseOver() override;
     void mouseLeave() override;
+    
+    void handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event);
+    void handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event);
+    void handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event);
     void handleEvent(sf::RenderWindow& window, sf::Event event) override;
-    void update(sf::Time elapsed);
+
+    void update(sf::Time elapsed) override;
     
     std::string clear();
     
@@ -84,6 +91,7 @@ private:
     bool               m_focus;
     sf::Time           m_timer;
     Description        m_description;
+    SmartMouse*        m_mouse;
 };
 
 #endif /* Textbox_hpp */

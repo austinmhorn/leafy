@@ -6,7 +6,7 @@
 //  Copyright © 2023 Austin Horn. All rights reserved.
 //
 
-#include <leafy/State.hpp>
+#include <leafy/Engine/State.hpp>
 
 State::State(StateMachine& machine, sf::RenderWindow &window, Resources& resources, const bool replace)
     : m_machine(machine)

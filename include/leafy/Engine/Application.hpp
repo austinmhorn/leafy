@@ -11,9 +11,11 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include <leafy/StateMachine.hpp>
-#include <leafy/Resources.hpp>
-#include <leafy/SystemInfo.hpp>
+#include <leafy/Engine/StateMachine.hpp>
+#include <leafy/Engine/Resources.hpp>
+#include <leafy/Engine/SystemInfo.hpp>
+#include <leafy/Engine/IntroState.hpp>
+
 
 class LEAFY_API Application
 {
@@ -28,11 +30,11 @@ public:
     Application(Application&&) noexcept = delete;
     Application& operator=(Application&&) noexcept = delete;
 
+    virtual void init();
     virtual void run();
     
 protected:
     
-    virtual void init();
     virtual void loadResources();
 
 private:
