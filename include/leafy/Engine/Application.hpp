@@ -14,7 +14,7 @@
 #include <leafy/Engine/StateMachine.hpp>
 #include <leafy/Engine/Resources.hpp>
 #include <leafy/Engine/SystemInfo.hpp>
-#include <leafy/Engine/Screen.hpp>
+#include <leafy/Engine/IntroState.hpp>
 
 
 class LEAFY_API Application

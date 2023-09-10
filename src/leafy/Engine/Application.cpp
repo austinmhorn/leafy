@@ -29,9 +29,7 @@ void Application::init()
     unsigned int height = 0;
     getScreenResolution(width, height);
 
-    m_machine.init( StateMachine::build<Screen>(m_machine, m_window, m_resources, true) );
-    
-    //std::cout << width << ", " << height << std::endl;
+    m_machine.init( StateMachine::build<IntroState>(m_machine, m_window, m_resources, true) );    
 }
 
 void Application::run()

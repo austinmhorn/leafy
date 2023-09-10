@@ -63,7 +63,7 @@ public:
     void mouseOver() override;
     void mouseLeave() override;
     void handleEvent(sf::RenderWindow& window, sf::Event event) override;
-    void update(sf::Time elapsed);
+    void update(sf::Time elapsed) override;
     
     std::string clear();
     
