@@ -28,6 +28,8 @@ void Application::init()
     unsigned int width = 0;
     unsigned int height = 0;
     getScreenResolution(width, height);
+
+    m_machine.init( StateMachine::build<Screen>(m_machine, m_window, m_resources, true) );
     
     //std::cout << width << ", " << height << std::endl;
 }
@@ -41,20 +43,6 @@ void Application::run()
         m_machine.update();
         m_machine.draw();
     }
-}
-
-StateMachine &Application::getMachine()
-{
-    return m_machine;
-}
-
-sf::RenderWindow &Application::getWindow()
-{
-    return m_window;
-}
-Resources &Application::getResources()
-{
-    return m_resources;
 }
 
 void Application::loadResources()
