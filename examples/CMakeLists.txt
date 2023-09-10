@@ -1,9 +1,9 @@
 cmake_minimum_required( VERSION 3.2 )
 
 # Use CMake build_example function defined in Macros.cmake
-# build_example( "AppEngine" "AppEngine.cpp" )
 build_example( "Button" "Button.cpp" )
 build_example( "Toggle" "Toggle.cpp" )
+build_example( "Textbox" "Textbox.cpp" )
 
 # Copy data directory to build cache directory to be able to run examples from there. Useful for testing stuff.
 # Don't try to copy if the directories are the same.

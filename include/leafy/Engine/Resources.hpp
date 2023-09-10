@@ -18,6 +18,8 @@
 #include <filesystem> // std::filesystem::path
 #include <cassert>    // assert
 
+#include <leafy/SmartMouse.hpp>
+
 static const std::filesystem::path __filepath_icon      = "examples/data/images/icon.png";
 static const std::filesystem::path __filepath_Sansation = "examples/data/fonts/sansation.ttf";
 
@@ -86,13 +88,8 @@ struct Resources
     static const sf::Color LightPurple;
     static const sf::Color Orange;
     static const sf::Color DarkBlue;
-    
-    sf::Cursor HandCursor;
-    sf::Cursor ArrowCursor;
-    sf::Cursor TextCursor;
-    sf::Cursor CrossCursor;
-    sf::Cursor HelpCursor;
-            
+
+    static SmartMouse smartmouse;
 };
 
 #endif /* Assets_hpp */
