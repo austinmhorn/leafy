@@ -3,7 +3,7 @@
 
 int main(int argc, char const **argv)
 {
-    sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Button Demo", sf::Style::Close};
+    sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Textbox Demo", sf::Style::Close};
     Textbox textbox = Textbox(window);
     bool running = true;
     const auto window_size = sf::Vector2f{ window.getSize() };

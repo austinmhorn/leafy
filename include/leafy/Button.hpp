@@ -15,12 +15,13 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Graphics/ConvexShape.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include <leafy/Interactable.hpp>
-#include <leafy/StadiumShape.hpp>
-#include <leafy/RoundedRectangleShape.hpp>
+#include <leafy/Shapes/StadiumShape.hpp>
+#include <leafy/Shapes/RoundedRectangleShape.hpp>
 
 #include <algorithm>
 #include <cmath>

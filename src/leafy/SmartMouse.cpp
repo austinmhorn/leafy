@@ -10,18 +10,16 @@
 #include <SFML/Graphics/Sprite.hpp>
 
 #include <leafy/SmartMouse.hpp>
-
 #include <leafy/Engine/Resources.hpp>
 
 const void SmartMouse::init()
 {
-    sf::Image image;
-
-    assert( image.loadFromFile( "examples/data/pointers/arrow.png" ) );
-    assert( Arrow.loadFromPixels(image.getPixelsPtr(), image.getSize(), {0, 0}) );
-    // Text
-    assert( image.loadFromFile( "examples/data/pointers/text.png" ) );
-    assert( Text.loadFromPixels(image.getPixelsPtr(), image.getSize(), {image.getSize().x/2, image.getSize().y/2}) );
+    // Only cross-platform cursor types are loaded & defined by default
+    Arrow.loadFromSystem(sf::Cursor::Type::Arrow);
+    Text.loadFromSystem(sf::Cursor::Type::Text);
+    Hand.loadFromSystem(sf::Cursor::Type::Hand);
+    Cross.loadFromSystem(sf::Cursor::Type::Cross);
+    NotAllowed.loadFromSystem(sf::Cursor::Type::NotAllowed);
 }
 
 SmartMouse::SmartMouse()
@@ -59,8 +57,26 @@ void SmartMouse::assignCursorToWindow()
 {
     switch (m_pointer)
     {
-        case Pointer::Arrow:      m_window->setMouseCursor(Arrow);      break;
-        case Pointer::Text:       m_window->setMouseCursor(Text);       break;
+        case Pointer::Arrow:      
+            Arrow.loadFromSystem(sf::Cursor::Type::Arrow);
+            m_window->setMouseCursor(Arrow);      
+            break;
+        case Pointer::Text:       
+            Text.loadFromSystem(sf::Cursor::Type::Text);
+            m_window->setMouseCursor(Text);       
+            break;
+        case Pointer::Hand:      
+            Hand.loadFromSystem(sf::Cursor::Type::Hand);
+            m_window->setMouseCursor(Hand);      
+            break;
+        case Pointer::Cross:       
+            Cross.loadFromSystem(sf::Cursor::Type::Cross);
+            m_window->setMouseCursor(Cross);       
+            break;
+        case Pointer::NotAllowed:       
+            NotAllowed.loadFromSystem(sf::Cursor::Type::NotAllowed);
+            m_window->setMouseCursor(NotAllowed);       
+            break;
         default:
             break;
     }

@@ -6,10 +6,10 @@
 //  Copyright © 2022 Austin Horn. All rights reserved.
 //
 
-#include <leafy/RoundedRectangleShape.hpp>
+#include <leafy/Shapes/RoundedRectangleShape.hpp>
 
 ////////////////////////////////////////////////////////////
-RoundedRectangleShape::RoundedRectangleShape(const sf::Vector2f& size, float radius, unsigned int cornerPointCount)
+sf::RoundedRectangleShape::RoundedRectangleShape(const sf::Vector2f& size, float radius, unsigned int cornerPointCount)
 {
     m_size = size;
     m_radius = radius;
@@ -18,50 +18,50 @@ RoundedRectangleShape::RoundedRectangleShape(const sf::Vector2f& size, float rad
 }
 
 ////////////////////////////////////////////////////////////
-void RoundedRectangleShape::setSize(const sf::Vector2f& size)
+void sf::RoundedRectangleShape::setSize(const sf::Vector2f& size)
 {
     m_size = size;
     Shape::update();
 }
 
 ////////////////////////////////////////////////////////////
-void RoundedRectangleShape::setRadius(float radius)
+void sf::RoundedRectangleShape::setRadius(float radius)
 {
     m_radius = radius;
     Shape::update();
 }
 
 ////////////////////////////////////////////////////////////
-void RoundedRectangleShape::setCornerPointCount(unsigned int count)
+void sf::RoundedRectangleShape::setCornerPointCount(unsigned int count)
 {
     m_cornerPointCount = count;
     Shape::update();
 }
 
 ////////////////////////////////////////////////////////////
-const sf::Vector2f& RoundedRectangleShape::getSize() const
+const sf::Vector2f& sf::RoundedRectangleShape::getSize() const
 {
     return m_size;
 }
 
 ////////////////////////////////////////////////////////////
-float RoundedRectangleShape::getRadius() const
+float sf::RoundedRectangleShape::getRadius() const
 {
     return m_radius;
 }
-unsigned int RoundedRectangleShape::getCornerPointCount()
+unsigned int sf::RoundedRectangleShape::getCornerPointCount()
 {
     return m_cornerPointCount;
 }
 
 ////////////////////////////////////////////////////////////
-std::size_t RoundedRectangleShape::getPointCount() const
+std::size_t sf::RoundedRectangleShape::getPointCount() const
 {
     return m_cornerPointCount*4;
 }
 
 ////////////////////////////////////////////////////////////
-sf::Vector2f RoundedRectangleShape::getPoint(std::size_t index) const
+sf::Vector2f sf::RoundedRectangleShape::getPoint(std::size_t index) const
 {
     if(index >= m_cornerPointCount*4)
         return sf::Vector2f(0,0);
