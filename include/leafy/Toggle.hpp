@@ -13,7 +13,7 @@
 #include <SFML/Graphics/Text.hpp>
 
 #include <leafy/Interactable.hpp>
-#include <leafy/StadiumShape.hpp>
+#include <leafy/Shapes/StadiumShape.hpp>
 
 #include <cmath>
 
