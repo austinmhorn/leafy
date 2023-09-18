@@ -5,6 +5,7 @@ build_example( "Button" "Button.cpp" )
 build_example( "Toggle" "Toggle.cpp" )
 build_example( "Textbox" "Textbox.cpp" )
 build_example( "Slider" "Slider.cpp" )
+build_example( "SingleSelect" "SingleSelect.cpp" )
 
 # Copy data directory to build cache directory to be able to run examples from there. Useful for testing stuff.
 # Don't try to copy if the directories are the same.
