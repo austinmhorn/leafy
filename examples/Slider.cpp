@@ -6,8 +6,8 @@ int main(int argc, char const **argv)
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Slider Demo", sf::Style::Close};
     Slider slider({100.f, 4.f}, 25);
     Slider slider2({180.f, 5.f}, 50);
-    Slider slider3({240.f, 6.f}, 75);
-    Slider slider4({300.f, 7.f}, 100);
+    Slider slider3({250.f, 6.f}, 75);
+    Slider slider4({310.f, 7.f}, 100);
     bool running = true;
     const auto window_size = sf::Vector2f{ window.getSize() };
 

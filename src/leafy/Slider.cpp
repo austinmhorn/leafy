@@ -140,7 +140,7 @@ void Slider::update(sf::Time delta_time)
         sf::Vector2f size = {m_rect.getGlobalBounds().width, m_rect.getGlobalBounds().height};
         sf::Vector2f spos = {m_slider.getGlobalBounds().left, m_slider.getGlobalBounds().top};
 
-        unsigned int value = std::round(std::ceil(spos.x - rpos.x + m_slider.getRadius())) / (size.x/100.f);
+        unsigned int value = std::ceil(spos.x - rpos.x + m_slider.getRadius()) / (size.x/100.f);
         m_value = value;
         m_valueText.setString(std::to_string(value));
 
