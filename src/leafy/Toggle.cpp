@@ -1,6 +1,6 @@
 //
 //  Toggle.cpp
-//  Leafly
+//  leafy
 //
 //  Created by Austin Horn on 12/2/22.
 //  Copyright © 2022 Austin Horn. All rights reserved.

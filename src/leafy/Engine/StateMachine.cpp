@@ -1,6 +1,6 @@
 //
 //  StateMachine.cpp
-//  Leafly
+//  leafy
 //
 //  Created by Austin Horn on 1/28/23.
 //  Copyright © 2023 Austin Horn. All rights reserved.
