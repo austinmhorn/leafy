@@ -1,6 +1,6 @@
 //
 //  Config.hpp
-//  Leafly
+//  leafy
 //
 //  Created by Austin Horn.
 //  Copyright © 2023 Austin Horn. All rights reserved.
