@@ -22,6 +22,7 @@
 
 static const std::filesystem::path __filepath_icon      = "examples/data/images/icon.png";
 static const std::filesystem::path __filepath_Sansation = "examples/data/fonts/sansation.ttf";
+static const std::filesystem::path __filepath_domino = "examples/data/images/domino.png";
 
 static void init_icon(sf::RenderWindow* window) {
     static sf::Image icon;
@@ -53,22 +54,23 @@ namespace Fonts {
 ///
 /// \brief
 ////////////////////////////////////////////////////////////
-namespace Textures {
-/*
-     static const std::basic_string<char> path_to_texture = "filepath/to/texture.png";
+namespace Textures 
+{
 
-     static sf::Texture init_texture() {
+    static sf::Texture __load_domino() 
+    {
         static sf::Texture texture;
-        try {
-            if ( !texture.loadFromFile(path_to_texture) )
-                throw std::runtime_error("Failed loading texture " + path_to_texture);
+        try 
+        {
+            if ( !texture.loadFromFile(__filepath_domino) )
+                throw std::runtime_error("Failed loading texture: ");
         }
-        catch(const std::runtime_error &e) {
-            std::cerr << "std::runtime_error::what(): " << e.what() << std::endl;
+        catch(const std::runtime_error &e) 
+        {
+            std::cerr << "std::runtime_error::what(): " << e.what() << __filepath_domino << std::endl;
         }
         return texture;
     }
-*/
 } // MARK: End of namespace 'Textures'
 
 struct Resources
