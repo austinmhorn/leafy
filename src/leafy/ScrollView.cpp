@@ -27,7 +27,7 @@ ScrollView::ScrollView(sf::RenderWindow& window, const sf::Texture& texture)
 }
 const sf::Vector2f& ScrollView::getSize() const
 {
-    
+    return m_size;
 }
 void ScrollView::handleEvent(sf::RenderWindow& window, sf::Event event) 
 {
@@ -44,11 +44,9 @@ void ScrollView::handleEvent(sf::RenderWindow& window, sf::Event event)
             break;
         case sf::Event::MouseButtonReleased:
             
-            std::cout << "CLICK AT: " << mouse_btn.x << ", " << mouse_btn.y << std::endl;
             if (contains(mouse_btn))
             {
                 std::cout << "clicked" << std::endl;
-                
             }
             
             break;
@@ -104,12 +102,17 @@ void ScrollView::handleResizeEvent(const sf::Vector2f& newSize)
     m_sprite.setScale(delta_resize.x, delta_resize.y);
 
     sf::FloatRect visibleArea = sf::FloatRect{0.f, 0.f, newSize.x, newSize.y};
+    
     m_view = sf::View(visibleArea);
     m_view.setViewport(m_viewport);
     m_view.setCenter(m_view.getCenter());
+
     m_viewportBounds = {m_view.getCenter().x - m_view.getSize().x/2.f, m_view.getCenter().y - m_view.getSize().y/2.f, m_view.getSize().x, m_view.getSize().y};
     m_viewCenterStart = m_view.getCenter();
     m_viewCenterEnd = { m_viewCenterStart.x, (m_texture->getSize().y * delta_resize.y) - m_view.getSize().y/2.f };
+
+    m_size = { static_cast<float>(m_window.getSize().x), static_cast<float>(m_window.getSize().y) };
+
 }
 void ScrollView::mouseOver() 
 {

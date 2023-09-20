@@ -83,7 +83,7 @@ const sf::Vector2f& Dropdown::getPosition() const
 
 bool Dropdown::clicked() const 
 {
-    
+    return false;
 }
 
 bool Dropdown::contains(sf::Vector2f point) const 
