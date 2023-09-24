@@ -26,6 +26,7 @@
 #include <exception>
 #include <map>
 #include <type_traits>
+#include <functional>
 
 /* 
     // Method 1
