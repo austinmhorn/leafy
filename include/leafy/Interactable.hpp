@@ -39,10 +39,6 @@ class LEAFY_API Interactable : public sf::Transformable, public sf::Drawable
         virtual bool contains(sf::Vector2f point) const = 0;
         virtual void handleEvent(sf::RenderWindow& window, sf::Event event) = 0;
         virtual void update(sf::Time delta_time);
-        
-    protected:
-
-        std::shared_ptr<sf::RenderWindow> m_winPtr;
 
     private:
 
