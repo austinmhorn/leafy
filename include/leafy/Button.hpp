@@ -72,7 +72,7 @@ class LEAFY_API Button : public Interactable
         
         Button(const T& shape = T());
 
-        void setPosition(const sf::Vector2f& position);
+        constexpr void setPosition(const sf::Vector2f& position);
         void setSize(const sf::Vector2f& size);
         void setShapeFillColor(const sf::Color& color);
         void setShapeOutlineColor(const sf::Color& color);
@@ -290,7 +290,7 @@ void Button<T>::handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonRe
 }
 
 template <typename T>
-void Button<T>::setPosition(const sf::Vector2f& position)
+constexpr void Button<T>::setPosition(const sf::Vector2f& position)
 {
     m_position = position;
     update();
