@@ -14,6 +14,8 @@
 #include <SFML/Graphics/Drawable.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Time.hpp>
+#include <SFML/Graphics/Text.hpp>
+#include <SFML/Graphics/Font.hpp>
 
 #include <leafy/Config.hpp>
 
@@ -30,6 +32,7 @@ class LEAFY_API Interactable : public sf::Transformable, public sf::Drawable
         Interactable(Interactable&&) noexcept = default;
         Interactable& operator=(Interactable&&) noexcept = default;
         
+        virtual void mouseClick() {}
         virtual void mouseOver() = 0;
         virtual void mouseLeave() = 0;
         virtual bool clicked() const = 0;

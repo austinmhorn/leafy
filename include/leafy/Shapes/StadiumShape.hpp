@@ -29,7 +29,7 @@ public:
     ///
     /// \param radius Radius for each rounded corner
     ////////////////////////////////////////////////////////////
-    StadiumShape(float radius = 30.0f);
+    StadiumShape(const sf::Vector2f& size = {0.f, 0.f}, float cornerRadius = 0.f);
     
     ////////////////////////////////////////////////////////////
     /// \brief Calls private Shape function Shape::update()
@@ -64,15 +64,6 @@ public:
     /// \see getPointCount
     ////////////////////////////////////////////////////////////
     void setAntialiasing(unsigned int antialiasing);
-    
-    ////////////////////////////////////////////////////////////
-    /// \brief Adjusts shape's alpha value to appear translucent
-    ///
-    /// \param translucent Indicates if shape will be translucent
-    ///
-    /// \see getTranslucent
-    ////////////////////////////////////////////////////////////
-    void setTranslucent(bool translucent);
     
     ////////////////////////////////////////////////////////////
     /// \brief Get the size of the rounded rectangle
