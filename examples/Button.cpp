@@ -44,7 +44,7 @@ int main(int argc, char const **argv)
     stadiumButton.setMouseClickOnFunction( customMouseClickOnFunction );
     stadiumButton.setMouseClickOffFunction( customMouseClickOffFunction );
 
-    Button biggerButton = Button(sf::StadiumShape());
+    Button biggerButton = Button(sf::RectangleShape());
     biggerButton.setSize({300.f, 60.f});
     biggerButton.setPosition({window_size.x/2.f - biggerButton.getSize().x/2.f, window_size.y/2.f - biggerButton.getSize().y/2.f});
     biggerButton.setShapeFillColor({72, 72, 72});
