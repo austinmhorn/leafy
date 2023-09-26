@@ -11,8 +11,13 @@ Button<T>::Button(const T& shape)
     , m_translucentHover( true )
     , m_alignment( TextAlignment::Centered )
 {
+    // Verify T is a derived sf::Shape object; required [even if not drawing shape] to deduce T
+    static_assert(std::is_base_of<sf::Shape, typename std::remove_reference<T>::type>::value, "T must be a derived class of sf::Shape.");
+
+    // Reset function map
     m_funcs.clear();
 
+    // Extract size & position from shape parameter
     m_size = sf::Vector2f{shape.getGlobalBounds().width, shape.getGlobalBounds().height};
     m_position = m_shape.getPosition();
 }
@@ -334,10 +339,10 @@ const sf::Vector2f& Button<sf::PolygonShape>::getPolygonRadius() const
 /// @brief Explicit template class instantiations 
 //////////////////////////////////////////////////
 
-template class Button<typename sf::RectangleShape>;
-template class Button<typename sf::CircleShape>;
-template class Button<typename sf::PolygonShape>;
-template class Button<typename sf::RoundedRectangleShape>;
-template class Button<typename sf::StadiumShape>;
+template class LEAFY_API Button<typename sf::RectangleShape>;
+template class LEAFY_API Button<typename sf::CircleShape>;
+template class LEAFY_API Button<typename sf::PolygonShape>;
+template class LEAFY_API Button<typename sf::RoundedRectangleShape>;
+template class LEAFY_API Button<typename sf::StadiumShape>;
 
 }

@@ -35,10 +35,7 @@ class LEAFY_API Button final
     : public UIElement
 {
     public:
-
-        // Verify T is a derived sf::Shape object; required [even if not drawing shape] to deduce T
-        static_assert(std::is_base_of<sf::Shape, typename std::remove_reference<T>::type>::value, "T must be a derived class of sf::Shape.");
-
+    
         /// @brief 
         enum class Function 
             : std::size_t
@@ -101,20 +98,50 @@ class LEAFY_API Button final
         void setMouseClickOnFunction(std::function<void()> function);
         void setMouseClickOffFunction(std::function<void()> function);
 
-        void setSize(const sf::Vector2f& size);
-        const sf::Vector2f& getSize() const;
-
-        void setRadius(float radius);
-        float getRadius() const;
-
-        void setPolygonRadius(const sf::Vector2f& radius);
-        const sf::Vector2f& getPolygonRadius() const;
-
         bool contains(const sf::Vector2f& point) const override;
         void handleEvent(sf::RenderWindow& window, sf::Event event) override;
 
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Set size for shapes with rectangular geometry
+        /// @param size New size width and height 
+        /////////////////////////////////////////////////////////////////////
+        void setSize(const sf::Vector2f& size);
+
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Get size of rectangular button
+        /// @return Width and height of button
+        /////////////////////////////////////////////////////////////////////
+        const sf::Vector2f& getSize() const;
+
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Set radius for shapes with symmetric circular geometry
+        /// @param radius New radius as float
+        /////////////////////////////////////////////////////////////////////
+        void setRadius(float radius);
+
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Get radius of circular button
+        /// @return Radius of button
+        /////////////////////////////////////////////////////////////////////
+        float getRadius() const;
+
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Set X and Y radius for shapes with convex polygon geometry
+        /// @param radius New X and Y radius
+        /////////////////////////////////////////////////////////////////////        
+        void setPolygonRadius(const sf::Vector2f& radius);
+
+        /////////////////////////////////////////////////////////////////////
+        /// @brief Get X and Y radius of convex polygon button
+        /// @return X and Y radius of button
+        /////////////////////////////////////////////////////////////////////
+        const sf::Vector2f& getPolygonRadius() const;
+
     private:
 
+        ///////////////////////////////////////////////
+        /// @brief Positions text inside shape
+        ///////////////////////////////////////////////
         void updateAlignment();
 
         void mouseEnter() override;
@@ -123,7 +150,7 @@ class LEAFY_API Button final
         
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        T             m_shape;
+        T             m_shape;            // 
         sf::Text      m_text;
         bool          m_drawShape;
         bool          m_translucentHover;
