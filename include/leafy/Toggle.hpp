@@ -17,6 +17,9 @@
 
 #include <cmath>
 
+namespace leafy
+{
+
 class LEAFY_API Toggle 
     : public UIElement 
 {
@@ -78,5 +81,7 @@ class LEAFY_API Toggle
         float            m_velocityXMax;
         float            m_acceleration;
 };
+
+}
 
 #endif /* Toggle_hpp */

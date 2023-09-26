@@ -12,6 +12,9 @@
 static const float PADDING = 5.f;
 static const float SPACING = 5.f;
 
+namespace leafy
+{
+
 Checkbox::Checkbox(float characterSize, bool multipleSelectionsAllowed)
     : m_activeColor({0, 100, 255, 255})
     , m_inactiveColor(sf::Color::White)
@@ -220,4 +223,6 @@ void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(c.first);
         target.draw(c.second);
     }
+}
+
 }

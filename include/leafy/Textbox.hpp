@@ -22,6 +22,9 @@
 #include <cctype>
 #include <iostream>
 
+namespace leafy
+{
+
 class LEAFY_API Textbox 
     : public UIElement
 {
@@ -75,7 +78,7 @@ class LEAFY_API Textbox
         
         std::string clear();
         
-    private:
+    protected:
         
         void updateText(sf::Time elapsed);
         void positionText();
@@ -95,5 +98,7 @@ class LEAFY_API Textbox
         SmartMouse*        m_mouse;
         char               m_cursor;
 };
+
+}
 
 #endif /* Textbox_hpp */

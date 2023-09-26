@@ -37,7 +37,7 @@ int main(int argc, char const **argv)
     stadiumButton.setShapeFillColor(sf::Color::Red);
     stadiumButton.setShapeOutlineColor(sf::Color::White);
     stadiumButton.setShapeOutlineThickness(1.25f);
-    stadiumButton.setTextString("Stadium Button");
+    stadiumButton.setLabelString("Stadium Button");
     stadiumButton.setTextFillColor(sf::Color::White);
     // Connect callback functions to this button only
     stadiumButton.setMouseEnterFunction( customMouseEnterFunction );
@@ -51,7 +51,7 @@ int main(int argc, char const **argv)
     rectButton.setShapeFillColor({72, 72, 72});
     rectButton.setShapeOutlineColor(sf::Color::White);
     rectButton.setShapeOutlineThickness(1.25f);
-    rectButton.setTextString("Rectangle Button");
+    rectButton.setLabelString("Rectangle Button");
     rectButton.setTextFillColor(sf::Color::White);
 
     Button circleButton = Button(sf::CircleShape()); // Demonstrates sf::CircleShape compatability
@@ -60,7 +60,7 @@ int main(int argc, char const **argv)
     circleButton.setShapeFillColor(sf::Color::Yellow);
     circleButton.setShapeOutlineColor(sf::Color::White);
     circleButton.setShapeOutlineThickness(1.25f);
-    circleButton.setTextString("Circle");
+    circleButton.setLabelString("Circle");
     circleButton.setTextFillColor(sf::Color::Black);
 
     Button polygonButton = Button(sf::PolygonShape({0.f, 0.f}, 10.f)); // Demonstrates sf::PolygonShape compatability
@@ -69,7 +69,7 @@ int main(int argc, char const **argv)
     polygonButton.setShapeFillColor(sf::Color::Blue);
     polygonButton.setShapeOutlineColor(sf::Color::White);
     polygonButton.setShapeOutlineThickness(1.25f);
-    polygonButton.setTextString("Polygon");
+    polygonButton.setLabelString("Polygon");
     polygonButton.setTextFillColor(sf::Color::White);
 
     Button roundedRectButton = Button(sf::RoundedRectangleShape()); // Demonstrates sf::RoundedRectangleShape compatability
@@ -78,7 +78,7 @@ int main(int argc, char const **argv)
     roundedRectButton.setShapeFillColor({120, 120, 120});
     roundedRectButton.setShapeOutlineColor(sf::Color::White);
     roundedRectButton.setShapeOutlineThickness(1.25f);
-    roundedRectButton.setTextString("Rounded Rectangle");
+    roundedRectButton.setLabelString("Rounded Rectangle");
     roundedRectButton.setTextFillColor(sf::Color::White);
 
     while (window.isOpen())  

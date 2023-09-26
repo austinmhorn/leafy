@@ -18,6 +18,9 @@ namespace sf
     class RenderWindow;
 }
 
+namespace leafy
+{
+
 class StateMachine;
 
 struct Resources;
@@ -53,5 +56,6 @@ protected:
     bool                   m_replace;
 };
 
+}
 
 #endif /* State_hpp */

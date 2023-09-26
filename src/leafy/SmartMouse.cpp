@@ -9,6 +9,9 @@
 #include <leafy/SmartMouse.hpp>
 #include <leafy/Engine/Resources.hpp>
 
+namespace leafy
+{
+
 const void SmartMouse::init()
 {
     // Only cross-platform cursor types are loaded & defined by default
@@ -109,4 +112,6 @@ void SmartMouse::handleEvent(sf::Event event)
     {
         m_rmb_released = true;
     }
+}
+
 }

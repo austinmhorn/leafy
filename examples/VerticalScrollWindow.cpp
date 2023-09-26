@@ -1,9 +1,7 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-
 #include <leafy/VerticalScrollWindow.hpp>
 #include <leafy/Engine/Resources.hpp> // Textures::__load_domino()
 
+using namespace leafy;
 using namespace Textures; // __load_domino()
 
 int main(int argc, char const **argv)

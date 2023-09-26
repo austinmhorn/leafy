@@ -12,6 +12,9 @@
 #include <cmath>
 #include <iostream>
 
+namespace leafy
+{
+
 Slider::Slider(sf::Vector2f size, unsigned int value)
     : m_rect(size)
     , m_slider(2.f*size.y)
@@ -159,4 +162,6 @@ void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(m_slider);
     target.draw(m_valueText);
     target.draw(m_description);
+}
+
 }

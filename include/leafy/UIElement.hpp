@@ -19,6 +19,9 @@
 
 #include <leafy/Config.hpp>
 
+namespace leafy
+{
+
 class LEAFY_API UIElement 
     : public sf::Transformable
     , public sf::Drawable
@@ -82,5 +85,7 @@ class LEAFY_API UIElement
         virtual void handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition);
 
 };
+
+}
 
 #endif /* UIElement_hpp */

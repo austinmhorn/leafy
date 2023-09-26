@@ -15,6 +15,9 @@
 
 #include <leafy/UIElement.hpp>
 
+namespace leafy
+{
+
 class LEAFY_API Slider 
     : public UIElement 
 {
@@ -33,7 +36,7 @@ class LEAFY_API Slider
         virtual void update(sf::Time delta_time) override;
         void moveSlider(const sf::Vector2f& position);
 
-    private:
+    protected:
 
         void updateGeometry();
 
@@ -55,5 +58,7 @@ class LEAFY_API Slider
         sf::Text           m_valueText;
         sf::Text           m_description;
 };
+
+}
 
 #endif /* Slider_hpp */

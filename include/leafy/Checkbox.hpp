@@ -15,10 +15,14 @@
 
 #include <leafy/UIElement.hpp>
 
+namespace leafy
+{
+
 class LEAFY_API Checkbox 
     : public UIElement 
 {
 public:
+
     Checkbox(float characterSize = 30.f, bool multipleSelectionsAllowed = false);
     ~Checkbox() override = default;
 
@@ -34,7 +38,7 @@ public:
     virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
     virtual void update(sf::Time delta_time) override;
 
-private:
+protected:
 
     typedef std::pair<sf::RectangleShape, sf::Text> Box;
 
@@ -57,5 +61,7 @@ private:
     float              m_characterSize;
     bool               m_allowMultipleSelections;
 };
+
+}
 
 #endif /* Checkbox_hpp */

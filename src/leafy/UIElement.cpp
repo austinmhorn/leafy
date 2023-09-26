@@ -8,6 +8,9 @@
 
 #include <leafy/UIElement.hpp>
 
+namespace leafy
+{
+
 void UIElement::update(sf::Time delta_time)
 {
 }
@@ -107,4 +110,6 @@ void UIElement::handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonRe
     // Allows for only processing a click event if the press originated within bounds of the button
     if ( m_clickPressInBounds && m_mouseOver )
         mouseClick();
+}
+
 }

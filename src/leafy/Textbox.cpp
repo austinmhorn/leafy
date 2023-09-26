@@ -10,6 +10,9 @@
 
 #include <leafy/Engine/Resources.hpp>
 
+namespace leafy
+{
+
 Textbox::Textbox(sf::RenderWindow& window)
     : m_rect()
     , m_input()
@@ -261,4 +264,6 @@ void Textbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(m_description.text);
     target.draw(m_rect);
     target.draw(m_text);
+}
+
 }

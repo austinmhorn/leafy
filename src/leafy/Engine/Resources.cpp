@@ -8,6 +8,9 @@
 
 #include <leafy/Engine/Resources.hpp>
 
+namespace leafy
+{
+
 // Fonts
 const sf::Font Resources::Sansation = Fonts::__init_Sansation();
 
@@ -27,5 +30,7 @@ const sf::Color Resources::Orange          = sf::Color( 239, 190, 125, 255 );
 const sf::Color Resources::DarkBlue        = sf::Color(  69,  80, 163, 255 );
 
 SmartMouse Resources::smartmouse = SmartMouse();
+
+}
 
 // Textures

@@ -8,6 +8,9 @@
 
 #include <leafy/Engine/State.hpp>
 
+namespace leafy
+{
+
 State::State(StateMachine& machine, sf::RenderWindow &window, Resources& resources, const bool replace)
     : m_machine(machine)
     , m_window(window)
@@ -23,4 +26,6 @@ std::unique_ptr<State> State::next()
 bool State::replace() const
 {
     return m_replace;
+}
+
 }

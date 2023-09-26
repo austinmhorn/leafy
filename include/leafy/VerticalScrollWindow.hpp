@@ -16,6 +16,9 @@
 
 #include <leafy/UIElement.hpp>
 
+namespace leafy
+{
+
 class LEAFY_API VerticalScrollWindow 
     : public UIElement
 {
@@ -56,5 +59,6 @@ class LEAFY_API VerticalScrollWindow
 
 };
 
+}
 
 #endif /* VerticalScrollWindow_hpp */

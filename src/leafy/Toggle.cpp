@@ -12,6 +12,9 @@
 #include <iostream>
 #include <cmath>
 
+namespace leafy 
+{
+
 Toggle::Toggle(bool on, sf::Vector2f size)
     : m_shape(size, size.y/2.f)
     , m_slider{ (size.y-5.f)/2.f, 30 }
@@ -279,4 +282,6 @@ void Toggle::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(m_status, states);
     target.draw(m_slider, states);
     target.draw(m_text, states);
+}
+
 }

@@ -16,6 +16,9 @@
 
 #include <iostream>
 
+namespace leafy
+{
+
 class SmartMouse 
     : public sf::Cursor
 {
@@ -70,6 +73,6 @@ private:
     bool              m_rmb_released;
 };
 
-
+}
 
 #endif /* SmartCursor_hpp */

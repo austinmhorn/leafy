@@ -3,6 +3,9 @@
 
 #include <cmath> // std::ceil()
 
+namespace leafy
+{
+
 VerticalScrollWindow::VerticalScrollWindow(sf::RenderWindow& window, const sf::Texture& texture, const sf::FloatRect& viewport)
     : m_window( window )                                                                            // Explicitly initialize reference member 
     , m_prevWindowSize( window.getSize() )                                                          // Save window dimensions at time of creation 
@@ -146,4 +149,6 @@ void VerticalScrollWindow::draw(sf::RenderTarget& target, sf::RenderStates state
 
     // Set the default view back
     m_window.setView(m_window.getDefaultView());
+}
+
 }

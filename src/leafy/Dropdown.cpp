@@ -12,6 +12,9 @@
 #include <iostream>
 #include <cmath>
 
+namespace leafy
+{
+
 Dropdown::Dropdown(const sf::Vector2f &size)
     : m_rect(size)
     , m_open(false)
@@ -157,4 +160,6 @@ void Dropdown::draw(sf::RenderTarget &target, sf::RenderStates states) const
     states.transform *= getTransform();
     target.draw(m_rect);
     target.draw(m_triangle);
+}
+
 }

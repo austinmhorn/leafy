@@ -1,5 +1,6 @@
 #include <SFML/Window/Event.hpp>
 #include <leafy/Toggle.hpp>
+using namespace leafy;
 
 int main(int argc, char const **argv)
 {

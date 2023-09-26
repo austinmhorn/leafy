@@ -11,9 +11,6 @@ Button<T>::Button(const T& shape)
     , m_translucentHover( true )
     , m_alignment( TextAlignment::Centered )
 {
-    // Verify T is a derived sf::Shape object; required [even if not drawing shape] to deduce T
-    static_assert(std::is_base_of<sf::Shape, typename std::remove_reference<T>::type>::value, "T must be a derived class of sf::Shape.");
-
     // Reset function map
     m_funcs.clear();
 
@@ -151,14 +148,14 @@ void Button<T>::setWillDrawShape(bool willDraw)
 }
 
 template <typename T>
-void Button<T>::setTextString(const std::string& string)
+void Button<T>::setLabelString(const std::string& string)
 {
     m_label.setString(string);
     updateAlignment();
 }
 
 template <typename T>
-void Button<T>::setNumberTextLines(unsigned int lines)
+void Button<T>::setNumberLabelLines(unsigned int lines)
 {
 }
 
@@ -254,14 +251,19 @@ void Button<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(m_label);
 }
 
-//////////////////////////////////////////////////
-/// @brief Explicit template class instantiations 
-//////////////////////////////////////////////////
 
-template class LEAFY_API Button<class sf::RectangleShape>;
-template class LEAFY_API Button<class sf::CircleShape>;
-template class LEAFY_API Button<class sf::PolygonShape>;
-template class LEAFY_API Button<class sf::RoundedRectangleShape>;
-template class LEAFY_API Button<class sf::StadiumShape>;
+
+
+////////////////////////////////////////////////////////
+/// @brief Explicit template class instantiations 
+/// @details Explicitly instantiates the following:
+/// - RectangleShape
+////////////////////////////////////////////////////////
+
+template class LEAFY_API Button<typename sf::RectangleShape>;
+template class LEAFY_API Button<typename sf::CircleShape>;
+template class LEAFY_API Button<typename sf::PolygonShape>;
+template class LEAFY_API Button<typename sf::RoundedRectangleShape>;
+template class LEAFY_API Button<typename sf::StadiumShape>;
 
 }

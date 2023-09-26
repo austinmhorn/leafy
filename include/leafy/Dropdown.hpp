@@ -17,6 +17,9 @@
 
 #include <cmath>
 
+namespace leafy
+{
+
 class LEAFY_API Dropdown 
     : public UIElement 
 {
@@ -45,15 +48,17 @@ class LEAFY_API Dropdown
 
         void draw(sf::RenderTarget&, sf::RenderStates) const override;
         
-    private:
-
         void mouseEnter() override;
         void mouseLeave() override;
         void mouseClick() override;
+
+    private:
 
         sf::RectangleShape m_rect;
         sf::VertexArray    m_triangle;
         bool               m_open;
 };
+
+}
 
 #endif /* Dropdown_hpp */
