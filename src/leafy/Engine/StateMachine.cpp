@@ -11,6 +11,9 @@
 
 #include <iostream>
 
+namespace leafy
+{
+
 StateMachine::StateMachine()
     : m_resume(false)
     , m_running(false)
@@ -93,4 +96,6 @@ bool StateMachine::running() const
 void StateMachine::quit()
 {
     m_running = false;
+}
+
 }

@@ -61,11 +61,6 @@ unsigned int sf::StadiumShape::getAntialiasing() const
     return m_antialiasing;
 }
 
-bool sf::StadiumShape::getTranslucent() const
-{
-    return m_translucent;
-}
-
 std::size_t sf::StadiumShape::getPointCount() const
 {
     return m_antialiasing * 4;
@@ -80,7 +75,8 @@ sf::Vector2f sf::StadiumShape::getPoint(std::size_t index) const
     sf::Vector2f center;
     unsigned int center_index = static_cast<unsigned int>(index)/m_antialiasing;
     
-    switch(center_index) {
+    switch(center_index) 
+    {
         case 0: center.x = m_size.x - m_cornerRadius;
                 center.y = m_cornerRadius;
             break;

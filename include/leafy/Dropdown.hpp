@@ -13,47 +13,52 @@
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Graphics/VertexArray.hpp>
 
-#include <leafy/Interactable.hpp>
+#include <leafy/UIElement.hpp>
 
 #include <cmath>
 
-class LEAFY_API Dropdown : public Interactable {
-public:
+namespace leafy
+{
+
+class LEAFY_API Dropdown 
+    : public UIElement 
+{
+    public:
+        
+        Dropdown(const sf::Vector2f &size);
+        ~Dropdown() = default;
+
+        void setSize(const sf::Vector2f &size);
+        void setPosition(const sf::Vector2f &position);
+
+        const sf::Vector2f& getSize() const;
+        const sf::Vector2f& getPosition() const;
+
+        virtual bool contains(const sf::Vector2f& point) const override;
+        void handleEvent(sf::RenderWindow&, sf::Event) override;
+        void update(sf::Time delta_time) override;
     
-    Dropdown(const sf::Vector2f &size);
-    ~Dropdown() = default;
+    protected:
 
-    void setSize(const sf::Vector2f &size);
-    void setPosition(const sf::Vector2f &position);
+        void init();
+        void updateGeometry();
+        void flipTriangle();
+        
+        virtual void handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition) override;
 
-    const sf::Vector2f& getSize() const;
-    const sf::Vector2f& getPosition() const;
+        void draw(sf::RenderTarget&, sf::RenderStates) const override;
+        
+        void mouseEnter() override;
+        void mouseLeave() override;
+        void mouseClick() override;
 
-    // Overidden purely virtual methods from parent class Interactable 
-    bool clicked() const override;
-    bool contains(sf::Vector2f point) const override;
-    void mouseOver() override;
-    void mouseLeave() override;
-    void handleEvent(sf::RenderWindow&, sf::Event) override;
-    void update(sf::Time delta_time) override;
-  
-protected:
+    private:
 
-    void init();
-    void updateGeometry();
-    void flipTriangle();
-    
-    void handleMouseButtonPressedEvent(sf::RenderWindow&, sf::Event);
-    void handleMouseButtonReleasedEvent(sf::RenderWindow&, sf::Event);
-    void handleMouseMoveEvent(sf::RenderWindow&, sf::Event);
-
-    void draw(sf::RenderTarget&, sf::RenderStates) const override;
-    
-private:
-
-    sf::RectangleShape m_rect;
-    sf::VertexArray    m_triangle;
-    bool               m_open;
+        sf::RectangleShape m_rect;
+        sf::VertexArray    m_triangle;
+        bool               m_open;
 };
+
+}
 
 #endif /* Dropdown_hpp */

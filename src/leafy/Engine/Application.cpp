@@ -9,6 +9,9 @@
 
 #include <leafy/Engine/Application.hpp>
 
+namespace leafy
+{
+
 Application::Application(unsigned int               window_width,
                          unsigned int               window_height,
                          const std::string&         title,
@@ -47,4 +50,6 @@ void Application::loadResources()
 {
     // Load icon
     init_icon(&m_window);
+}
+
 }

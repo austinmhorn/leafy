@@ -12,13 +12,15 @@
 #include <cmath>
 #include <iostream>
 
+namespace leafy
+{
+
 Slider::Slider(sf::Vector2f size, unsigned int value)
     : m_rect(size)
     , m_slider(2.f*size.y)
-    , m_value(value)
-    , m_valueText({std::to_string(value), Resources::Sansation, static_cast<unsigned int>(std::floor(size.y*2.f))})
+    , m_value( (value > 100) ? 100 : value )
+    , m_valueText({std::to_string(m_value), Resources::Sansation, static_cast<unsigned int>(std::floor(size.y*2.f))})
     , m_description({"", Resources::Sansation, static_cast<unsigned int>(std::floor(size.y*3.f))})
-    , m_clicked(false)
 {
     m_rect.setFillColor(sf::Color::White);
 
@@ -37,7 +39,8 @@ Slider::~Slider()
 }
 void Slider::setPosition(const sf::Vector2f &position)
 {
-    m_rect.setPosition(position);
+    UIElement::setPosition( position );
+    m_rect.setPosition( m_position );
     updateGeometry();
 }
 void Slider::setDescription(const std::string &info)
@@ -49,7 +52,7 @@ const sf::Vector2f &Slider::getSize() const
 {
     return m_rect.getSize();
 }
-void Slider::mouseOver()
+void Slider::mouseEnter()
 {
     m_slider.setFillColor({32, 32, 32});
 }
@@ -57,80 +60,54 @@ void Slider::mouseLeave()
 {
     m_slider.setFillColor(sf::Color::Blue);
 }
-bool Slider::clicked() const
+void Slider::mouseClick() 
 {
-    return m_clicked;
+
 }
-bool Slider::contains(sf::Vector2f point) const
+
+bool Slider::contains(const sf::Vector2f& point) const
 {
     return m_slider.getGlobalBounds().contains(point);
 }
 
-void Slider::handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event) 
+void Slider::handleMouseMoveEvent(const sf::Vector2f& mousePosition)
 {
-    sf::Vector2f click_pos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
-    if ( contains(click_pos) )
-    {
-        switch (event.mouseButton.button)
-        {
-            case sf::Mouse::Left:
-                m_clicked = true;
-
-                break;
-                    
-            case sf::Mouse::Right:
-                break;
-                    
-            default:
-                break;
-        }
-    }
-}
-
-void Slider::handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event)
-{
-    sf::Vector2f click_pos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
-
-    switch (event.mouseButton.button)
-    {
-        case sf::Mouse::Left:
-            m_clicked = false;
-            break;
-                
-        case sf::Mouse::Right:
-            break;
-                
-        default:
-            break;
-    }
-}
-
-void Slider::handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event)
-{
-    sf::Vector2f mouse_pos = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
-
-    (contains(mouse_pos) || m_clicked) ? mouseOver() : mouseLeave();
+    (contains(mousePosition) || m_clicked) ? mouseEnter() : mouseLeave();
 
     if (m_clicked) 
-        moveSlider(mouse_pos);
+        moveSlider(mousePosition);
 }
+void Slider::handleMouseButtonPressedEvent(const sf::Vector2f& mouseButtonPressedPosition)
+{
+    if ( contains(mouseButtonPressedPosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        m_clicked = true;
+    }
+}
+void Slider::handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition)
+{
+    if ( m_clicked )
+        m_clicked = false;
+}
+
 
 void Slider::handleEvent(sf::RenderWindow& window, sf::Event event)
 {
     sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+    sf::Vector2f click_pos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
 
     switch (event.type)
     {            
         case sf::Event::MouseMoved:
-            handleMouseMoveEvent(window, event);
+            handleMouseMoveEvent(mouse_move);
             break;
 
         case sf::Event::MouseButtonPressed:
-            handleMouseButtonPressedEvent(window, event);
+            handleMouseButtonPressedEvent(click_pos);
             break;
             
         case sf::Event::MouseButtonReleased:
-            handleMouseButtonReleasedEvent(window, event);
+            handleMouseButtonReleasedEvent(click_pos);
             break;
         
         case sf::Event::TextEntered:
@@ -185,4 +162,6 @@ void Slider::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(m_slider);
     target.draw(m_valueText);
     target.draw(m_description);
+}
+
 }

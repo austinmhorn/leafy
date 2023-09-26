@@ -16,6 +16,8 @@
 #include <leafy/Engine/SystemInfo.hpp>
 #include <leafy/Engine/IntroState.hpp>
 
+namespace leafy
+{
 
 class LEAFY_API Application
 {
@@ -44,5 +46,6 @@ private:
     Resources        m_resources;
 };
 
+}
 
 #endif /* Application_hpp */

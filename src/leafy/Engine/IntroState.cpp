@@ -17,6 +17,9 @@
 #include <iostream>
 #include <memory>
 
+namespace leafy
+{
+
 IntroState::IntroState(StateMachine& machine, sf::RenderWindow& window, Resources& resources, const bool replace)
     : State{ machine, window, resources, replace }
 {
@@ -94,4 +97,6 @@ void IntroState::draw()
     m_window.draw(m_background);
 
     m_window.display();
+}
+
 }

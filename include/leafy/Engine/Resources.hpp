@@ -19,6 +19,9 @@
 
 #include <leafy/SmartMouse.hpp>
 
+namespace leafy
+{
+
 // Images
 static const std::string __filepath_icon      = "examples/data/images/icon.png";
 static const std::string __filepath_domino    = "examples/data/images/domino.png";
@@ -99,5 +102,7 @@ struct Resources
 
     static SmartMouse smartmouse;
 };
+
+}
 
 #endif /* Assets_hpp */

@@ -12,6 +12,9 @@
 #include <iostream>
 #include <cmath>
 
+namespace leafy 
+{
+
 Toggle::Toggle(bool on, sf::Vector2f size)
     : m_shape(size, size.y/2.f)
     , m_slider{ (size.y-5.f)/2.f, 30 }
@@ -19,8 +22,6 @@ Toggle::Toggle(bool on, sf::Vector2f size)
     , m_text{"- \"Description\"", Resources::Sansation, static_cast<unsigned int>(std::floor(size.y/3.f))}
     , m_side(Toggle::Top)
     , m_on(on)
-    , m_size(size)
-    , m_clicked(false)
     , m_velocity(0.f, 0.f)
     , m_velocityXMax(3.f*size.x)
     , m_acceleration(3.f*(size.x/80.f))
@@ -30,6 +31,9 @@ Toggle::Toggle(bool on, sf::Vector2f size)
 
 void Toggle::init()
 {
+    UIElement::setSize( m_shape.getSize() );
+    UIElement::setPosition( m_shape.getPosition() );
+
     if (m_on) 
     {
         m_slider.setPosition(m_shape.getPosition().x+m_size.x-2.5f,m_shape.getPosition().y+2.5f);
@@ -52,12 +56,14 @@ void Toggle::init()
 
     updateGeometry();
     updatePhysics();
+
     setPosition(0.0f, 0.0f);
 }
 
 void Toggle::setPosition(const sf::Vector2f& pos)
 {
-    m_shape.setPosition(pos);
+    UIElement::setPosition( pos );
+    m_shape.setPosition( m_position );
     
     adjustSliderPosition();
     adjustStatusPosition();
@@ -66,14 +72,17 @@ void Toggle::setPosition(const sf::Vector2f& pos)
 
 void Toggle::setPosition(float x, float y)
 {
-    m_shape.setPosition(x, y);
+    UIElement::setPosition( {x, y} );
+    
+    m_shape.setPosition( m_position );
     
     adjustSliderPosition();
     adjustStatusPosition();
     updateTextPosition();
 }
 
-void Toggle::setDescription(const std::string& string) {
+void Toggle::setDescription(const std::string& string) 
+{
     m_text.setString(string);
     updateTextPosition();
 }
@@ -83,73 +92,49 @@ void Toggle::setTextSide(Side side) {
     updateTextPosition();
 }
 
-void Toggle::setSize(const sf::Vector2f& size) {
-    m_size = size;
+void Toggle::setSize(const sf::Vector2f& size) 
+{
+    UIElement::setSize(size);
 
     updateGeometry();
     updatePhysics();
     updateTextPosition();
 }
-void Toggle::setClicked(bool clicked) {
-    m_clicked = clicked;
+
+const sf::Vector2f& Toggle::getPosition() const 
+{
+    return UIElement::getPosition();
 }
-const sf::Vector2f& Toggle::getPosition() const {
-    return m_shape.getPosition();
-}
-sf::Text& Toggle::getDescription() {
+sf::Text& Toggle::getDescription()
+ {
     return m_text;
 }
-const sf::Vector2f& Toggle::getSize() const {
-    return m_size;
+const sf::Vector2f& Toggle::getSize() const 
+{
+    return UIElement::getSize();
 }
-const bool Toggle::isOn() const {
+const bool Toggle::isOn() const 
+{
     return m_on;
 }
-bool Toggle::clicked() const {
-    return m_clicked;
+
+bool Toggle::contains(const sf::Vector2f& point) const 
+{
+    return m_shape.getGlobalBounds().contains(point);
 }
 
-bool Toggle::contains(sf::Vector2f point) const {
-    return getTransform().transformRect(m_shape.getGlobalBounds()).contains(point);
-}
-
-void Toggle::mouseOver() {
+void Toggle::mouseEnter() 
+{
     m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 150});
 }
 
-void Toggle::mouseLeave() {
+void Toggle::mouseLeave() 
+{
     m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 255});
 }
-
-void Toggle::handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event) {
-}
-
-void Toggle::handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event)
+void Toggle::mouseClick() 
 {
-    sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
 
-    if (contains(mouse_btn))
-    {
-        switch (event.mouseButton.button)
-        {
-            case sf::Mouse::Left:
-                setClicked(true);
-                break;
-                
-            case sf::Mouse::Right:
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
-void Toggle::handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event)
-{
-    sf::Vector2f mouse_pos = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
-
-    (contains(mouse_pos)) ? mouseOver() : mouseLeave();
 }
 
 void Toggle::handleEvent(sf::RenderWindow& window, sf::Event event)
@@ -159,15 +144,15 @@ void Toggle::handleEvent(sf::RenderWindow& window, sf::Event event)
     switch (event.type)
     {            
         case sf::Event::MouseMoved:
-            handleMouseMoveEvent(window, event);
+            refreshBase(window, event);
             break;
 
         case sf::Event::MouseButtonPressed:
-            handleMouseButtonPressedEvent(window, event);
+            refreshBase(window, event);
             break;
             
         case sf::Event::MouseButtonReleased:
-            handleMouseButtonReleasedEvent(window, event);
+            refreshBase(window, event);
             break;
             
         default:
@@ -175,7 +160,8 @@ void Toggle::handleEvent(sf::RenderWindow& window, sf::Event event)
     }
 }
 
-void Toggle::update(sf::Time delta_time) {
+void Toggle::update(sf::Time delta_time) 
+{
     if ( clicked() )
         animate(delta_time);  
 }
@@ -207,11 +193,13 @@ void Toggle::animate(sf::Time& delta_time)
     limitVelocity(delta_time);
 }
 
-void Toggle::animateOn(float x_velocity)  {
+void Toggle::animateOn(float x_velocity)  
+{
     m_slider.move(x_velocity, 0.f);
 }
 
-void Toggle::animateOff(float x_velocity)  {
+void Toggle::animateOff(float x_velocity) 
+{
     m_slider.move(x_velocity, 0.f);
 }
 
@@ -243,7 +231,7 @@ void Toggle::stopSlider(float dest_x) {
     // Correct misalignment of slider to the exact destination pixel
     m_slider.setPosition(dest_x, m_slider.getPosition().y);
     // Set click boolean as false
-    setClicked(false);
+    m_clicked = false;
     // Invert status state
     m_on = !m_on;
     // Recolor background stadium shape in correspondence with current status
@@ -294,4 +282,6 @@ void Toggle::draw(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(m_status, states);
     target.draw(m_slider, states);
     target.draw(m_text, states);
+}
+
 }

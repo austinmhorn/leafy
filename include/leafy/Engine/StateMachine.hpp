@@ -21,6 +21,9 @@ namespace sf
     class RenderWindow;
 }
 
+namespace leafy
+{
+
 class LEAFY_API StateMachine
 {
 public:
@@ -80,5 +83,6 @@ std::unique_ptr<T> StateMachine::build(StateMachine& machine, sf::RenderWindow& 
     return new_state;
 }
 
+}
 
 #endif /* StateMachine_hpp */

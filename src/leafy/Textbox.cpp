@@ -10,21 +10,28 @@
 
 #include <leafy/Engine/Resources.hpp>
 
+namespace leafy
+{
+
 Textbox::Textbox(sf::RenderWindow& window)
     : m_rect()
     , m_input()
     , m_text()
     , m_font()
-    , m_focus(false)
-    , m_timer(sf::seconds(0.f))
+    , m_focus( false )
+    , m_timer( sf::seconds(0.f) )
+    , m_cursor( '|' )
 {
     assert((void("Loading font: sansation.ttf"), m_font.loadFromFile(__filepath_Sansation)));
     
-    m_rect.setSize({300.f, 45.f});
+    UIElement::setSize({300.f, 45.f});
+    UIElement::setPosition(m_position);
+
+    m_rect.setSize(m_size);
+    m_rect.setPosition(m_position);
     m_rect.setFillColor(sf::Color::White); // Gray
     m_rect.setOutlineColor(sf::Color::Green);
     m_rect.setOutlineThickness(1.f);
-    m_rect.setPosition(0.f, 0.f);
         
     m_text.setFont(m_font);
     m_text.setCharacterSize(20.f);
@@ -42,11 +49,13 @@ Textbox::Textbox(sf::RenderWindow& window)
 
 void Textbox::setSize(const sf::Vector2f& size)
 {
-    m_rect.setSize(size);
+    UIElement::setSize(size);
+    m_rect.setSize(m_size);
 }
 void Textbox::setPosition(const sf::Vector2f& position)
 {
-    m_rect.setPosition(position);
+    UIElement::setPosition(position);
+    m_rect.setPosition(m_position);
     positionText();
 }
 void Textbox::setFocus(bool focus)
@@ -108,11 +117,8 @@ const std::string& Textbox::getInputString() const
 {
     return m_input;
 }
-bool Textbox::clicked() const
-{
-    return m_focus;
-}
-bool Textbox::contains(sf::Vector2f point) const
+
+bool Textbox::contains(const sf::Vector2f& point) const
 {
     return m_rect.getGlobalBounds().contains(point);
 }
@@ -134,7 +140,7 @@ void Textbox::processKey(sf::Uint32 unicode)
         }
     }
 }
-void Textbox::mouseOver()
+void Textbox::mouseEnter()
 {
     m_mouse->setPointer(SmartMouse::Pointer::Text);
 }
@@ -142,51 +148,25 @@ void Textbox::mouseLeave()
 {
     m_mouse->setPointer(SmartMouse::Pointer::Arrow);
 }
-
-void Textbox::handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event) {
-}
-
-void Textbox::handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event)
+void Textbox::mouseClick() 
 {
-    sf::Vector2f click_pos = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
-
-    switch (event.mouseButton.button)
-        {
-            case sf::Mouse::Left:
-                contains( click_pos ) ? setFocus(true) : setFocus(false);
-                break;
-                
-            case sf::Mouse::Right:
-                break;
-                
-            default:
-                break;
-        }
-}
-
-void Textbox::handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event)
-{
-    sf::Vector2f mouse_pos = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
-
-    (contains(mouse_pos)) ? mouseOver() : mouseLeave();
+    setFocus( clicked() );
 }
 
 void Textbox::handleEvent(sf::RenderWindow& window, sf::Event event)
 {
-    sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
-
     switch (event.type)
     {            
         case sf::Event::MouseMoved:
-            handleMouseMoveEvent(window, event);
+            refreshBase(window, event);
             break;
 
         case sf::Event::MouseButtonPressed:
-            handleMouseButtonPressedEvent(window, event);
+            refreshBase(window, event);
             break;
             
         case sf::Event::MouseButtonReleased:
-            handleMouseButtonReleasedEvent(window, event);
+            refreshBase(window, event);
             break;
         
         case sf::Event::TextEntered:
@@ -223,7 +203,7 @@ void Textbox::updateText(sf::Time elapsed)
         std::string str = m_text.getString().toAnsiString();
         if ( str.size() )
         {
-            if (str.at(str.size()-1) == '_')
+            if (str.at(str.size()-1) == m_cursor)
             {
                 str.pop_back();
                 m_text.setString(str);
@@ -236,14 +216,14 @@ void Textbox::updateText(sf::Time elapsed)
     static bool show_cursor;
     m_timer += elapsed;
     
-    /// Show and hide underscore every 0.5 seconds to mimic a Cursor
+    /// Show and hide vertical bar every 0.5 seconds to mimic a cursor
     if (m_timer >= sf::seconds(0.5f))
     {
         show_cursor = !show_cursor;
         m_timer = sf::Time::Zero;
     }
     
-    m_text.setString(m_input + (show_cursor ? '_' : ' '));
+    m_text.setString(m_input + (show_cursor ? m_cursor : ' '));
 }
 void Textbox::positionText()
 {
@@ -284,4 +264,6 @@ void Textbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
     target.draw(m_description.text);
     target.draw(m_rect);
     target.draw(m_text);
+}
+
 }

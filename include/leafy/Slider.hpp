@@ -13,45 +13,52 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-#include <leafy/Interactable.hpp>
+#include <leafy/UIElement.hpp>
 
-class LEAFY_API Slider : public Interactable 
+namespace leafy
 {
-public:
-    Slider(sf::Vector2f size, unsigned int value = 0);
-    ~Slider();
 
-    void setPosition(const sf::Vector2f& position);
-    void setDescription(const std::string &info);
+class LEAFY_API Slider 
+    : public UIElement 
+{
+    public:
 
-    const sf::Vector2f& getSize() const;
+        Slider(sf::Vector2f size, unsigned int value = 0);
+        ~Slider();
 
+        void setPosition(const sf::Vector2f& position);
+        void setDescription(const std::string &info);
 
-    void handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event);
-    void handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event);
-    void handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event);
-    virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
-    virtual void update(sf::Time delta_time) override;
-    void moveSlider(const sf::Vector2f& position);
+        const sf::Vector2f& getSize() const;
 
-private:
+        virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
 
-    void updateGeometry();
+        virtual void update(sf::Time delta_time) override;
+        void moveSlider(const sf::Vector2f& position);
 
-    virtual void mouseOver() override;
-    virtual void mouseLeave() override;
-    virtual bool clicked() const override;
-    virtual bool contains(sf::Vector2f point) const override;
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    protected:
 
-private:
+        void updateGeometry();
 
-    sf::RectangleShape m_rect;
-    sf::CircleShape    m_slider;
-    unsigned int       m_value;
-    sf::Text           m_valueText;
-    sf::Text           m_description;
-    bool               m_clicked;
+        virtual void handleMouseMoveEvent(const sf::Vector2f& mousePosition) override;
+        virtual void handleMouseButtonPressedEvent(const sf::Vector2f& mouseButtonPressedPosition) override;
+        virtual void handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition) override;
+
+        virtual void mouseClick() override;
+        virtual void mouseEnter() override;
+        virtual void mouseLeave() override;
+        virtual bool contains(const sf::Vector2f& point) const override;
+        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    private:
+
+        sf::RectangleShape m_rect;
+        sf::CircleShape    m_slider;
+        unsigned int       m_value;
+        sf::Text           m_valueText;
+        sf::Text           m_description;
 };
+
+}
 
 #endif /* Slider_hpp */

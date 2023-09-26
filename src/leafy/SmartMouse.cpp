@@ -6,11 +6,11 @@
 //  Copyright © 2023 Austin Horn. All rights reserved.
 //
 
-#include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-
 #include <leafy/SmartMouse.hpp>
 #include <leafy/Engine/Resources.hpp>
+
+namespace leafy
+{
 
 const void SmartMouse::init()
 {
@@ -112,4 +112,6 @@ void SmartMouse::handleEvent(sf::Event event)
     {
         m_rmb_released = true;
     }
+}
+
 }

@@ -10,17 +10,17 @@
 #define SmartCursor_hpp
 
 #include <SFML/Window/Cursor.hpp>
-#include <SFML/Window/Export.hpp>
-#include <SFML/System/NonCopyable.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <SFML/System/Clock.hpp>
-#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include <iostream>
 
-class SmartMouse : public sf::Cursor
+namespace leafy
+{
+
+class SmartMouse 
+    : public sf::Cursor
 {
 public:
     
@@ -73,6 +73,6 @@ private:
     bool              m_rmb_released;
 };
 
-
+}
 
 #endif /* SmartCursor_hpp */

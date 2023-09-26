@@ -15,6 +15,9 @@
 #include <leafy/Engine/State.hpp>
 #include <leafy/Button.hpp>
 
+namespace leafy
+{
+
 class LEAFY_API IntroState final : public State
 {
 public:
@@ -32,5 +35,6 @@ private:
     sf::Vector2f       m_current_mouse_position;
 };
 
+}
 
 #endif /* IntroState_hpp */

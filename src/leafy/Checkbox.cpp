@@ -12,21 +12,23 @@
 static const float PADDING = 5.f;
 static const float SPACING = 5.f;
 
+namespace leafy
+{
+
 Checkbox::Checkbox(float characterSize, bool multipleSelectionsAllowed)
-    : m_clicked(false)
-    , m_activeColor({0, 100, 255, 255})
+    : m_activeColor({0, 100, 255, 255})
     , m_inactiveColor(sf::Color::White)
     , m_characterSize(characterSize)
     , m_allowMultipleSelections(multipleSelectionsAllowed) 
 {
     m_rect.setFillColor({73, 73, 73});
+    
 }
-Checkbox::~Checkbox()
-{
-}
+
 void Checkbox::setPosition(const sf::Vector2f &position)
 {
-    m_rect.setPosition(position);
+    UIElement::setPosition(position);
+    m_rect.setPosition(m_position);
     updateGeometry();
 }
 void Checkbox::addChoice(const std::string &choice)
@@ -66,6 +68,7 @@ void Checkbox::resizeBox()
 
             // Resize background rectangle
             m_rect.setSize( {widest + box.getGlobalBounds().width + (3.f * PADDING), (m_choices.size() * ((box.getGlobalBounds().height > text.getGlobalBounds().height) ? box.getGlobalBounds().height : text.getGlobalBounds().height)) + ((m_choices.size()+1) * PADDING) } );
+            UIElement::setSize( m_rect.getSize() );
         }
     }
 }
@@ -195,7 +198,7 @@ void Checkbox::update(sf::Time delta_time)
 {
 
 }
-void Checkbox::mouseOver() 
+void Checkbox::mouseEnter() 
 {
 
 }
@@ -203,11 +206,11 @@ void Checkbox::mouseLeave()
 {
 
 }
-bool Checkbox::clicked() const 
+void Checkbox::mouseClick() 
 {
-    return m_clicked;
+
 }
-bool Checkbox::contains(sf::Vector2f point) const 
+bool Checkbox::contains(const sf::Vector2f& point) const 
 {
     return false;
 }
@@ -220,4 +223,6 @@ void Checkbox::draw(sf::RenderTarget& target, sf::RenderStates states) const
         target.draw(c.first);
         target.draw(c.second);
     }
+}
+
 }

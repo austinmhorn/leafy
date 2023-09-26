@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <leafy/Textbox.hpp>
+using namespace leafy;
 
 int main(int argc, char const **argv)
 {

@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <leafy/Checkbox.hpp>
+using namespace leafy;
 
 #include <iostream>
 
