@@ -14,12 +14,17 @@
   </p>
 </h4>
 
-Generate build files:
+## Dependencies
+
+  ### • [SFML](https://www.sfml-dev.org/download.php) - Simple and Fast Multimedia Library
+  ### • [CMake](https://cmake.org/download/) - Build Generator System
+
+## Generate build files
   
     cmake -S . -B build
 
-Install:
+## Install
     
-    cmake --build build/ --config debug --target install
+    cmake --build build --config Release --target install
 
-
+## Features
