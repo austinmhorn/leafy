@@ -336,13 +336,13 @@ const sf::Vector2f& Button<sf::PolygonShape>::getPolygonRadius() const
 }
 
 //////////////////////////////////////////////////
-/// @brief Explicit template class instantiations 
+/// @brief Explicit template class instantiations
 //////////////////////////////////////////////////
 
-template class LEAFY_API Button<typename sf::RectangleShape>;
-template class LEAFY_API Button<typename sf::CircleShape>;
-template class LEAFY_API Button<typename sf::PolygonShape>;
-template class LEAFY_API Button<typename sf::RoundedRectangleShape>;
-template class LEAFY_API Button<typename sf::StadiumShape>;
+template class LEAFY_API Button<sf::RectangleShape>;
+template class LEAFY_API Button<sf::CircleShape>;
+template class LEAFY_API Button<sf::PolygonShape>;
+template class LEAFY_API Button<sf::RoundedRectangleShape>;
+template class LEAFY_API Button<sf::StadiumShape>;
 
 }
