@@ -80,18 +80,12 @@ const sf::Vector2f& Dropdown::getPosition() const
     return m_rect.getPosition();
 }
 
-
-bool Dropdown::clicked() const 
-{
-    return false;
-}
-
-bool Dropdown::contains(sf::Vector2f point) const 
+bool Dropdown::contains(const sf::Vector2f& point) const 
 {
     return m_rect.getGlobalBounds().contains(point);
 }
 
-void Dropdown::mouseOver() 
+void Dropdown::mouseEnter() 
 {
     auto color = sf::Color(m_triangle[0].color.r, m_triangle[0].color.g, m_triangle[0].color.b, 150);
 
@@ -108,31 +102,17 @@ void Dropdown::mouseLeave()
     m_triangle[1].color = color;
     m_triangle[2].color = color;
 }
-
-void Dropdown::handleMouseButtonPressedEvent(sf::RenderWindow& window, sf::Event event) 
+void Dropdown::mouseClick() 
 {
-
+    
 }
 
-void Dropdown::handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Event event)
+void Dropdown::handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition)
 {
-    sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
-
-    if (contains(mouse_btn))
+    if ( contains(mouseButtonReleasedPosition) )
     {
-        switch (event.mouseButton.button)
-        {
-            case sf::Mouse::Left:
-                m_open = !m_open;
-                flipTriangle();
-                break;
-                
-            case sf::Mouse::Right:
-                break;
-                
-            default:
-                break;
-        }
+        m_open = !m_open;
+        flipTriangle();
     }
     else
     {
@@ -144,29 +124,23 @@ void Dropdown::handleMouseButtonReleasedEvent(sf::RenderWindow& window, sf::Even
     }
 }
 
-void Dropdown::handleMouseMoveEvent(sf::RenderWindow& window, sf::Event event)
-{
-    sf::Vector2f mouse_pos = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
-
-    (contains(mouse_pos)) ? mouseOver() : mouseLeave();
-}
-
 void Dropdown::handleEvent(sf::RenderWindow& window, sf::Event event)
 {
-    sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+    const sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+    const sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
 
     switch (event.type)
     {            
         case sf::Event::MouseMoved:
-            handleMouseMoveEvent(window, event);
+            refreshBase(window, event);
             break;
 
         case sf::Event::MouseButtonPressed:
-            handleMouseButtonPressedEvent(window, event);
+            refreshBase(window, event);
             break;
             
         case sf::Event::MouseButtonReleased:
-            handleMouseButtonReleasedEvent(window, event);
+            refreshBase(window, event);
             break;
             
         default:

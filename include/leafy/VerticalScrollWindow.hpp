@@ -14,9 +14,10 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include <leafy/Interactable.hpp>
+#include <leafy/UIElement.hpp>
 
-class LEAFY_API VerticalScrollWindow : public Interactable
+class LEAFY_API VerticalScrollWindow 
+    : public UIElement
 {
     public:
 
@@ -26,16 +27,16 @@ class LEAFY_API VerticalScrollWindow : public Interactable
 
         virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
         
-    private:
+    protected:
 
         void handleMouseVerticalWheelScrollEvent(float delta_scroll);
-        void handleResizeEvent(const sf::Vector2f& newSize);
-        void updateView(float resizeFactor = 1.f);
+        void handleResizeEvent(const sf::Vector2f& new_size);
+        void updateView(float resize_factor = 1.f);
 
-        virtual void mouseOver() override;
+        virtual void mouseClick() override;
+        virtual void mouseEnter() override;
         virtual void mouseLeave() override;
-        virtual bool clicked() const override;
-        virtual bool contains(sf::Vector2f point) const override;
+        virtual bool contains(const sf::Vector2f& point) const override;
         
         virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

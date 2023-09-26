@@ -35,12 +35,14 @@ void VerticalScrollWindow::handleEvent(sf::RenderWindow& window, sf::Event event
     {
         case sf::Event::MouseMoved:
             // Call mouse hover functions as appropriate
-            contains(mouse_move) ? mouseOver() : mouseLeave();
+            refreshBase(window, event);
             break;
         case sf::Event::MouseButtonPressed:
+            refreshBase(window, event);
             /// TODO: Add grab scrollbar
             break;
         case sf::Event::MouseButtonReleased: 
+            refreshBase(window, event);
             /// TODO: Add release scrollbar    
             break;
         case sf::Event::MouseWheelScrolled:
@@ -85,16 +87,16 @@ void VerticalScrollWindow::handleMouseVerticalWheelScrollEvent(float delta_scrol
         }
     }
 }
-void VerticalScrollWindow::handleResizeEvent(const sf::Vector2f& newSize)
+void VerticalScrollWindow::handleResizeEvent(const sf::Vector2f& new_size)
 {
     // Fetch window size prior to resize event
     sf::Vector2f oldSize = m_prevWindowSize;
     // Calculate the delta change of resize event as a ratio 
-    const sf::Vector2f delta_resize = {newSize.x / oldSize.x, newSize.y / oldSize.y};
+    const sf::Vector2f deltaResize = {new_size.x / oldSize.x, new_size.y / oldSize.y};
     // Scale sprite respectively
-    m_sprite.setScale(delta_resize.x, delta_resize.y);
+    m_sprite.setScale(deltaResize.x, deltaResize.y);
     // Determine new visible area as a float rectangle
-    sf::FloatRect visibleArea = sf::FloatRect{0.f, 0.f, newSize.x, newSize.y};
+    sf::FloatRect visibleArea = sf::FloatRect{0.f, 0.f, new_size.x, new_size.y};
 
     // Assign new visible area to view
     m_view = sf::View(visibleArea);
@@ -104,20 +106,21 @@ void VerticalScrollWindow::handleResizeEvent(const sf::Vector2f& newSize)
     m_view.setCenter(m_view.getCenter());
 
     // Update view coordinate path system
-    updateView(delta_resize.y);
+    updateView(deltaResize.y);
 
-    m_currWindowSize = newSize;
+    // Track new window size
+    m_currWindowSize = new_size;
 }
-void VerticalScrollWindow::updateView(float resizeFactor)
+void VerticalScrollWindow::updateView(float resize_factor)
 {    
     // Calculate the VerticalScrollWindow's viewport global bounds
     m_viewportBounds = {m_view.getCenter().x - m_view.getSize().x/2.f, m_view.getCenter().y - m_view.getSize().y/2.f, m_view.getSize().x, m_view.getSize().y};
     // Determine the center coordinate for the top of the view || STOP point when scrolling UP
     m_viewCenterStart = m_view.getCenter();
     // Determine the center coordinate for the bottom of the view || STOP point when scrolling DOWN
-    m_viewCenterEnd = { m_viewCenterStart.x, (m_texture->getSize().y * resizeFactor) - m_view.getSize().y/2.f };
+    m_viewCenterEnd = { m_viewCenterStart.x, (m_texture->getSize().y * resize_factor) - m_view.getSize().y/2.f };
 }
-void VerticalScrollWindow::mouseOver() 
+void VerticalScrollWindow::mouseEnter() 
 {
 
 }
@@ -125,11 +128,12 @@ void VerticalScrollWindow::mouseLeave()
 {
 
 }
-bool VerticalScrollWindow::clicked() const 
+void VerticalScrollWindow::mouseClick() 
 {
-    return false;
+
 }
-bool VerticalScrollWindow::contains(sf::Vector2f point) const 
+
+bool VerticalScrollWindow::contains(const sf::Vector2f& point) const 
 {
     return m_viewportBounds.contains(point);
 }
