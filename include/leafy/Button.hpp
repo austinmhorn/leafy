@@ -31,11 +31,11 @@ namespace leafy
 {
 
 template <typename T>
-class LEAFY_API Button final 
+class LEAFY_API Button  
     : public UIElement
 {
     public:
-    
+
         /// @brief 
         enum class Function 
             : std::size_t
@@ -105,37 +105,97 @@ class LEAFY_API Button final
         /// @brief Set size for shapes with rectangular geometry
         /// @param size New size width and height 
         /////////////////////////////////////////////////////////////////////
-        void setSize(const sf::Vector2f& size);
+        template <typename Rect = T,
+            typename std::enable_if<std::is_same<Rect, sf::RectangleShape>::value, int>::type = 0>
+        void setSize(const sf::Vector2f& size)
+        {
+            UIElement::setSize( size );
+            m_shape.setSize( m_size );
+            updateAlignment();
+        }
 
-        /////////////////////////////////////////////////////////////////////
+        template <typename RoundedRect = T,
+            typename std::enable_if<std::is_same<RoundedRect, sf::RoundedRectangleShape>::value, int>::type = 0>
+        void setSize(const sf::Vector2f& size)
+        {
+            UIElement::setSize( size );
+            m_shape.setSize( m_size );
+            updateAlignment();
+        }
+
+        template <typename Stadium = T,
+            typename std::enable_if<std::is_same<Stadium, sf::StadiumShape>::value, int>::type = 0>
+        void setSize(const sf::Vector2f& size)
+        {
+            UIElement::setSize( size );
+            m_shape.setSize( m_size );
+            updateAlignment();
+        }
+
+        /////////////////////////////////////////////////////////////////////////
         /// @brief Get size of rectangular button
         /// @return Width and height of button
-        /////////////////////////////////////////////////////////////////////
-        const sf::Vector2f& getSize() const;
+        /// @details Enabled if T is equivalent to any of the following types
+        /// - RectangleShape
+        /// - RoundedRectangleShape
+        /// - StadiumShape
+        /////////////////////////////////////////////////////////////////////////
+        template <typename Rect = T,
+            typename std::enable_if<std::is_same<Rect, sf::RectangleShape>::value, int>::type = 0>
+        const sf::Vector2f& getSize() const { return UIElement::getSize(); }
+        template <typename RoundedRect = T,
+            typename std::enable_if<std::is_same<RoundedRect, sf::RoundedRectangleShape>::value, int>::type = 0>
+        const sf::Vector2f& getSize() const { return UIElement::getSize(); }
+        template <typename Stadium = T,
+            typename std::enable_if<std::is_same<Stadium, sf::StadiumShape>::value, int>::type = 0>
+        const sf::Vector2f& getSize() const { return UIElement::getSize(); }
 
         /////////////////////////////////////////////////////////////////////
         /// @brief Set radius for shapes with symmetric circular geometry
         /// @param radius New radius as float
+        /// @details Enabled if type T is a sf::CircleShape
         /////////////////////////////////////////////////////////////////////
-        void setRadius(float radius);
+        template <typename Circle = T,
+            typename std::enable_if<std::is_same<Circle, sf::CircleShape>::value, int>::type = 0>
+        void setRadius(float radius)
+        {
+            UIElement::setRadius( radius );
+            m_shape.setRadius( m_size.x );
+            updateAlignment();
+        }
 
         /////////////////////////////////////////////////////////////////////
         /// @brief Get radius of circular button
         /// @return Radius of button
+        /// @details Enabled if type T is a sf::CircleShape
         /////////////////////////////////////////////////////////////////////
-        float getRadius() const;
+        template <typename Circle = T,
+            typename std::enable_if<std::is_same<Circle, sf::CircleShape>::value, int>::type = 0>
+        float getRadius() const { return UIElement::getRadius(); }
 
         /////////////////////////////////////////////////////////////////////
         /// @brief Set X and Y radius for shapes with convex polygon geometry
         /// @param radius New X and Y radius
-        /////////////////////////////////////////////////////////////////////        
-        void setPolygonRadius(const sf::Vector2f& radius);
+        /// @details Enabled if type T is a sf::PolygonShape
+        /////////////////////////////////////////////////////////////////////
+        template <typename Polygon = T,
+            typename std::enable_if<std::is_same<Polygon, sf::PolygonShape>::value, int>::type = 0>
+        void setPolygonRadius(const sf::Vector2f& radius)
+        {
+            UIElement::setPolygonRadius( radius );
+            m_shape.setRadius( m_size );
+            updateAlignment();
+        }
 
         /////////////////////////////////////////////////////////////////////
         /// @brief Get X and Y radius of convex polygon button
-        /// @return X and Y radius of button
+        /// @return X and Y radius of 
+        /// @details Enabled if type T is a sf::PolygonShape
         /////////////////////////////////////////////////////////////////////
-        const sf::Vector2f& getPolygonRadius() const;
+        template <typename Polygon = T,
+            typename std::enable_if<std::is_same<Polygon, sf::PolygonShape>::value, int>::type = 0>    
+        const sf::Vector2f& getPolygonRadius() const
+            { return UIElement::getPolygonRadius(); }
 
     private:
 
@@ -150,8 +210,8 @@ class LEAFY_API Button final
         
         void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-        T             m_shape;            // 
-        sf::Text      m_text;
+        T             m_shape;            // T is a derived sf::Shape
+        sf::Text      m_label;             // Text label of button
         bool          m_drawShape;
         bool          m_translucentHover;
         FunctionMap   m_funcs;

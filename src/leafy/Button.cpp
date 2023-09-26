@@ -6,7 +6,7 @@ namespace leafy
 template <typename T>
 Button<T>::Button(const T& shape)
     : m_shape( shape )
-    , m_text( "", Resources::Sansation, 30 )
+    , m_label( "", Resources::Sansation, 30 )
     , m_drawShape( true )
     , m_translucentHover( true )
     , m_alignment( TextAlignment::Centered )
@@ -27,7 +27,7 @@ bool Button<T>::contains(const sf::Vector2f& point) const
 {
     return ( m_drawShape ) 
         ? m_shape.getGlobalBounds().contains(point) 
-        : m_text.getGlobalBounds().contains(point);
+        : m_label.getGlobalBounds().contains(point);
 }
 
 template <typename T>
@@ -51,16 +51,16 @@ void Button<T>::mouseEnter()
     if ( m_translucentHover )
     {
         const sf::Color shapeColor = m_shape.getFillColor();
-        const sf::Color textColor = m_text.getFillColor();
+        const sf::Color textColor = m_label.getFillColor();
 
         if ( m_drawShape )
         {
             m_shape.setFillColor({shapeColor.r, shapeColor.g, shapeColor.b, static_cast<sf::Uint8>(shapeColor.a/2)});
-            m_text.setFillColor({textColor.r, textColor.g, textColor.b, static_cast<sf::Uint8>(textColor.a/2)});
+            m_label.setFillColor({textColor.r, textColor.g, textColor.b, static_cast<sf::Uint8>(textColor.a/2)});
         }
         else
         {
-            m_text.setFillColor({textColor.r, textColor.g, textColor.b, static_cast<sf::Uint8>(textColor.a/2)});
+            m_label.setFillColor({textColor.r, textColor.g, textColor.b, static_cast<sf::Uint8>(textColor.a/2)});
         }
     }
 }
@@ -75,16 +75,16 @@ void Button<T>::mouseLeave()
     if ( m_translucentHover )
     {
         const sf::Color shapeColor = m_shape.getFillColor();
-        const sf::Color textColor = m_text.getFillColor();
+        const sf::Color textColor = m_label.getFillColor();
 
         if ( m_drawShape )
         {
             m_shape.setFillColor({shapeColor.r, shapeColor.g, shapeColor.b, 255});
-            m_text.setFillColor({textColor.r, textColor.g, textColor.b, 255});
+            m_label.setFillColor({textColor.r, textColor.g, textColor.b, 255});
         }
         else
         {
-            m_text.setFillColor({textColor.r, textColor.g, textColor.b, 255});
+            m_label.setFillColor({textColor.r, textColor.g, textColor.b, 255});
         }
     }
 }
@@ -153,7 +153,7 @@ void Button<T>::setWillDrawShape(bool willDraw)
 template <typename T>
 void Button<T>::setTextString(const std::string& string)
 {
-    m_text.setString(string);
+    m_label.setString(string);
     updateAlignment();
 }
 
@@ -165,7 +165,7 @@ void Button<T>::setNumberTextLines(unsigned int lines)
 template <typename T>
 void Button<T>::setTextFillColor(const sf::Color& color)
 {
-    m_text.setFillColor(color);
+    m_label.setFillColor(color);
 }
 
 template <typename T>
@@ -193,20 +193,14 @@ void Button<T>::setMouseClickOffFunction(std::function<void()> function)
 }
 
 template <typename T>
-const sf::Vector2f& Button<T>::getPolygonRadius() const
-{
-    return UIElement::getPolygonRadius();
-}
-
-template <typename T>
 void Button<T>::updateAlignment()
 {    
     // Downsize from default text character size if shape's height < 60
     if ( 0.f < m_size.y && m_size.y < 60.f )
-        m_text.setCharacterSize( m_size.y/2.f );
+        m_label.setCharacterSize( m_size.y/2.f );
 
     // Difference between text rectangle height and character pixel size 
-    const float diffY = m_text.getCharacterSize() - m_text.getGlobalBounds().height;
+    const float diffY = m_label.getCharacterSize() - m_label.getGlobalBounds().height;
     // Contains the global coordinate center point for the shape
     sf::Vector2f midpoint;
 
@@ -233,9 +227,9 @@ void Button<T>::updateAlignment()
 
             // Set text position
             if ( isStad ) // Positioning in a stadium shape requires unique vertical displacement 
-                m_text.setPosition( midpoint.x - m_text.getGlobalBounds().width/2.f, midpoint.y - m_text.getGlobalBounds().height/2.f - m_shape.getOutlineThickness() - (0.75*diffY) );
+                m_label.setPosition( midpoint.x - m_label.getGlobalBounds().width/2.f, midpoint.y - m_label.getGlobalBounds().height/2.f - m_shape.getOutlineThickness() - (0.75*diffY) );
             else 
-                m_text.setPosition( midpoint.x - m_text.getGlobalBounds().width/2.f, midpoint.y - m_text.getGlobalBounds().height/2.f - m_shape.getOutlineThickness() - diffY );
+                m_label.setPosition( midpoint.x - m_label.getGlobalBounds().width/2.f, midpoint.y - m_label.getGlobalBounds().height/2.f - m_shape.getOutlineThickness() - diffY );
             break;
         case TextAlignment::Top:
             break;
@@ -256,93 +250,18 @@ void Button<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const
     
     if ( m_drawShape )
         target.draw(m_shape, states);
-    if ( !m_text.getString().isEmpty() )
-        target.draw(m_text);
-}
-
-
-
-
-
-
-///////////////////////////////////////////////////////
-/// @brief Explicit template function instantiations 
-///////////////////////////////////////////////////////
-
-template <>
-void Button<sf::RectangleShape>::setSize(const sf::Vector2f& size)
-{
-    UIElement::setSize( size );
-    m_shape.setSize( m_size );
-    updateAlignment();
-}
-template <>
-void Button<sf::RoundedRectangleShape>::setSize(const sf::Vector2f& size)
-{
-    UIElement::setSize( size );
-    m_shape.setSize( m_size );
-    updateAlignment();
-}
-template <>
-void Button<sf::StadiumShape>::setSize(const sf::Vector2f& size)
-{
-    UIElement::setSize( size );
-    m_shape.setSize( m_size );
-    updateAlignment();
-}
-
-template <>
-void Button<sf::CircleShape>::setRadius(float radius)
-{
-    UIElement::setRadius( radius );
-    m_shape.setRadius( m_size.x );
-    updateAlignment();
-}
-
-template <>
-void Button<sf::PolygonShape>::setPolygonRadius(const sf::Vector2f& radius)
-{
-    UIElement::setPolygonRadius( radius );
-    m_shape.setRadius( m_size );
-    updateAlignment();
-}
-
-template <>
-const sf::Vector2f& Button<sf::RectangleShape>::getSize() const
-{
-    return UIElement::getSize();
-}
-template <>
-const sf::Vector2f& Button<sf::RoundedRectangleShape>::getSize() const
-{
-    return UIElement::getSize();
-}
-template <>
-const sf::Vector2f& Button<sf::StadiumShape>::getSize() const
-{
-    return UIElement::getSize();
-}
-
-template <>
-float Button<sf::CircleShape>::getRadius() const
-{
-    return UIElement::getRadius();
-}
-
-template <>
-const sf::Vector2f& Button<sf::PolygonShape>::getPolygonRadius() const
-{
-    return UIElement::getPolygonRadius();
+    if ( !m_label.getString().isEmpty() )
+        target.draw(m_label);
 }
 
 //////////////////////////////////////////////////
-/// @brief Explicit template class instantiations
+/// @brief Explicit template class instantiations 
 //////////////////////////////////////////////////
 
-template class LEAFY_API Button<sf::RectangleShape>;
-template class LEAFY_API Button<sf::CircleShape>;
-template class LEAFY_API Button<sf::PolygonShape>;
-template class LEAFY_API Button<sf::RoundedRectangleShape>;
-template class LEAFY_API Button<sf::StadiumShape>;
+template class LEAFY_API Button<class sf::RectangleShape>;
+template class LEAFY_API Button<class sf::CircleShape>;
+template class LEAFY_API Button<class sf::PolygonShape>;
+template class LEAFY_API Button<class sf::RoundedRectangleShape>;
+template class LEAFY_API Button<class sf::StadiumShape>;
 
 }
