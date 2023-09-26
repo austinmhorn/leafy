@@ -6,7 +6,6 @@
 int main(int argc, char const **argv)
 {
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Checkbox Demo", sf::Style::Close};
-    bool running = true;
     const auto window_size = sf::Vector2f{ window.getSize() };
 
     Checkbox checkbox1(15.f, true);
@@ -29,7 +28,7 @@ int main(int argc, char const **argv)
     checkbox3.addChoice("Very High");
 
     // Start the game loop
-    while (running)  
+    while (window.isOpen())  
     {
         for (auto event = sf::Event{}; window.pollEvent(event);) 
         {
@@ -40,7 +39,7 @@ int main(int argc, char const **argv)
             switch(event.type) 
             {
                 case sf::Event::Closed:
-                    running = false;
+                    window.close();
                 break;
 
                 default:

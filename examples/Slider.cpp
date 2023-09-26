@@ -4,12 +4,12 @@
 int main(int argc, char const **argv)
 {
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Slider Demo", sf::Style::Close};
+    const auto window_size = sf::Vector2f{ window.getSize() };
+
     Slider slider({100.f, 4.f}, 25);
     Slider slider2({180.f, 5.f}, 50);
     Slider slider3({250.f, 6.f}, 75);
     Slider slider4({310.f, 7.f}, 100);
-    bool running = true;
-    const auto window_size = sf::Vector2f{ window.getSize() };
 
     slider.setPosition({window_size.x/2.f - slider.getSize().x/2.f, window_size.y/2.f - 150.f - slider.getSize().y/2.f});
     slider2.setPosition({window_size.x/2.f - slider2.getSize().x/2.f, window_size.y/2.f - 60.f - slider2.getSize().y/2.f});
@@ -22,7 +22,7 @@ int main(int argc, char const **argv)
     slider4.setDescription("Large Slider with description on TOP");
     
     // Start the game loop
-    while (running)  
+    while (window.isOpen())  
     {
         for (auto event = sf::Event{}; window.pollEvent(event);) 
         {
@@ -34,7 +34,7 @@ int main(int argc, char const **argv)
             switch(event.type) 
             {
                 case sf::Event::Closed:
-                    running = false;
+                    window.close();
                 break;
 
                 default:

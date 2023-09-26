@@ -6,6 +6,8 @@ build_example( "Toggle" "Toggle.cpp" )
 build_example( "Textbox" "Textbox.cpp" )
 build_example( "Slider" "Slider.cpp" )
 build_example( "Checkbox" "Checkbox.cpp" )
+build_example( "Dropdown" "Dropdown.cpp" )
+build_example( "VerticalScrollWindow" "VerticalScrollWindow.cpp" )
 
 # Copy data directory to build cache directory to be able to run examples from there. Useful for testing stuff.
 # Don't try to copy if the directories are the same.

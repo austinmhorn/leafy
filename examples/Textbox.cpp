@@ -4,18 +4,17 @@
 int main(int argc, char const **argv)
 {
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Textbox Demo", sf::Style::Close};
-    Textbox textbox = Textbox(window);
-    bool running = true;
     const auto window_size = sf::Vector2f{ window.getSize() };
 
     sf::RectangleShape background;
     background.setSize(window_size);
     background.setFillColor({32, 32, 32});
 
+    Textbox textbox = Textbox(window);
     textbox.setPosition({window_size.x/2.f - textbox.getSize().x/2.f, window_size.y/2.f - textbox.getSize().y/2.f});
 
     // Start the game loop
-    while (running)  
+    while (window.isOpen())  
     {
         for (auto event = sf::Event{}; window.pollEvent(event);) 
         {
@@ -24,7 +23,7 @@ int main(int argc, char const **argv)
             switch(event.type) 
             {
                 case sf::Event::Closed:
-                    running = false;
+                    window.close();
                 break;
 
                 default:

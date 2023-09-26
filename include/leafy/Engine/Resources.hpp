@@ -14,16 +14,21 @@
 #include <iostream>   // std::cin, std::cout
 #include <new>        // std::bad_alloc
 #include <cmath>      // std::ceil, std::log
-#include <map>
-#include <filesystem> // std::filesystem::path
+#include <map>        
 #include <cassert>    // assert
 
 #include <leafy/SmartMouse.hpp>
 
-static const std::filesystem::path __filepath_icon      = "examples/data/images/icon.png";
-static const std::filesystem::path __filepath_Sansation = "examples/data/fonts/sansation.ttf";
+// Images
+static const std::string __filepath_icon      = "examples/data/images/icon.png";
+static const std::string __filepath_domino    = "examples/data/images/domino.png";
 
-static void init_icon(sf::RenderWindow* window) {
+// Fonts
+static const std::string __filepath_Sansation = "examples/data/fonts/sansation.ttf";
+
+
+static void init_icon(sf::RenderWindow* window) 
+{
     static sf::Image icon;
     assert(icon.loadFromFile(__filepath_icon));
     window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -36,8 +41,10 @@ static void init_icon(sf::RenderWindow* window) {
 ///
 /// \brief
 ////////////////////////////////////////////////////////////
-namespace Fonts {
-    static const sf::Font __init_Sansation() {
+namespace Fonts 
+{
+    static const sf::Font __init_Sansation() 
+    {
         static sf::Font font;
         assert(font.loadFromFile(__filepath_Sansation));
         return font;
@@ -53,22 +60,23 @@ namespace Fonts {
 ///
 /// \brief
 ////////////////////////////////////////////////////////////
-namespace Textures {
-/*
-     static const std::basic_string<char> path_to_texture = "filepath/to/texture.png";
+namespace Textures 
+{
 
-     static sf::Texture init_texture() {
+    static sf::Texture __load_domino() 
+    {
         static sf::Texture texture;
-        try {
-            if ( !texture.loadFromFile(path_to_texture) )
-                throw std::runtime_error("Failed loading texture " + path_to_texture);
+        try 
+        {
+            if ( !texture.loadFromFile(__filepath_domino) )
+                throw std::runtime_error("Failed loading texture: ");
         }
-        catch(const std::runtime_error &e) {
-            std::cerr << "std::runtime_error::what(): " << e.what() << std::endl;
+        catch(const std::runtime_error &e) 
+        {
+            std::cerr << "std::runtime_error::what(): " << e.what() << __filepath_domino << std::endl;
         }
         return texture;
     }
-*/
 } // MARK: End of namespace 'Textures'
 
 struct Resources

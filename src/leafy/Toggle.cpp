@@ -13,7 +13,7 @@
 #include <cmath>
 
 Toggle::Toggle(bool on, sf::Vector2f size)
-    : m_shape(size.y/2.f)
+    : m_shape(size, size.y/2.f)
     , m_slider{ (size.y-5.f)/2.f, 30 }
     , m_status{ (on)?"ON":"OFF", Resources::Sansation, static_cast<unsigned int>(std::floor(size.y/3.f))}
     , m_text{"- \"Description\"", Resources::Sansation, static_cast<unsigned int>(std::floor(size.y/3.f))}

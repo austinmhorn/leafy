@@ -14,10 +14,10 @@
 #define _PI 3.14159265358979323846
 #endif
 
-sf::StadiumShape::StadiumShape(float cornerRadius) :
-m_size(300.0f, 60.0f),
-m_cornerRadius(cornerRadius),
-m_antialiasing(8)
+sf::StadiumShape::StadiumShape(const sf::Vector2f& size, float cornerRadius) 
+    : m_size( size )
+    , m_cornerRadius( cornerRadius )
+    , m_antialiasing( 8 )
 {
     update();
 }
@@ -30,6 +30,7 @@ void sf::StadiumShape::update()
 void sf::StadiumShape::setSize(const sf::Vector2f& size)
 {
     m_size = size;
+    m_cornerRadius = size.y/2.f;
     update();
 }
 
@@ -43,12 +44,6 @@ void sf::StadiumShape::setAntialiasing(unsigned int antialiasing)
 {
     m_antialiasing = antialiasing;
     update();
-}
-
-void sf::StadiumShape::setTranslucent(bool translucent)
-{
-    (translucent) ? setFillColor( {getFillColor().r, getFillColor().g, getFillColor().b, 150} )
-                  : setFillColor( {getFillColor().r, getFillColor().g, getFillColor().b, 255} );
 }
 
 const sf::Vector2f& sf::StadiumShape::getSize() const

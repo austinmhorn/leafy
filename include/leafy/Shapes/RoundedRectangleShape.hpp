@@ -21,7 +21,7 @@ namespace sf
         
     public:
         
-        explicit RoundedRectangleShape(const sf::Vector2f& size = {0.f, 0.f}, float radius = 0, unsigned int cornerPointCount = 0);
+        explicit RoundedRectangleShape(const sf::Vector2f& size = {0.f, 0.f}, float radius = 5, unsigned int cornerPointCount = 5);
 
         void setSize(const sf::Vector2f& size);
         void setRadius(float radius);

@@ -5,7 +5,6 @@ int main(int argc, char const **argv)
 {
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Toggle Demo", sf::Style::Close};
     window.setFramerateLimit(60);
-    bool running = true;
     const auto window_size = sf::Vector2f{ window.getSize() };
 
     Toggle toggle = Toggle(false, sf::Vector2f(80.f, 30.f));
@@ -31,7 +30,7 @@ int main(int argc, char const **argv)
     toggle4.setDescription("Large toggle description on the BOTTOM"); 
 
     // Start the game loop
-    while (running) 
+    while (window.isOpen()) 
     {
         for (auto event = sf::Event{}; window.pollEvent(event);) 
         {
@@ -44,7 +43,7 @@ int main(int argc, char const **argv)
             switch(event.type) 
             {
                 case sf::Event::Closed:
-                    running = false;
+                    window.close();
                 break;
 
                 default:
