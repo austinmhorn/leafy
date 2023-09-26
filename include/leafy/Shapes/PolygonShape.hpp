@@ -10,9 +10,11 @@
 
 #include <SFML/Graphics/Shape.hpp>
 
+#include <leafy/Config.hpp>
+
 namespace sf
 {
-    class PolygonShape : public sf::Shape
+    class LEAFY_API PolygonShape : public sf::Shape
     {
     public:
 
