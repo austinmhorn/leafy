@@ -82,7 +82,7 @@
 
 #### Install target
     
-    cmake --build build --target install
+    cmake --build build --config Release --target install
 
 ###### *If you're using this library in another project and wish to disable building the examples, you can prevent it with*
 
