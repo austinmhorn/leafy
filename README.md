@@ -67,21 +67,20 @@
 
 # Installing
 
-### Clone the main branch 
+#### Clone the main branch 
 
     git clone --branch main --single-branch https://github.com/austinmhorn/leafy.git
 
-### Generate **shared library** build files
+#### Generate **shared library** build files
     
     cmake -S . -B build
 
-###### By default, the leafy library is built as a **shared library**, but can easily be built using **statically linked** standard/runtime libraries instead by adding a few flags.
-
-### Generate **static library** build files
+###### By default, the leafy library is built as a **shared library**, but can easily be built using **statically linked** standard/runtime libraries instead with a few flags
+#### Generate **static library** build files
 
     cmake -S . -B build -DBUILD_SHARED_LIBS=OFF -DLEAFY_BUILD_SHARED_LIBS=OFF -DSFML_STATIC_LIBRARIES=ON 
 
-### Install target
+#### Install target
     
     cmake --build build --target install
 
