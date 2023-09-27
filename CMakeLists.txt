@@ -27,7 +27,7 @@ set( BUILD_SHARED_LIBS ${LEAFY_BUILD_SHARED_LIBS} )
 
 # Find OpenGL
 find_package( OpenGL REQUIRED )
-
+# Find SFML
 if( NOT TARGET sfml-graphics )
     find_package( SFML 2.5 REQUIRED COMPONENTS graphics window system network audio )
 endif()
@@ -36,18 +36,13 @@ endif()
 set( INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include/" )
 set( SOURCE_PATH "${PROJECT_SOURCE_DIR}/src/" )
 
-# Recursively find files
+# Recursively find project files
 file( GLOB_RECURSE HPPS "${INCLUDE_PATH}/*.hpp" )
 file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
 file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp"  )
 
-if( LEAFY_INCLUDE_FONT )
-#list( APPEND CPPS "${SOURCE_PATH}/leafy/DejaVuSansFont.cpp" )
-endif()
-
 # Define the path of additional CMake modules
 set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" )
-
 # Set the library output directory
 set( LIBRARY_OUTPUT_PATH "${PROJECT_BINARY_DIR}/lib" )
 
@@ -122,8 +117,8 @@ if( WIN32 )
     set( SHARE_PATH "." )
     set( LIB_PATH "lib" )
 elseif( APPLE )
-    find_library( FOUNDATION_LIBRARY Foundation REQUIRED)
-    find_library( COREGRAPHICS_LIBRARY CoreGraphics REQUIRED)
+    find_library( FOUNDATION_LIBRARY Foundation REQUIRED )
+    find_library( COREGRAPHICS_LIBRARY CoreGraphics REQUIRE D)
 
     target_link_libraries( ${TARGET} PUBLIC ${FOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} )
     set( SHARE_PATH "${CMAKE_INSTALL_PREFIX}/share/leafy" )

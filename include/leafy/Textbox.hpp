@@ -26,7 +26,7 @@ namespace leafy
 {
 
 class LEAFY_API Textbox 
-    : public UIElement
+    : public virtual UIElement
 {
     public:
         

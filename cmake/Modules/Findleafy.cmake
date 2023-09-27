@@ -55,7 +55,7 @@
 #
 # Example (static linking):
 #   set( LEAFY_STATIC_LIBRARIES TRUE )
-#   find_package( LEAFY REQUIRED )
+#   find_package( leafy REQUIRED )
 #   include_directories( ${LEAFY_INCLUDE_DIR} )
 #   add_executable( myapp ... )
 #   target_link_libraries( myapp ${LEAFY_LIBRARY} ${LEAFY_DEPENDENCIES} ... )

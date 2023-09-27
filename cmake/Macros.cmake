@@ -1,3 +1,4 @@
+# Custom function for building an example
 function( build_example SAMPLE_NAME SOURCES )
 
     add_executable( ${SAMPLE_NAME} ${SOURCES} )
@@ -13,3 +14,4 @@ function( build_example SAMPLE_NAME SOURCES )
         DESTINATION "${SHARE_PATH}/examples" COMPONENT examples
     )
 endfunction()
+

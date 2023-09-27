@@ -12,7 +12,7 @@
 sf::RoundedRectangleShape::RoundedRectangleShape(const sf::Vector2f& size, float radius, unsigned int cornerPointCount)
 {
     m_size = size;
-    m_radius = radius;
+    m_cornersRadius = radius;
     m_cornerPointCount = cornerPointCount;
     Shape::update();
 }
@@ -25,9 +25,9 @@ void sf::RoundedRectangleShape::setSize(const sf::Vector2f& size)
 }
 
 ////////////////////////////////////////////////////////////
-void sf::RoundedRectangleShape::setRadius(float radius)
+void sf::RoundedRectangleShape::setCornersRadius(float radius)
 {
-    m_radius = radius;
+    m_cornersRadius = radius;
     Shape::update();
 }
 
@@ -45,9 +45,9 @@ const sf::Vector2f& sf::RoundedRectangleShape::getSize() const
 }
 
 ////////////////////////////////////////////////////////////
-float sf::RoundedRectangleShape::getRadius() const
+float sf::RoundedRectangleShape::getCornersRadius() const
 {
-    return m_radius;
+    return m_cornersRadius;
 }
 unsigned int sf::RoundedRectangleShape::getCornerPointCount()
 {
@@ -73,12 +73,12 @@ sf::Vector2f sf::RoundedRectangleShape::getPoint(std::size_t index) const
 
     switch(centerIndex)
     {
-        case 0: center.x = m_size.x - m_radius; center.y = m_radius; break;
-        case 1: center.x = m_radius; center.y = m_radius; break;
-        case 2: center.x = m_radius; center.y = m_size.y - m_radius; break;
-        case 3: center.x = m_size.x - m_radius; center.y = m_size.y - m_radius; break;
+        case 0: center.x = m_size.x - m_cornersRadius; center.y = m_cornersRadius; break;
+        case 1: center.x = m_cornersRadius; center.y = m_cornersRadius; break;
+        case 2: center.x = m_cornersRadius; center.y = m_size.y - m_cornersRadius; break;
+        case 3: center.x = m_size.x - m_cornersRadius; center.y = m_size.y - m_cornersRadius; break;
     }
 
-    return sf::Vector2f(m_radius*std::cos(deltaAngle*(index-centerIndex)*pi/180)+center.x,
-                        -m_radius*std::sin(deltaAngle*(index-centerIndex)*pi/180)+center.y);
+    return sf::Vector2f(m_cornersRadius*std::cos(deltaAngle*(index-centerIndex)*pi/180)+center.x,
+                        -m_cornersRadius*std::sin(deltaAngle*(index-centerIndex)*pi/180)+center.y);
 }
