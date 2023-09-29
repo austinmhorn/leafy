@@ -24,7 +24,7 @@ Application::Application(unsigned int               window_width,
 
 void Application::init()
 {
-    m_window.setFramerateLimit(30);
+    m_window.setFramerateLimit( 60 );
     
     loadResources();
     
@@ -48,8 +48,7 @@ void Application::run()
 
 void Application::loadResources()
 {
-    // Load icon
-    init_icon(&m_window);
+
 }
 
 }

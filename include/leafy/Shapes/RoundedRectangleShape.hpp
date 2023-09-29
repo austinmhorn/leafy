@@ -24,11 +24,12 @@ namespace sf
         explicit RoundedRectangleShape(const sf::Vector2f& size = {0.f, 0.f}, float radius = 5, unsigned int cornerPointCount = 5);
 
         void setSize(const sf::Vector2f& size);
-        void setRadius(float radius);
-        void setCornerPointCount(unsigned int count);
-
         const sf::Vector2f& getSize() const;
-        float getRadius() const;
+
+        void setCornersRadius(float radius);
+        float getCornersRadius() const;
+
+        void setCornerPointCount(unsigned int count);
         unsigned int getCornerPointCount();
         
         virtual std::size_t getPointCount() const;
@@ -37,7 +38,7 @@ namespace sf
     private:
         
         sf::Vector2f m_size;
-        float        m_radius;
+        float        m_cornersRadius;
         unsigned int m_cornerPointCount;
     };
 }

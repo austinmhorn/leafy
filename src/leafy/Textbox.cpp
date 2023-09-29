@@ -22,14 +22,14 @@ Textbox::Textbox(sf::RenderWindow& window)
     , m_timer( sf::seconds(0.f) )
     , m_cursor( '|' )
 {
-    assert((void("Loading font: sansation.ttf"), m_font.loadFromFile(__filepath_Sansation)));
-    
+    m_font = Resources::Sansation;
+
     UIElement::setSize({300.f, 45.f});
     UIElement::setPosition(m_position);
 
     m_rect.setSize(m_size);
     m_rect.setPosition(m_position);
-    m_rect.setFillColor(sf::Color::White); // Gray
+    m_rect.setFillColor(sf::Color::White);
     m_rect.setOutlineColor(sf::Color::Green);
     m_rect.setOutlineThickness(1.f);
         

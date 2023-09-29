@@ -22,7 +22,6 @@ Checkbox::Checkbox(float characterSize, bool multipleSelectionsAllowed)
     , m_allowMultipleSelections(multipleSelectionsAllowed) 
 {
     m_rect.setFillColor({73, 73, 73});
-    
 }
 
 void Checkbox::setPosition(const sf::Vector2f &position)

@@ -12,7 +12,7 @@ namespace leafy
 {
 
 // Fonts
-const sf::Font Resources::Sansation = Fonts::__init_Sansation();
+const sf::Font Resources::Sansation = load_sansation();
 
 // Colors
 const sf::Color Resources::Gray            = sf::Color(  37,  37,  37, 255 );
