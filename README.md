@@ -34,7 +34,7 @@
 ### UI Elements
 
 - Button
-  - Rectangle | Circle | Polygon | RoundedRectangle | Stadium
+  - Rectangle | Circle | Polygon | Rounded Rectangle | Stadium
 - Checkbox
   - Single-Select | Multi-Select
 - Dropdown
