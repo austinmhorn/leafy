@@ -41,6 +41,10 @@ file( GLOB_RECURSE HPPS "${INCLUDE_PATH}/*.hpp" )
 file( GLOB_RECURSE INLS "${INCLUDE_PATH}/*.inl" )
 file( GLOB_RECURSE CPPS "${SOURCE_PATH}/*.cpp"  )
 
+if( LEAFY_INCLUDE_FONT )
+	list(APPEND CPPS "${SOURCE_PATH}/leafy/Engine/Sansation.cpp")
+endif()
+
 # Define the path of additional CMake modules
 set( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/Modules/" )
 # Set the library output directory
@@ -173,6 +177,7 @@ install(
     DESTINATION "${SHARE_PATH}/cmake/"
 )
 
+# Write package configuration version file
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
@@ -188,5 +193,6 @@ install(
     DESTINATION "${SHARE_PATH}/cmake/"
 )
 
+# Export config files and package
 export(EXPORT ${TARGETS_CONFIG_FILENAME} NAMESPACE ${PROJECT_NAME}::)
 export(PACKAGE ${PROJECT_NAME})

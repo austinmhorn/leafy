@@ -93,13 +93,11 @@ void Button<T>::handleEvent(sf::RenderWindow &window, sf::Event event)
     {
         case sf::Event::MouseMoved:
             refreshBase(window, event);
-            //std::cout << event.mouseMove.x << ", " << event.mouseMove.y << std::endl;
             break;
         case sf::Event::MouseButtonPressed:
             refreshBase(window, event);
             break;
-        case sf::Event::MouseButtonReleased:
-                        
+        case sf::Event::MouseButtonReleased:                        
             refreshBase(window, event);
             break;
         default:
@@ -229,12 +227,16 @@ void Button<T>::updateAlignment()
                 m_label.setPosition( midpoint.x - m_label.getGlobalBounds().width/2.f, midpoint.y - m_label.getGlobalBounds().height/2.f - m_shape.getOutlineThickness() - diffY );
             break;
         case TextAlignment::Top:
+            /// TODO: Align at top
             break;
         case TextAlignment::Right:
+            /// TODO: Align at right
             break;
         case TextAlignment::Bottom:
+            /// TODO: Align at bottom
             break;
         case TextAlignment::Left:
+            /// TODO: Align at left
             break;
     }
     
@@ -256,8 +258,6 @@ void Button<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const
 
 ////////////////////////////////////////////////////////
 /// @brief Explicit template class instantiations 
-/// @details Explicitly instantiates the following:
-/// - RectangleShape
 ////////////////////////////////////////////////////////
 
 template class LEAFY_API Button<typename sf::RectangleShape>;

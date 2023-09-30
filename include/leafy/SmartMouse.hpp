@@ -43,6 +43,7 @@ public:
     
     void create(sf::RenderWindow* window, Pointer pointer);
     void setPointer(Pointer pointer);
+    void assignWindow(sf::RenderWindow* window);
     void handleEvent(sf::Event event);
     void reset();
     
@@ -51,11 +52,8 @@ public:
     
 private:
             
-    void assignWindow(sf::RenderWindow* window);
     void assignCursorToWindow();
     const void init();
-    
-private:
     
     sf::Cursor Arrow;
     sf::Cursor Text;

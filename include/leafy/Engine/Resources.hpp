@@ -19,44 +19,16 @@
 
 #include <leafy/SmartMouse.hpp>
 
+#if defined( LEAFY_INCLUDE_FONT )
+#include <leafy/Engine/Sansation.hpp>
+#endif
+
+
 namespace leafy
 {
 
 // Images
-static const std::string __filepath_icon      = "examples/data/images/icon.png";
-static const std::string __filepath_domino    = "examples/data/images/domino.png";
-
-// Fonts
-static const std::string __filepath_Sansation = "examples/data/fonts/sansation.ttf";
-
-
-static void init_icon(sf::RenderWindow* window) 
-{
-    static sf::Image icon;
-    assert(icon.loadFromFile(__filepath_icon));
-    window->setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-}
-
-
-
-////////////////////////////////////////////////////////////
-/// \namespace Fonts
-///
-/// \brief
-////////////////////////////////////////////////////////////
-namespace Fonts 
-{
-    static const sf::Font __init_Sansation() 
-    {
-        static sf::Font font;
-        assert(font.loadFromFile(__filepath_Sansation));
-        return font;
-    }
-
-} // MARK: End of namespace 'Font'
-
-
-
+static const std::string __filepath_domino = "examples/data/images/domino.png";
 
 ////////////////////////////////////////////////////////////
 /// \namespace Textures
