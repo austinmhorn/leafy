@@ -107,7 +107,7 @@ A date picker allows users to select a date and/or time.  By using the picker, t
 Pagination divides content up between pages, and allows users to skip between pages or go in order through the content.
 
 ### Icons
-An icon is a simplified image serving as an intuitive symbol that is used to help users to navigate the system.  Typically, icons are hyperlinked
+An icon is a simplified image serving as an intuitive symbol that is used to help users to navigate the system.  Typically, icons are hyperlinked.
 
 ### Modal Window (pop-up)
 A modal window requires users to interact with it in some way before they can return to the system.
