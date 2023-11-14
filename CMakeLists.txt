@@ -122,7 +122,7 @@ if( WIN32 )
     set( LIB_PATH "lib" )
 elseif( APPLE )
     find_library( FOUNDATION_LIBRARY Foundation REQUIRED )
-    find_library( COREGRAPHICS_LIBRARY CoreGraphics REQUIRE D)
+    find_library( COREGRAPHICS_LIBRARY CoreGraphics REQUIRED )
 
     target_link_libraries( ${TARGET} PUBLIC ${FOUNDATION_LIBRARY} ${COREGRAPHICS_LIBRARY} )
     set( SHARE_PATH "${CMAKE_INSTALL_PREFIX}/share/leafy" )
