@@ -28,7 +28,8 @@ class LEAFY_API VerticalScrollWindow
 
         const sf::Vector2f &getSize() const;
 
-        virtual void handleEvent(sf::RenderWindow& window, sf::Event event) override;
+        void handleEvent(sf::RenderWindow& window, sf::Event event) override;
+        void update(sf::Time delta_time) override;
         
     protected:
 
@@ -36,12 +37,13 @@ class LEAFY_API VerticalScrollWindow
         void handleResizeEvent(const sf::Vector2f& new_size);
         void updateView(float resize_factor = 1.f);
 
-        virtual void mouseClick() override;
-        virtual void mouseEnter() override;
-        virtual void mouseLeave() override;
-        virtual bool contains(const sf::Vector2f& point) const override;
+        void pressed() override;
+        void clicked() override;
+        void mouseEnter() override;
+        void mouseLeave() override;
+        bool contains(const sf::Vector2f& point) const override;
         
-        virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+        void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     private:
 

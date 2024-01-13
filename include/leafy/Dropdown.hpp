@@ -50,7 +50,8 @@ class LEAFY_API Dropdown
         
         void mouseEnter() override;
         void mouseLeave() override;
-        void mouseClick() override;
+        void pressed() override;
+        void clicked() override;
 
     private:
 

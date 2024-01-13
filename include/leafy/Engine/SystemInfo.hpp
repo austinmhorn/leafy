@@ -12,7 +12,7 @@
 #include <windows.h>
 #elif LINUX || linux || __linux__
 #include <X11/Xlib.h>
-#elif APPLE || MACH
+#elif APPLE || MACH || __APPLE__ || __MACH__
 #include <CoreGraphics/CGDisplayConfiguration.h>
 #else
 #endif
@@ -26,7 +26,7 @@ static void getScreenResolution(unsigned int& width, unsigned int& height) {
     Screen*  s = DefaultScreenOfDisplay(d);
     width = s->width;
     height = s->height;
-#elif APPLE || MACH
+#elif APPLE || MACH || __APPLE__ || __MACH__
     auto mainDisplayId = CGMainDisplayID();
     width = static_cast<unsigned int>(CGDisplayPixelsWide(mainDisplayId));
     height = static_cast<unsigned int>(CGDisplayPixelsHigh(mainDisplayId));

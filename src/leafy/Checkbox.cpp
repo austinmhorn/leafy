@@ -205,7 +205,11 @@ void Checkbox::mouseLeave()
 {
 
 }
-void Checkbox::mouseClick() 
+void Checkbox::pressed() 
+{
+
+}
+void Checkbox::clicked()
 {
 
 }

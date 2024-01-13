@@ -9,13 +9,15 @@
 #ifndef Assets_hpp
 #define Assets_hpp
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Color.hpp>
 
 #include <iostream>   // std::cin, std::cout
-#include <new>        // std::bad_alloc
-#include <cmath>      // std::ceil, std::log
-#include <map>        
-#include <cassert>    // assert
+#include <string>   
+//#include <new>        // std::bad_alloc
+//#include <cmath>      // std::ceil, std::log
+//#include <cassert>    // assert
 
 #include <leafy/SmartMouse.hpp>
 
@@ -38,19 +40,24 @@ namespace leafy
     namespace Textures 
     {
 
-        static sf::Texture __load_domino() 
+        static sf::Texture __load_texture(const std::string& filepath) 
         {
             static sf::Texture texture;
             try 
             {
-                if ( !texture.loadFromFile(__filepath_domino) )
+                if ( !texture.loadFromFile(filepath) )
                     throw std::runtime_error("Failed loading texture: ");
             }
             catch(const std::runtime_error &e) 
             {
-                std::cerr << "std::runtime_error::what(): " << e.what() << __filepath_domino << std::endl;
+                std::cerr << "std::runtime_error::what(): " << e.what() << filepath << std::endl;
             }
             return texture;
+        }
+
+        static const sf::Texture __load_domino()
+        {
+            return __load_texture(__filepath_domino);
         }
     } // MARK: End of namespace 'Textures'
 

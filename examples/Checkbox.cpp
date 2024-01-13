@@ -4,6 +4,14 @@ using namespace leafy;
 
 #include <iostream>
 
+void printCheckboxSelections(Checkbox& checkbox, const std::string& caption)
+{
+    // Print choice string of active selection for each Checkbox object
+    std::cout << caption << std::endl;
+    for ( auto &s : checkbox.getSelection() )
+        std::cout << "  - " << s << std::endl;
+}
+
 int main(int argc, char const **argv)
 {
     sf::RenderWindow window = sf::RenderWindow{sf::VideoMode(800, 600), "Checkbox Demo", sf::Style::Close};
@@ -41,30 +49,19 @@ int main(int argc, char const **argv)
             {
                 case sf::Event::Closed:
                     window.close();
-                break;
+                    break;
+                    
+                case sf::Event::MouseButtonReleased:
+                    std::cout << "\n*********************************" << std::endl;
+                    printCheckboxSelections(checkbox1, "Checkbox #1");
+                    printCheckboxSelections(checkbox2, "Checkbox #2");
+                    printCheckboxSelections(checkbox3, "Checkbox #3");
+                    std::cout << "*********************************\n" << std::endl;
+                    break;
 
                 default:
-                break;
+                    break;
             }
-        }
-
-        static const auto clock = sf::Clock{};
-        static auto last_frame_time = sf::Time{};
-        const auto delta_time = clock.getElapsedTime() - last_frame_time;
-        last_frame_time = clock.getElapsedTime();
-
-        // Print choice string of active selection for each Checkbox object
-        for ( auto &s : checkbox1.getSelection() )
-        {
-            std::cout << "checkbox1: " << s << std::endl;
-        }
-        for ( auto &s : checkbox2.getSelection() )
-        {
-            std::cout << "checkbox2: " << s << std::endl;
-        }
-        for ( auto &s : checkbox3.getSelection() )
-        {
-            std::cout << "checkbox3: " << s << std::endl;
         }
 
         window.clear();

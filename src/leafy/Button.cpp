@@ -2,9 +2,25 @@
 
 namespace leafy
 {
+/*
+template <typename _Shape>
+Button<_Shape>::Button()
+    : m_shape(  )
+    , m_label( "", Resources::Sansation, 30 )
+    , m_drawShape( true )
+    , m_translucentHover( true )
+    , m_alignment( TextAlignment::Centered )
+{
+    // Reset function map
+    m_funcs.clear();
 
-template <typename T>
-Button<T>::Button(const T& shape)
+    // Extract size & position from shape parameter
+    m_size = sf::Vector2f{m_shape.getGlobalBounds().width, m_shape.getGlobalBounds().height};
+    m_position = m_shape.getPosition();
+}
+*/
+template <typename _Shape>
+Button<_Shape>::Button(const _Shape& shape)
     : m_shape( shape )
     , m_label( "", Resources::Sansation, 30 )
     , m_drawShape( true )
@@ -19,26 +35,42 @@ Button<T>::Button(const T& shape)
     m_position = m_shape.getPosition();
 }
 
-template <typename T>
-bool Button<T>::contains(const sf::Vector2f& point) const
+
+template <typename _Shape>
+bool Button<_Shape>::contains(const sf::Vector2f& point) const
 {
     return ( m_drawShape ) 
         ? m_shape.getGlobalBounds().contains(point) 
         : m_label.getGlobalBounds().contains(point);
 }
 
-template <typename T>
-void Button<T>::mouseClick() 
+template <typename _Shape>
+void Button<_Shape>::pressed() 
 {
-    // Only call if assigned
-    if ( clicked() && m_funcs[Function::ClickedOn] )
-        m_funcs[Function::ClickedOn]();
-    else if ( !clicked() && m_funcs[Function::ClickedOff] )
-        m_funcs[Function::ClickedOff]();
+    if ( m_drawShape )
+    {
+        m_shape.setOutlineThickness(m_shape.getOutlineThickness() + 2.f);
+
+    }
 }
 
-template <typename T>
-void Button<T>::mouseEnter()
+template <typename _Shape>
+void Button<_Shape>::clicked() 
+{
+    // Only call if assigned
+    if ( !m_active  &&  m_funcs[Function::ClickedOn] )
+        m_funcs[Function::ClickedOn]();
+    else if ( m_active  &&  m_funcs[Function::ClickedOff] )
+        m_funcs[Function::ClickedOff]();
+
+    if ( m_drawShape )
+    {
+        m_shape.setOutlineThickness(m_shape.getOutlineThickness() - 2.f);
+    }
+}
+
+template <typename _Shape>
+void Button<_Shape>::mouseEnter()
 {
     // Only call if assigned
     if ( m_funcs[Function::MouseEnter] ) 
@@ -62,8 +94,8 @@ void Button<T>::mouseEnter()
     }
 }
 
-template <typename T>
-void Button<T>::mouseLeave()
+template <typename _Shape>
+void Button<_Shape>::mouseLeave()
 {
     // Only call if assigned
     if ( m_funcs[Function::MouseLeave] ) 
@@ -86,8 +118,8 @@ void Button<T>::mouseLeave()
     }
 }
 
-template <typename T>
-void Button<T>::handleEvent(sf::RenderWindow &window, sf::Event event)
+template <typename _Shape>
+void Button<_Shape>::handleEvent(sf::RenderWindow &window, sf::Event event)
 {   
     switch (event.type)
     {
@@ -105,90 +137,96 @@ void Button<T>::handleEvent(sf::RenderWindow &window, sf::Event event)
     }
 }
 
-template <typename T>
-void Button<T>::setPosition(const sf::Vector2f& position)
+
+template <typename _Shape>
+void Button<_Shape>::update(sf::Time delta_time) 
+{   
+}
+
+template <typename _Shape>
+void Button<_Shape>::setPosition(const sf::Vector2f& position)
 {
     m_position = position;
     m_shape.setPosition(position);
     updateAlignment();
 }
 
-template <typename T>
-const sf::Vector2f& Button<T>::getPosition() const
+template <typename _Shape>
+const sf::Vector2f& Button<_Shape>::getPosition() const
 {
     return m_shape.getPosition();
 }
 
-template <typename T>
-void Button<T>::setShapeFillColor(const sf::Color& color) 
+template <typename _Shape>
+void Button<_Shape>::setShapeFillColor(const sf::Color& color) 
 {
     m_shape.setFillColor(color);
 }
 
-template <typename T>
-void Button<T>::setShapeOutlineColor(const sf::Color& color) 
+template <typename _Shape>
+void Button<_Shape>::setShapeOutlineColor(const sf::Color& color) 
 {
     m_shape.setOutlineColor(color);
 }
 
-template <typename T>
-void Button<T>::setShapeOutlineThickness(float thickness)
+template <typename _Shape>
+void Button<_Shape>::setShapeOutlineThickness(float thickness)
 {
     m_shape.setOutlineThickness(thickness);
     updateAlignment();
 }
 
-template <typename T>
-void Button<T>::setWillDrawShape(bool willDraw)
+template <typename _Shape>
+void Button<_Shape>::setDrawShape(bool willDraw)
 {
     m_drawShape = willDraw;
     updateAlignment();
 }
 
-template <typename T>
-void Button<T>::setLabelString(const std::string& string)
+template <typename _Shape>
+void Button<_Shape>::setLabelString(const std::string& string)
 {
     m_label.setString(string);
     updateAlignment();
 }
 
-template <typename T>
-void Button<T>::setNumberLabelLines(unsigned int lines)
+template <typename _Shape>
+void Button<_Shape>::setNumberLabelLines(unsigned int lines)
 {
 }
 
-template <typename T>
-void Button<T>::setTextFillColor(const sf::Color& color)
+template <typename _Shape>
+void Button<_Shape>::setTextFillColor(const sf::Color& color)
 {
     m_label.setFillColor(color);
 }
 
-template <typename T>
-void Button<T>::setMouseEnterFunction(std::function<void()> function)
+template <typename _Shape>
+void Button<_Shape>::setMouseEnterFunction(std::function<void()> function)
 {
     m_funcs[Function::MouseEnter] = function;
 }
 
-template <typename T>
-void Button<T>::setMouseLeaveFunction(std::function<void()> function)
+template <typename _Shape>
+void Button<_Shape>::setMouseLeaveFunction(std::function<void()> function)
 {
     m_funcs[Function::MouseLeave] = function;
 }
 
-template <typename T>
-void Button<T>::setMouseClickOnFunction(std::function<void()> function)
+template <typename _Shape>
+void Button<_Shape>::setMouseClickOnFunction(std::function<void()> function)
 {
     m_funcs[Function::ClickedOn] = function;
 }
 
-template <typename T>
-void Button<T>::setMouseClickOffFunction(std::function<void()> function)
+template <typename _Shape>
+void Button<_Shape>::setMouseClickOffFunction(std::function<void()> function)
 {
     m_funcs[Function::ClickedOff] = function;
 }
 
-template <typename T>
-void Button<T>::updateAlignment()
+template <typename _Shape>
+void Button<_Shape>::updateAlignment()
 {    
     // Downsize from default text character size if shape's height < 60
     if ( 0.f < m_size.y && m_size.y < 60.f )
@@ -199,8 +237,8 @@ void Button<T>::updateAlignment()
     // Contains the global coordinate center point for the shape
     sf::Vector2f midpoint;
 
-    // Provides the member typedef type which is the type referred to by T. Otherwise type is T.
-    using type_t = typename std::remove_reference<T>::type;
+    // Provides the member typedef type which is the type referred to by _Shape. Otherwise type is _Shape.
+    using type_t = typename std::remove_reference<_Shape>::type;
 
     // Determine geometric type
     bool isRect = (std::is_same<sf::RectangleShape, type_t>::value || std::is_same<sf::RoundedRectangleShape, type_t>::value);
@@ -242,8 +280,8 @@ void Button<T>::updateAlignment()
     
 }
 
-template <typename T>
-void Button<T>::draw(sf::RenderTarget& target, sf::RenderStates states) const
+template <typename _Shape>
+void Button<_Shape>::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
     states.texture = &m_texture;
     

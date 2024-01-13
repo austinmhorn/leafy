@@ -7,7 +7,6 @@
 //
 
 #include <leafy/Textbox.hpp>
-
 #include <leafy/Engine/Resources.hpp>
 
 namespace leafy
@@ -43,8 +42,8 @@ Textbox::Textbox(sf::RenderWindow& window)
     m_description.text.setFont(m_font);
     m_description.text.setCharacterSize(30);
 
-    m_mouse = &Resources::smartmouse;
-    m_mouse->create(&window, SmartMouse::Pointer::Arrow);
+    this->m_mouse = &Resources::smartmouse;
+    this->m_mouse->create(&window, SmartMouse::Pointer::Arrow);
 };
 
 void Textbox::setSize(const sf::Vector2f& size)
@@ -61,6 +60,10 @@ void Textbox::setPosition(const sf::Vector2f& position)
 void Textbox::setFocus(bool focus)
 {
     m_focus = focus;
+}
+bool Textbox::getFocus() const
+{
+    return m_focus;
 }
 void Textbox::setFillColor(sf::Color color)
 {
@@ -101,10 +104,6 @@ const sf::Vector2f& Textbox::getPosition() const
 {
     return m_rect.getPosition();
 }
-bool Textbox::hasFocus() const
-{
-    return m_focus;
-}
 const sf::Color& Textbox::getFillColor() const
 {
     return m_rect.getFillColor();
@@ -117,7 +116,6 @@ const std::string& Textbox::getInputString() const
 {
     return m_input;
 }
-
 bool Textbox::contains(const sf::Vector2f& point) const
 {
     return m_rect.getGlobalBounds().contains(point);
@@ -142,19 +140,26 @@ void Textbox::processKey(sf::Uint32 unicode)
 }
 void Textbox::mouseEnter()
 {
-    m_mouse->setPointer(SmartMouse::Pointer::Text);
+    this->m_mouse->setPointer(SmartMouse::Pointer::Text);
 }
 void Textbox::mouseLeave()
 {
-    m_mouse->setPointer(SmartMouse::Pointer::Arrow);
+    this->m_mouse->setPointer(SmartMouse::Pointer::Arrow);
 }
-void Textbox::mouseClick() 
+void Textbox::pressed() 
 {
-    setFocus( clicked() );
+
+}
+void Textbox::clicked()
+{
+    
 }
 
 void Textbox::handleEvent(sf::RenderWindow& window, sf::Event event)
 {
+    const sf::Vector2f mouse_move = window.mapPixelToCoords({event.mouseMove.x, event.mouseMove.y});
+    const sf::Vector2f mouse_btn = window.mapPixelToCoords({event.mouseButton.x, event.mouseButton.y});
+
     switch (event.type)
     {            
         case sf::Event::MouseMoved:
@@ -167,15 +172,23 @@ void Textbox::handleEvent(sf::RenderWindow& window, sf::Event event)
             
         case sf::Event::MouseButtonReleased:
             refreshBase(window, event);
+
+            if ( event.mouseButton.button == sf::Mouse::Button::Left )
+            {
+                if ( contains(mouse_btn) )
+                    setFocus( !getFocus() );
+                else
+                    setFocus( false );
+            }
             break;
         
         case sf::Event::TextEntered:
-            if (this->hasFocus())
+            if ( getFocus() )
             {
                 if (event.key.code == 10) // New Line
-                    std::cout << this->clear() << std::endl;
+                    std::cout << clear() << std::endl;
                 else
-                    this->processKey(event.key.code);
+                    processKey(event.key.code);
             }
             break;
 

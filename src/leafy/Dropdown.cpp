@@ -105,9 +105,13 @@ void Dropdown::mouseLeave()
     m_triangle[1].color = color;
     m_triangle[2].color = color;
 }
-void Dropdown::mouseClick() 
+void Dropdown::pressed() 
 {
-    
+
+}
+void Dropdown::clicked()
+{
+
 }
 
 void Dropdown::handleMouseButtonReleasedEvent(const sf::Vector2f& mouseButtonReleasedPosition)

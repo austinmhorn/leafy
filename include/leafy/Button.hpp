@@ -31,15 +31,15 @@
 namespace leafy
 {
 
-    template <typename T>
+    template <typename _Shape>
     class LEAFY_API Button  
         : public UIElement
     {
         public:
 
-            // Verify T is a derived sf::Shape object; required [even if not drawing shape] to deduce T
-            static_assert(std::is_base_of<sf::Shape, typename std::remove_reference<T>::type>::value, 
-                        "T must be derived from sf::Shape.");
+            // Verify _Shape is a derived sf::Shape object; required [even if not drawing shape] to deduce _Shape
+            static_assert(std::is_base_of<sf::Shape, typename std::remove_reference<_Shape>::type>::value, 
+                        "_Shape must be derived from sf::Shape.");
 
             /// @brief Represents response capability to an event type
             enum class Function : std::size_t {
@@ -63,18 +63,16 @@ namespace leafy
 
             /////////////////////////////////////////////////////////////////////////////////////////////
             /// \brief Constructor
-            /// \param shape Derived sf::Shape object; required [even if shape is disabled] to deduce T
+            /// \param shape Derived sf::Shape object; required [even if shape is disabled] to deduce _Shape
             /////////////////////////////////////////////////////////////////////////////////////////////
-            explicit Button(const T& shape = T());
+            explicit Button(const _Shape& shape = _Shape());
 
             //////////////////////////
             /// \brief Destructor
             //////////////////////////
             ~Button() override = default;
 
-
-
-            void setWillDrawShape(bool willDraw);
+            void setDrawShape(bool willDraw);
 
             /////////////////////////////////////////////////
             /// @brief Set the position of Button
@@ -121,16 +119,17 @@ namespace leafy
 
             bool contains(const sf::Vector2f& point) const override;
             void handleEvent(sf::RenderWindow& window, sf::Event event) override;
+            void update(sf::Time delta_time) override;
 
             /////////////////////////////////////////////////////////////////////
             /// @brief Set size for shapes with rectangular geometry
             /// @param size New size width and height 
-            /// @details Enabled if T is equivalent to any of the following types
+            /// @details Enabled if _Shape is equivalent to any of the following types
             /// - RectangleShape
             /// - RoundedRectangleShape
             /// - StadiumShape
             /////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::RectangleShape>::value, int>::type = 0>
             void setSize(const sf::Vector2f& size)
             {
@@ -138,7 +137,7 @@ namespace leafy
                 m_shape.setSize( m_size );
                 updateAlignment();
             }
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::RoundedRectangleShape>::value, int>::type = 0>
             void setSize(const sf::Vector2f& size)
             {
@@ -146,7 +145,7 @@ namespace leafy
                 m_shape.setSize( m_size );
                 updateAlignment();
             }
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::StadiumShape>::value, int>::type = 0>
             void setSize(const sf::Vector2f& size)
             {
@@ -158,27 +157,27 @@ namespace leafy
             /////////////////////////////////////////////////////////////////////////
             /// @brief Get size of rectangular button
             /// @return Width and height of button
-            /// @details Enabled if T is equivalent to any of the following types
+            /// @details Enabled if _Shape is equivalent to any of the following types
             /// - RectangleShape
             /// - RoundedRectangleShape
             /// - StadiumShape
             /////////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::RectangleShape>::value, int>::type = 0>
             const sf::Vector2f& getSize() const { return UIElement::getSize(); }
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::RoundedRectangleShape>::value, int>::type = 0>
             const sf::Vector2f& getSize() const { return UIElement::getSize(); }
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::StadiumShape>::value, int>::type = 0>
             const sf::Vector2f& getSize() const { return UIElement::getSize(); }
 
             /////////////////////////////////////////////////////////////////////
             /// @brief Set radius for shapes with symmetric circular geometry
             /// @param radius New radius as float
-            /// @details Enabled if type T is a sf::CircleShape
+            /// @details Enabled if type _Shape is a sf::CircleShape
             /////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::CircleShape>::value, int>::type = 0>
             void setRadius(float radius)
             {
@@ -190,18 +189,18 @@ namespace leafy
             /////////////////////////////////////////////////////////////////////
             /// @brief Get radius of circular button
             /// @return Radius of button
-            /// @details Enabled if type T is a sf::CircleShape
+            /// @details Enabled if type _Shape is a sf::CircleShape
             /////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::CircleShape>::value, int>::type = 0>
             float getRadius() const { return UIElement::getRadius(); }
 
             /////////////////////////////////////////////////////////////////////
             /// @brief Set X and Y radius for shapes with convex polygon geometry
             /// @param radius New X and Y radius
-            /// @details Enabled if type T is a sf::PolygonShape
+            /// @details Enabled if type _Shape is a sf::PolygonShape
             /////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::PolygonShape>::value, int>::type = 0>
             void setPolygonRadius(const sf::Vector2f& radius)
             {
@@ -213,9 +212,9 @@ namespace leafy
             /////////////////////////////////////////////////////////////////////
             /// @brief Get X and Y radius of convex polygon button
             /// @return X and Y radius of 
-            /// @details Enabled if type T is a sf::PolygonShape
+            /// @details Enabled if type _Shape is a sf::PolygonShape
             /////////////////////////////////////////////////////////////////////
-            template <typename type_t = T,
+            template <typename type_t = _Shape,
                 typename std::enable_if<std::is_same<type_t, sf::PolygonShape>::value, int>::type = 0>    
             const sf::Vector2f& getPolygonRadius() const
                 { return UIElement::getPolygonRadius(); }
@@ -229,11 +228,12 @@ namespace leafy
 
             void mouseEnter() override;
             void mouseLeave() override;
-            void mouseClick() override;
+            void pressed() override;
+            void clicked() override;
             
             void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-            T             m_shape;            // T is a derived sf::Shape
+            _Shape        m_shape;            // _Shape is a derived sf::Shape
             sf::Text      m_label;             // Text label of button
             bool          m_drawShape;
             bool          m_translucentHover;

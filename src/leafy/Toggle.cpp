@@ -22,6 +22,7 @@ Toggle::Toggle(bool on, sf::Vector2f size)
     , m_text{"- \"Description\"", Resources::Sansation, static_cast<unsigned int>(std::floor(size.y/3.f))}
     , m_side(Toggle::Top)
     , m_on(on)
+    , m_isAnimating(false)
     , m_velocity(0.f, 0.f)
     , m_velocityXMax(3.f*size.x)
     , m_acceleration(3.f*(size.x/80.f))
@@ -80,6 +81,10 @@ void Toggle::setPosition(float x, float y)
     adjustStatusPosition();
     updateTextPosition();
 }
+const sf::Vector2f& Toggle::getPosition() const 
+{
+    return UIElement::getPosition();
+}
 
 void Toggle::setDescription(const std::string& string) 
 {
@@ -87,6 +92,10 @@ void Toggle::setDescription(const std::string& string)
     updateTextPosition();
 }
 
+sf::Text& Toggle::getDescription()
+{
+    return m_text;
+}
 void Toggle::setTextSide(Side side) {
     m_side = side;
     updateTextPosition();
@@ -101,14 +110,6 @@ void Toggle::setSize(const sf::Vector2f& size)
     updateTextPosition();
 }
 
-const sf::Vector2f& Toggle::getPosition() const 
-{
-    return UIElement::getPosition();
-}
-sf::Text& Toggle::getDescription()
- {
-    return m_text;
-}
 const sf::Vector2f& Toggle::getSize() const 
 {
     return UIElement::getSize();
@@ -121,20 +122,6 @@ const bool Toggle::isOn() const
 bool Toggle::contains(const sf::Vector2f& point) const 
 {
     return m_shape.getGlobalBounds().contains(point);
-}
-
-void Toggle::mouseEnter() 
-{
-    m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 150});
-}
-
-void Toggle::mouseLeave() 
-{
-    m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 255});
-}
-void Toggle::mouseClick() 
-{
-
 }
 
 void Toggle::handleEvent(sf::RenderWindow& window, sf::Event event)
@@ -162,7 +149,7 @@ void Toggle::handleEvent(sf::RenderWindow& window, sf::Event event)
 
 void Toggle::update(sf::Time delta_time) 
 {
-    if ( clicked() )
+    if ( m_isAnimating  &&  m_mouseButton == sf::Mouse::Button::Left )
         animate(delta_time);  
 }
 
@@ -203,7 +190,8 @@ void Toggle::animateOff(float x_velocity)
     m_slider.move(x_velocity, 0.f);
 }
 
-void Toggle::adjustSliderPosition() {
+void Toggle::adjustSliderPosition() 
+{
     auto pos = m_shape.getPosition();
     float padding = 2.5f;
     
@@ -211,51 +199,55 @@ void Toggle::adjustSliderPosition() {
            : m_slider.setPosition(pos.x+padding, pos.y+padding);
 }
 
-void Toggle::adjustStatusPosition() {
+void Toggle::adjustStatusPosition() 
+{
     sf::Vector2f center = {m_shape.getGlobalBounds().left + m_shape.getGlobalBounds().width/2.f, 
                            m_shape.getGlobalBounds().top + m_shape.getGlobalBounds().height/2.f};
-float padding = 2.0f;
+    float padding = 2.0f;
 
     (m_on) ? m_status.setPosition( { (center.x - (m_shape.getGlobalBounds().width/2.f)) + (4*padding), center.y - (m_status.getCharacterSize()/2.f) } )
            : m_status.setPosition({(center.x + m_shape.getGlobalBounds().width/2.f) - ((m_status.getGlobalBounds().width) + (5*padding)), center.y - (m_status.getCharacterSize()/2.f) - padding });
 }
 
-void Toggle::limitVelocity(sf::Time delta_time) {
+void Toggle::limitVelocity(sf::Time delta_time) 
+{
     if ( std::abs(m_velocity.x) > m_velocityXMax )
         m_velocity.x = m_velocityXMax * ((m_velocity.x < 0) ? -1.f : 1.f);
 }
 
-void Toggle::stopSlider(float dest_x) {
+void Toggle::stopSlider(float dest_x) 
+{
     // Halt slider velocity
     m_velocity.x = 0.f;
     // Correct misalignment of slider to the exact destination pixel
     m_slider.setPosition(dest_x, m_slider.getPosition().y);
     // Set click boolean as false
-    m_clicked = false;
+    m_isAnimating = false;
     // Invert status state
     m_on = !m_on;
     // Recolor background stadium shape in correspondence with current status
     (m_on) ? m_shape.setFillColor(Resources::LightGreen) : m_shape.setFillColor(Resources::Gray);
-    (m_on) ? m_status.setString("ON") : m_status.setString("OFF");
+    (m_on) ? m_status.setString("ON")                    : m_status.setString("OFF");
     // Adjust status text position
     adjustStatusPosition();
 }
 
-void Toggle::updateGeometry() {
+void Toggle::updateGeometry() 
+{
     m_shape.setSize(m_size);
     m_slider.setRadius((m_size.y-5.f)/2.f);
     m_status.setCharacterSize(static_cast<unsigned int>(std::floor(m_size.y/3.f)));
     m_text.setCharacterSize(static_cast<unsigned int>(std::floor(m_size.y/3.f)));
 }
 
-void Toggle::updatePhysics() {
+void Toggle::updatePhysics() 
+{
     m_acceleration = 3.f * (m_size.x/80.f);
 }
 
 void Toggle::updateTextPosition()
 {
-    sf::Vector2f center = {m_shape.getGlobalBounds().left + m_shape.getGlobalBounds().width/2.f, 
-                           m_shape.getGlobalBounds().top + m_shape.getGlobalBounds().height/2.f};
+    sf::Vector2f center = {m_shape.getGlobalBounds().left + m_shape.getGlobalBounds().width/2.f, m_shape.getGlobalBounds().top + m_shape.getGlobalBounds().height/2.f};
     
     switch (m_side) 
     {
@@ -273,6 +265,23 @@ void Toggle::updateTextPosition()
             m_text.setPosition({center.x-(m_text.getGlobalBounds().width/2.f), m_shape.getGlobalBounds().top+m_shape.getGlobalBounds().height});
             break;
     }
+}
+
+void Toggle::mouseEnter() 
+{
+    m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 150});
+}
+
+void Toggle::mouseLeave() 
+{
+    m_slider.setFillColor({m_slider.getFillColor().r, m_slider.getFillColor().g, m_slider.getFillColor().b, 255});
+}
+void Toggle::pressed() 
+{
+}
+void Toggle::clicked()
+{
+    m_isAnimating = true;
 }
 
 void Toggle::draw(sf::RenderTarget &target, sf::RenderStates states) const

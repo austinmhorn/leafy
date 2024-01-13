@@ -61,6 +61,9 @@ void VerticalScrollWindow::handleEvent(sf::RenderWindow& window, sf::Event event
             break;
     }
 }
+void VerticalScrollWindow::update(sf::Time delta_time)
+{
+}
 void VerticalScrollWindow::handleMouseVerticalWheelScrollEvent(float delta_scroll)
 {
     // Scrolling UP
@@ -131,7 +134,11 @@ void VerticalScrollWindow::mouseLeave()
 {
 
 }
-void VerticalScrollWindow::mouseClick() 
+void VerticalScrollWindow::pressed() 
+{
+
+}
+void VerticalScrollWindow::clicked()
 {
 
 }

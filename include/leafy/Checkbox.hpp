@@ -48,7 +48,8 @@ protected:
 
     virtual void mouseEnter() override;
     virtual void mouseLeave() override;
-    virtual void mouseClick() override;
+    virtual void pressed() override;
+    virtual void clicked() override;
     virtual bool contains(const sf::Vector2f& point) const override;
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
